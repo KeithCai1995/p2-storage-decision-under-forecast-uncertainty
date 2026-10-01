@@ -1,0 +1,20 @@
+seed: 20260817
+data:
+  p1_forecasts: "data/p1_forecasts.csv"
+scenarios:
+  n_scenarios: 60
+  common_factor_loading: 0.65
+battery:
+  energy_capacity_mwh: 2.0
+  power_capacity_mw: 1.0
+  charge_efficiency: 0.94
+  discharge_efficiency: 0.94
+  initial_soc_fraction: 0.50
+  terminal_soc_equal_initial: true
+  throughput_cost_eur_per_mwh: 2.0
+risk:
+  cvar_alpha: 0.90
+  cvar_weight: 0.55
+evaluation:
+  sensitivity_days: 28
+  frontier_weights: [0.0, 0.15, 0.35, 0.55, 0.85]
