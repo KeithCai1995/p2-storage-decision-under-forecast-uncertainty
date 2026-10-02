@@ -1,0 +1,7 @@
+test_cvar_schedule_is_feasible (test_battery.TestBatteryOptimisation.test_cvar_schedule_is_feasible) ... ok
+test_schedule_is_feasible_and_terminal_soc_is_restored (test_battery.TestBatteryOptimisation.test_schedule_is_feasible_and_terminal_soc_is_restored) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.016s
+
+OK

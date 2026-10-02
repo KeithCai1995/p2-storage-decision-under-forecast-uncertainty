@@ -1,0 +1,5 @@
+PASS strategy_metrics.csv: values match; maximum absolute numeric difference = 0
+FAIL daily_results.csv: table differs; maximum absolute numeric difference = 0.968021016717
+PASS risk_frontier.csv: values match; maximum absolute numeric difference = 0
+
+1 table(s) did not match the reference.

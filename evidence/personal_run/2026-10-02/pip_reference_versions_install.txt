@@ -1,0 +1,30 @@
+Collecting numpy==2.3.5
+  Using cached numpy-2.3.5-cp313-cp313-win_amd64.whl.metadata (60 kB)
+Collecting pandas==2.2.3
+  Using cached pandas-2.2.3-cp313-cp313-win_amd64.whl.metadata (19 kB)
+Collecting scipy==1.17.0
+  Using cached scipy-1.17.0-cp313-cp313-win_amd64.whl.metadata (60 kB)
+Requirement already satisfied: python-dateutil>=2.8.2 in .\.venv\Lib\site-packages (from pandas==2.2.3) (2.9.0.post0)
+Collecting pytz>=2020.1 (from pandas==2.2.3)
+  Using cached pytz-2026.4-py2.py3-none-any.whl.metadata (22 kB)
+Requirement already satisfied: tzdata>=2022.7 in .\.venv\Lib\site-packages (from pandas==2.2.3) (2026.4)
+Requirement already satisfied: six>=1.5 in .\.venv\Lib\site-packages (from python-dateutil>=2.8.2->pandas==2.2.3) (1.17.0)
+Using cached numpy-2.3.5-cp313-cp313-win_amd64.whl (12.8 MB)
+Using cached pandas-2.2.3-cp313-cp313-win_amd64.whl (11.5 MB)
+Using cached scipy-1.17.0-cp313-cp313-win_amd64.whl (36.3 MB)
+Using cached pytz-2026.4-py2.py3-none-any.whl (506 kB)
+Installing collected packages: pytz, numpy, scipy, pandas
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.5.3
+    Uninstalling numpy-2.5.3:
+      Successfully uninstalled numpy-2.5.3
+  Attempting uninstall: scipy
+    Found existing installation: scipy 1.18.1
+    Uninstalling scipy-1.18.1:
+      Successfully uninstalled scipy-1.18.1
+  Attempting uninstall: pandas
+    Found existing installation: pandas 3.0.6
+    Uninstalling pandas-3.0.6:
+      Successfully uninstalled pandas-3.0.6
+
+Successfully installed numpy-2.3.5 pandas-2.2.3 pytz-2026.4 scipy-1.17.0

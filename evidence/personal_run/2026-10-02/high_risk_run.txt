@@ -1,0 +1,10 @@
+             strategy  n_days  total_profit_eur  mean_daily_profit_eur  fifth_percentile_profit_eur  empirical_cvar_loss_eur  mean_regret_eur  median_regret_eur  constraint_violation_rate  mean_throughput_mwh  mean_simultaneous_throughput_mwh
+       seasonal_naive      83      -2347.215158             -28.279701                   -80.726899                81.209125        84.925276          77.279029                        0.0             8.939300                               0.0
+  median_risk_neutral      83        692.215075               8.339941                   -18.326127                22.466240        48.305635          44.587876                        0.0             5.234809                               0.0
+             raw_cvar      83        791.458959               9.535650                   -19.355873                21.143761        47.109925          41.305365                        0.0             4.361372                               0.0
+          static_cvar      83        682.314543               8.220657                   -15.274876                16.833130        48.424918          45.102283                        0.0             3.536103                               0.0
+adaptive_risk_neutral      83        762.170675               9.182779                   -19.230471                22.584113        47.462796          43.827055                        0.0             5.050637                               0.0
+        adaptive_cvar      83        829.418275               9.992991                   -11.092560                12.283447        46.652584          41.177612                        0.0             3.832792                               0.0
+               oracle      83       4701.582739              56.645575                    26.240308               -25.207455         0.000000           0.000000                        0.0             9.011912                               0.0
+
+Artifacts written under: outputs (local absolute path redacted)
