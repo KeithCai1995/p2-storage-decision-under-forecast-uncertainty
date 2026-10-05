@@ -53,6 +53,12 @@ class TestBatteryOptimisation(unittest.TestCase):
         self.assertTrue(np.isfinite(result.expected_profit))
         self.assertTrue(np.isfinite(result.scenario_cvar_loss))
 
+    def test_reported_cvar_matches_the_solved_objective(self) -> None:
+        rng = np.random.default_rng(7)
+        scenarios = np.tile(np.r_[np.full(8, 30.), np.full(8, 90.), np.full(8, 25.)], (60, 1)) + rng.normal(0, 15, size=(60, 24))
+        result = optimise_schedule(scenarios, self.battery, cvar_alpha=0.9, cvar_weight=0.55)
+        self.assertAlmostEqual(result.objective_value, -result.expected_profit + 0.55 * result.scenario_cvar_loss, places=8)
+
 
 if __name__ == "__main__":
     unittest.main()

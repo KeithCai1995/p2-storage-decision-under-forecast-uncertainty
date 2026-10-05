@@ -1,0 +1,82 @@
+{
+  "assisted_review": true,
+  "date": "2026-10-04",
+  "cvar_estimator": "empirical_fixed_probability_mass_v1",
+  "comparisons": [
+    {
+      "configuration": "base.yaml",
+      "snapshot": "baseline",
+      "solves_compared": 1248,
+      "max_schedule_difference": 0.0,
+      "max_expected_profit_difference": 0.0,
+      "max_objective_difference": 0.0,
+      "max_non_cvar_difference_from_historical_tables": {
+        "strategy_metrics.csv": 0.0,
+        "daily_results.csv": 0.0,
+        "risk_frontier.csv": 0.0
+      },
+      "adaptive_cvar": {
+        "n_days": 83.0,
+        "total_profit_eur": 818.26913719608,
+        "mean_daily_profit_eur": 9.85866430356723,
+        "fifth_percentile_profit_eur": -15.23790617577811,
+        "empirical_cvar_loss_eur": 16.226393072184305,
+        "mean_regret_eur": 46.78691086204978,
+        "median_regret_eur": 42.97879041389512,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 4.203651242870047,
+        "mean_simultaneous_throughput_mwh": 0.0
+      }
+    },
+    {
+      "configuration": "cvar_weight_070.yaml",
+      "snapshot": "cvar_weight_070",
+      "solves_compared": 1248,
+      "max_schedule_difference": 0.0,
+      "max_expected_profit_difference": 0.0,
+      "max_objective_difference": 0.0,
+      "max_non_cvar_difference_from_historical_tables": {
+        "strategy_metrics.csv": 2.2737367544323206e-13,
+        "daily_results.csv": 4.440892098500626e-14,
+        "risk_frontier.csv": 0.0
+      },
+      "adaptive_cvar": {
+        "n_days": 83.0,
+        "total_profit_eur": 811.3460428318009,
+        "mean_daily_profit_eur": 9.775253528093987,
+        "fifth_percentile_profit_eur": -14.874311349167904,
+        "empirical_cvar_loss_eur": 15.029771782597601,
+        "mean_regret_eur": 46.87032163752303,
+        "median_regret_eur": 43.31694231860591,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.9960521840113494,
+        "mean_simultaneous_throughput_mwh": 0.0
+      }
+    },
+    {
+      "configuration": "high_risk_aversion.yaml",
+      "snapshot": "cvar_weight_085",
+      "solves_compared": 1248,
+      "max_schedule_difference": 0.0,
+      "max_expected_profit_difference": 0.0,
+      "max_objective_difference": 0.0,
+      "max_non_cvar_difference_from_historical_tables": {
+        "strategy_metrics.csv": 0.0,
+        "daily_results.csv": 0.0,
+        "risk_frontier.csv": 0.0
+      },
+      "adaptive_cvar": {
+        "n_days": 83.0,
+        "total_profit_eur": 829.4182748561913,
+        "mean_daily_profit_eur": 9.992991263327605,
+        "fifth_percentile_profit_eur": -11.092559540829264,
+        "empirical_cvar_loss_eur": 12.585520725422734,
+        "mean_regret_eur": 46.65258390228941,
+        "median_regret_eur": 41.17761181746083,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.8327918158192116,
+        "mean_simultaneous_throughput_mwh": 0.0
+      }
+    }
+  ]
+}

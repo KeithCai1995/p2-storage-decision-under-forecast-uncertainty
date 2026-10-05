@@ -38,3 +38,11 @@ deployment readiness.
 5. Toubeau, J.-F., Bottieau, J., De Greve, Z., Vallee, F. and Bruninx, K. (2021). Data-Driven Scheduling of Energy Storage in Day-Ahead Energy and Reserve Markets With Probabilistic Guarantees on Real-Time Delivery. IEEE Transactions on Power Systems, 36(4), 2815-2828. https://ieeexplore.ieee.org/document/9305967
 6. Yeh, C., Christianson, N., Wu, A., Wierman, A. and Yue, Y. (2024). End-to-end conformal calibration for optimization under uncertainty. arXiv:2409.20534. https://arxiv.org/abs/2409.20534
 7. Alghumayjan, S., Yi, M. and Xu, B. (2025). Conformal uncertainty quantification of electricity price predictions for risk-averse storage arbitrage. IEEE Power & Energy Society General Meeting. https://doi.org/10.1109/PESGM52009.2025.11225098
+
+## Empirical CVaR reporting
+
+Rockafellar and Uryasev (2002), *Conditional value-at-risk for general loss
+distributions*, Journal of Banking & Finance 26, 1443-1471, covers discrete
+loss distributions and probability mass at the boundary. This revision uses
+their established empirical estimator and does not claim a new risk measure.
+[Author copy](https://sites.math.washington.edu/~rtr/papers/rtr187-CVaR2.pdf).

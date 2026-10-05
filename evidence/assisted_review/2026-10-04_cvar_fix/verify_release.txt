@@ -1,0 +1,11 @@
+PASS baseline/strategy_metrics.csv: max absolute difference = 0
+PASS baseline/daily_results.csv: max absolute difference = 0
+PASS baseline/risk_frontier.csv: max absolute difference = 0
+PASS cvar_weight_070/strategy_metrics.csv: max absolute difference = 0
+PASS cvar_weight_070/daily_results.csv: max absolute difference = 0
+PASS cvar_weight_070/risk_frontier.csv: max absolute difference = 0
+PASS cvar_weight_085/strategy_metrics.csv: max absolute difference = 0
+PASS cvar_weight_085/daily_results.csv: max absolute difference = 0
+PASS cvar_weight_085/risk_frontier.csv: max absolute difference = 0
+
+9/9 release table comparisons passed.

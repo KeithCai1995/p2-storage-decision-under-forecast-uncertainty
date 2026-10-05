@@ -1,75 +1,74 @@
 # Reference runs and provenance
 
-## What the archive establishes
+## Current v1.0.1 outputs
 
-The supplied archive contained baseline and sensitivity output snapshots and a
-log dated 18 August 2026. File dates and saved outputs do not independently
-establish who executed those commands. This record therefore treats the
-18 August results as supplied reference results; it does not claim that the
-applicant personally ran them on that date.
+The empirical CVaR reporting correction and recovery verification were performed
+in an assisted Linux/Python 3.12.14 environment on 4 October 2026. NumPy 2.3.5,
+pandas 2.2.3, SciPy 1.17.0, Matplotlib 3.10.8 and PyYAML 6.0.3 were used. These
+are assisted reviews, not new runs personally performed by the applicant.
+The simulated P1 forecast input SHA256 is
+`81252fba7fd9b5999ba93691aba6049867b8a09e9bb5b7f3fd3f2bbf6ac9d04e`.
 
-All prices, forecasts, schedules and monetary values in this project are
-simulated. They are not Tarim Oilfield data, employer evidence, realised
-electricity-market revenue or a live trading result.
+Current snapshots are `experiments/baseline`, `experiments/cvar_weight_070` and
+`experiments/cvar_weight_085`. Each contains five CSV tables, six figures and
+one manifest with version 1.0.1 and estimator `empirical_fixed_probability_mass_v1`.
+The main `outputs` folder is the corrected baseline.
 
-## Technical reproduction during this revision
+| Adaptive-CVaR weight | Mean daily profit EUR | Fixed-mass empirical CVaR EUR | Mean throughput MWh/day |
+| ---: | ---: | ---: | ---: |
+| 0.55 | 9.858664 | 16.226393 | 4.203651 |
+| 0.70 | 9.775254 | 15.029772 | 3.996052 |
+| 0.85 | 9.992991 | 12.585521 | 3.832792 |
 
-On 1 October 2026, the project tests and both experiment configurations were
-rerun in the assisted review environment using Python 3.12.14, NumPy 2.3.5,
-pandas 2.2.3 and SciPy 1.17.0. The rerun confirmed that renaming the scenario
-parameter to `common_factor_loading` did not change the generated numeric
-results. Each regenerated results table matched its supplied reference table
-exactly in this environment. This check verifies that the code can reproduce
-the snapshots; it is not evidence that the applicant personally performed the
-rerun.
+Profit, fifth-percentile profit, regret, throughput, feasibility and schedules
+remain unchanged. CVaR reporting uses exactly the worst 10% probability mass,
+including 0.3 of the boundary day in an 83-day evaluation. The separate frontier
+sample has CVaR losses 17.643650 at weight 0.55 and 17.508437 at weight 0.85;
+mean profits remain 9.516830 and 9.033616 respectively. It is a diagnostic with
+its own scenario sample, not a basis for selecting a universally optimal weight.
 
-The two unit tests passed. One test now independently checks every hourly SOC
-transition using the reported starting SOC, charge, discharge and efficiencies,
-as well as the terminal-SOC condition. The second checks feasibility and finite
-CVaR outputs.
+## Verification
 
-## Baseline result
+`python -m unittest discover -s tests -v` passed 11 tests. The independent
+`python scripts/verify_release.py` rerun passed 9/9 current-reference comparisons,
+with tolerance 1e-10. The old/new reporting audit compared 1,248 solves per
+configuration, including evaluation, frontier and battery sensitivity: all 3,744
+pairs had identical schedules, expected profits and LP objective values.
+Historical non-CVaR table values agree within 1e-10. Logs and audit code are
+under `evidence/assisted_review/2026-10-04_cvar_fix/`.
 
-Run from the project root with:
+Corrected Windows results and the configured six-job GitHub Actions matrix have
+not yet been run in this assisted review. Bitwise-identical plots on every
+platform are not claimed.
 
-```bash
-python scripts/run_experiment.py --config configs/base.yaml
-```
+## Historical records
 
-For adaptive-CVaR at weight 0.55 over 83 simulated evaluation days:
+Original reference tables and manifests remain byte-identical in
+`experiments/legacy_threshold_tail/`. They use the earlier threshold-tail mean
+and are not the pass/fail references for the revised estimator.
 
-| Metric | Result |
-| --- | ---: |
-| Mean daily profit | 9.858664 EUR |
-| Fifth-percentile daily profit | -15.237906 EUR |
-| Empirical CVaR loss | 15.835791 EUR |
-| Mean regret against the perfect-foresight oracle | 46.786911 EUR/day |
-| Mean throughput | 4.203651 MWh/day |
-| Constraint-violation rate | 0.0 |
+The applicant's 2 October Windows/Python 3.13.15 logs and snapshots, including
+weight 0.70, remain in `evidence/personal_run/2026-10-02/`. With matched NumPy,
+pandas and SciPy versions, a few daily CVaR diagnostics still differed. Near-tied
+scenario losses and threshold membership explain the unstable reporting pattern;
+Python version alone was not isolated as the cause. Original interpretations
+remain intact with dated follow-up additions. Disclose AI or other assistance
+according to the relevant application rules.
 
-These are outcomes on one fixed simulated benchmark. The oracle uses realised
-future prices and is only an unattainable information upper bound.
+## Applicant's local Windows verification
 
-## CVaR-weight sensitivity
+- Check started: 2026-10-04T22:48:22.0591476+01:00
+- Environment: Windows / Python 3.13.15
+- Dependency check: no broken requirements.
+- Unit tests: 11/11 passed; exit code 0.
+- Release table comparisons: 9/9 passed; exit code 0.
+- Configurations checked: CVaR weights 0.55, 0.70 and 0.85.
+- Absolute numeric tolerance: 1e-10.
+- Maximum observed absolute numeric difference: 2.27373675443e-13.
+- Dated logs and installed package versions: evidence/personal_run/v101_check_20261004_224805.
 
-The second configuration changes only `risk.cvar_weight` from 0.55 to 0.85:
+The applicant executed these checks locally using the assisted code correction. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
 
-```bash
-python scripts/run_experiment.py --config configs/high_risk_aversion.yaml
-```
+These checks establish numerical agreement for the three configurations within the stated tolerance. They do not claim byte-identical files across platforms. All financial results remain simulated benchmark results.
 
-On the main fixed scenario sample, adaptive-CVaR at weight 0.85 had mean daily
-profit of 9.992991 EUR, empirical CVaR loss of 12.283447 EUR and mean throughput
-of 3.832792 MWh/day. On the separate risk-frontier scenario sample, mean daily
-profit was 9.033616 EUR at weight 0.85 and 9.516829 EUR at weight 0.55. The
-change in ranking across scenario samples is why the 0.85 result is not called
-generally better and the pre-specified base weight remains 0.55.
-
-## Applicant's personal process record
-
-The technical reproduction above was performed in an assisted review
-environment. Before presenting the run as the applicant's own development
-evidence, the applicant should follow `P2_开发过程证据补全指南.md` outside this
-archive, rerun the project personally, and keep the resulting terminal log,
-environment record, comparison and dated notes. Any AI or external assistance
-should be disclosed according to each programme's rules.
+GitHub Actions verification remains pending until the pushed revision is checked.

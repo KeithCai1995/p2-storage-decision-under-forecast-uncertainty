@@ -1,0 +1,11 @@
+PASS baseline/strategy_metrics.csv: max absolute difference = 0
+PASS baseline/daily_results.csv: max absolute difference = 2.30926389122e-14
+PASS baseline/risk_frontier.csv: max absolute difference = 3.5527136788e-15
+PASS cvar_weight_070/strategy_metrics.csv: max absolute difference = 2.27373675443e-13
+PASS cvar_weight_070/daily_results.csv: max absolute difference = 4.4408920985e-14
+PASS cvar_weight_070/risk_frontier.csv: max absolute difference = 3.5527136788e-15
+PASS cvar_weight_085/strategy_metrics.csv: max absolute difference = 3.5527136788e-15
+PASS cvar_weight_085/daily_results.csv: max absolute difference = 8.52651282912e-14
+PASS cvar_weight_085/risk_frontier.csv: max absolute difference = 3.5527136788e-15
+
+9/9 release table comparisons passed.

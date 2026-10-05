@@ -1,0 +1,304 @@
+PASS LP optimiser function unchanged (AST comparison)
+PASS Forecast input preserved byte-for-byte
+PASS base.yaml preserved byte-for-byte
+PASS high_risk_aversion.yaml preserved byte-for-byte
+PASS Original personal record retained: evidence/personal_run/2026-10-01_1108/actual_run_date.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_1_representative_schedule.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_2_cumulative_profit.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_3_profit_distribution.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_4_decision_regret.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_5_risk_frontier.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_6_battery_sensitivity.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/run_manifest.json
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/battery_sensitivity.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/daily_results.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/representative_schedule.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/risk_frontier.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/strategy_metrics.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_reference_versions_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_run.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/baseline_run_reference_versions.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/compare_baseline.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/compare_baseline_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/compare_baseline_reference_versions.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/compare_baseline_reference_versions_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/compare_high_risk.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/compare_high_risk_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_1_representative_schedule.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_2_cumulative_profit.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_3_profit_distribution.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_4_decision_regret.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_5_risk_frontier.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_6_battery_sensitivity.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/run_manifest.json
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/battery_sensitivity.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/daily_results.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/representative_schedule.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/risk_frontier.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/strategy_metrics.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/cvar_weight_070_run.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/daily_results_python313_current_dependencies.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_1_representative_schedule.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_2_cumulative_profit.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_3_profit_distribution.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_4_decision_regret.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_5_risk_frontier.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_6_battery_sensitivity.png
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/run_manifest.json
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/battery_sensitivity.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/daily_results.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/representative_schedule.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/risk_frontier.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/strategy_metrics.csv
+PASS Original personal record retained: evidence/personal_run/2026-10-02/high_risk_run.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_check.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_check_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_check_reference_versions.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_check_reference_versions_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_install.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_install_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_reference_versions_install.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/pip_reference_versions_install_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/run_manifest_python313_current_dependencies.json
+PASS Original personal record retained: evidence/personal_run/2026-10-02/unit_tests.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/unit_tests_exit_code.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/unit_tests_reference_versions.txt
+PASS Original personal record retained: evidence/personal_run/2026-10-02/unit_tests_reference_versions_exit_code.txt
+PASS Historical reference retained: baseline/daily_results.csv
+PASS Historical reference retained: baseline/risk_frontier.csv
+PASS Historical reference retained: baseline/run_manifest.json
+PASS Historical reference retained: baseline/strategy_metrics.csv
+PASS Historical reference retained: cvar_weight_085/daily_results.csv
+PASS Historical reference retained: cvar_weight_085/risk_frontier.csv
+PASS Historical reference retained: cvar_weight_085/run_manifest.json
+PASS Historical reference retained: cvar_weight_085/strategy_metrics.csv
+PASS Independent fixed-mass recomputation: baseline/seasonal_naive
+PASS Independent fixed-mass recomputation: baseline/median_risk_neutral
+PASS Independent fixed-mass recomputation: baseline/raw_cvar
+PASS Independent fixed-mass recomputation: baseline/static_cvar
+PASS Independent fixed-mass recomputation: baseline/adaptive_risk_neutral
+PASS Independent fixed-mass recomputation: baseline/adaptive_cvar
+PASS Independent fixed-mass recomputation: baseline/oracle
+PASS Estimator identifier: baseline
+PASS Independent fixed-mass recomputation: cvar_weight_070/seasonal_naive
+PASS Independent fixed-mass recomputation: cvar_weight_070/median_risk_neutral
+PASS Independent fixed-mass recomputation: cvar_weight_070/raw_cvar
+PASS Independent fixed-mass recomputation: cvar_weight_070/static_cvar
+PASS Independent fixed-mass recomputation: cvar_weight_070/adaptive_risk_neutral
+PASS Independent fixed-mass recomputation: cvar_weight_070/adaptive_cvar
+PASS Independent fixed-mass recomputation: cvar_weight_070/oracle
+PASS Estimator identifier: cvar_weight_070
+PASS Independent fixed-mass recomputation: cvar_weight_085/seasonal_naive
+PASS Independent fixed-mass recomputation: cvar_weight_085/median_risk_neutral
+PASS Independent fixed-mass recomputation: cvar_weight_085/raw_cvar
+PASS Independent fixed-mass recomputation: cvar_weight_085/static_cvar
+PASS Independent fixed-mass recomputation: cvar_weight_085/adaptive_risk_neutral
+PASS Independent fixed-mass recomputation: cvar_weight_085/adaptive_cvar
+PASS Independent fixed-mass recomputation: cvar_weight_085/oracle
+PASS Estimator identifier: cvar_weight_085
+PASS Baseline output consistency: figures/figure_1_representative_schedule.png
+PASS Baseline output consistency: figures/figure_2_cumulative_profit.png
+PASS Baseline output consistency: figures/figure_3_profit_distribution.png
+PASS Baseline output consistency: figures/figure_4_decision_regret.png
+PASS Baseline output consistency: figures/figure_5_risk_frontier.png
+PASS Baseline output consistency: figures/figure_6_battery_sensitivity.png
+PASS Baseline output consistency: run_manifest.json
+PASS Baseline output consistency: tables/battery_sensitivity.csv
+PASS Baseline output consistency: tables/daily_results.csv
+PASS Baseline output consistency: tables/representative_schedule.csv
+PASS Baseline output consistency: tables/risk_frontier.csv
+PASS Baseline output consistency: tables/strategy_metrics.csv
+PASS PDF has eight pages
+PASS PDF includes current revision detail: Code v1.0.1
+PASS PDF includes current revision detail: 16.23
+PASS PDF includes current revision detail: 15.03
+PASS PDF includes current revision detail: 12.59
+PASS PDF includes current revision detail: 3.13.15
+PASS PDF includes current revision detail: 3.12.14
+PASS PDF includes current revision detail: fixed-probability-mass
+PASS PDF contains no stale headline CVaR value: 15.84
+PASS PDF contains no stale headline CVaR value: 14.54
+PASS PDF contains no stale headline CVaR value: 12.28
+PASS PDF embeds exact regenerated figure: figure_1_representative_schedule.png
+PASS PDF embeds exact regenerated figure: figure_2_cumulative_profit.png
+PASS PDF embeds exact regenerated figure: figure_3_profit_distribution.png
+PASS PDF embeds exact regenerated figure: figure_4_decision_regret.png
+PASS PDF embeds exact regenerated figure: figure_5_risk_frontier.png
+PASS PDF embeds exact regenerated figure: figure_6_battery_sensitivity.png
+PASS Replacement files pass git diff --cached --check
+PASS Git staging preserves PDF bytes
+PASS Patch reconstructs file: .gitattributes
+PASS Patch reconstructs file: .github/workflows/reproducibility.yml
+PASS Patch reconstructs file: .gitignore
+PASS Patch reconstructs file: PROJECT_HISTORY.md
+PASS Patch reconstructs file: README.md
+PASS Patch reconstructs file: REFERENCE_RUNS.md
+PASS Patch reconstructs file: RELATED_WORK.md
+PASS Patch reconstructs file: RELEASE_NOTES.md
+PASS Patch reconstructs file: RESPONSIBLE_USE.md
+PASS Patch reconstructs file: UPDATE_GUIDE_ZH.md
+PASS Patch reconstructs file: configs/base.yaml
+PASS Patch reconstructs file: configs/cvar_weight_070.yaml
+PASS Patch reconstructs file: configs/high_risk_aversion.yaml
+PASS Patch reconstructs file: data/README.md
+PASS Patch reconstructs file: data/p1_forecasts.csv
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/README.md
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/audit_results.json
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/audit_revision.py
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/compileall.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/environment.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/input_sha256.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/package_validation.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/pip_check.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/three_configuration_runs.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/unit_tests.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/unit_tests_version_101.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/verify_release.txt
+PASS Patch reconstructs file: evidence/assisted_review/2026-10-04_cvar_fix/version_101_verification.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-01_1108/actual_run_date.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/run_manifest.json
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/battery_sensitivity.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/daily_results.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/representative_schedule.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/risk_frontier.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_outputs_reference_versions/tables/strategy_metrics.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_reference_versions_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_run.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/baseline_run_reference_versions.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/compare_baseline.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/compare_baseline_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/compare_baseline_reference_versions.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/compare_baseline_reference_versions_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/compare_high_risk.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/compare_high_risk_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/run_manifest.json
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/battery_sensitivity.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/daily_results.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/representative_schedule.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/risk_frontier.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_outputs/tables/strategy_metrics.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_plan.md
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_results.md
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/cvar_weight_070_run.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/daily_results_python313_current_dependencies.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/run_manifest.json
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/battery_sensitivity.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/daily_results.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/representative_schedule.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/risk_frontier.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_outputs_reference_versions/tables/strategy_metrics.csv
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/high_risk_run.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_check.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_check_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_check_reference_versions.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_check_reference_versions_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_install.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_install_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_reference_versions_install.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/pip_reference_versions_install_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/reproduction_summary.md
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/run_manifest_python313_current_dependencies.json
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/unit_tests.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/unit_tests_exit_code.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/unit_tests_reference_versions.txt
+PASS Patch reconstructs file: evidence/personal_run/2026-10-02/unit_tests_reference_versions_exit_code.txt
+PASS Patch reconstructs file: experiments/baseline/battery_sensitivity.csv
+PASS Patch reconstructs file: experiments/baseline/daily_results.csv
+PASS Patch reconstructs file: experiments/baseline/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: experiments/baseline/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: experiments/baseline/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: experiments/baseline/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: experiments/baseline/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: experiments/baseline/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: experiments/baseline/representative_schedule.csv
+PASS Patch reconstructs file: experiments/baseline/risk_frontier.csv
+PASS Patch reconstructs file: experiments/baseline/run_manifest.json
+PASS Patch reconstructs file: experiments/baseline/strategy_metrics.csv
+PASS Patch reconstructs file: experiments/cvar_weight_070/battery_sensitivity.csv
+PASS Patch reconstructs file: experiments/cvar_weight_070/daily_results.csv
+PASS Patch reconstructs file: experiments/cvar_weight_070/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: experiments/cvar_weight_070/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: experiments/cvar_weight_070/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: experiments/cvar_weight_070/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: experiments/cvar_weight_070/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: experiments/cvar_weight_070/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: experiments/cvar_weight_070/representative_schedule.csv
+PASS Patch reconstructs file: experiments/cvar_weight_070/risk_frontier.csv
+PASS Patch reconstructs file: experiments/cvar_weight_070/run_manifest.json
+PASS Patch reconstructs file: experiments/cvar_weight_070/strategy_metrics.csv
+PASS Patch reconstructs file: experiments/cvar_weight_085/battery_sensitivity.csv
+PASS Patch reconstructs file: experiments/cvar_weight_085/daily_results.csv
+PASS Patch reconstructs file: experiments/cvar_weight_085/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: experiments/cvar_weight_085/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: experiments/cvar_weight_085/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: experiments/cvar_weight_085/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: experiments/cvar_weight_085/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: experiments/cvar_weight_085/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: experiments/cvar_weight_085/representative_schedule.csv
+PASS Patch reconstructs file: experiments/cvar_weight_085/risk_frontier.csv
+PASS Patch reconstructs file: experiments/cvar_weight_085/run_manifest.json
+PASS Patch reconstructs file: experiments/cvar_weight_085/strategy_metrics.csv
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/README.md
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/baseline/daily_results.csv
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/baseline/risk_frontier.csv
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/baseline/run_manifest.json
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/baseline/strategy_metrics.csv
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/cvar_weight_085/daily_results.csv
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/cvar_weight_085/risk_frontier.csv
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/cvar_weight_085/run_manifest.json
+PASS Patch reconstructs file: experiments/legacy_threshold_tail/cvar_weight_085/strategy_metrics.csv
+PASS Patch reconstructs file: outputs/figures/figure_1_representative_schedule.png
+PASS Patch reconstructs file: outputs/figures/figure_2_cumulative_profit.png
+PASS Patch reconstructs file: outputs/figures/figure_3_profit_distribution.png
+PASS Patch reconstructs file: outputs/figures/figure_4_decision_regret.png
+PASS Patch reconstructs file: outputs/figures/figure_5_risk_frontier.png
+PASS Patch reconstructs file: outputs/figures/figure_6_battery_sensitivity.png
+PASS Patch reconstructs file: outputs/run_manifest.json
+PASS Patch reconstructs file: outputs/tables/battery_sensitivity.csv
+PASS Patch reconstructs file: outputs/tables/daily_results.csv
+PASS Patch reconstructs file: outputs/tables/representative_schedule.csv
+PASS Patch reconstructs file: outputs/tables/risk_frontier.csv
+PASS Patch reconstructs file: outputs/tables/strategy_metrics.csv
+PASS Patch reconstructs file: pyproject.toml
+PASS Patch reconstructs file: report/P2_Mini_Paper_Haorui_Cai.pdf
+PASS Patch reconstructs file: report/report_text.json
+PASS Patch reconstructs file: requirements-lock.txt
+PASS Patch reconstructs file: requirements-optional.txt
+PASS Patch reconstructs file: requirements-report.txt
+PASS Patch reconstructs file: requirements.txt
+PASS Patch reconstructs file: scripts/build_report.py
+PASS Patch reconstructs file: scripts/compare_reference_outputs.py
+PASS Patch reconstructs file: scripts/run_experiment.py
+PASS Patch reconstructs file: scripts/verify_release.py
+PASS Patch reconstructs file: src/storage_decision/__init__.py
+PASS Patch reconstructs file: src/storage_decision/battery.py
+PASS Patch reconstructs file: src/storage_decision/experiment.py
+PASS Patch reconstructs file: src/storage_decision/scenarios.py
+PASS Patch reconstructs file: tests/test_battery.py
+PASS Patch reconstructs file: tests/test_cvar.py
+
+All package checks passed.

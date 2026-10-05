@@ -55,10 +55,11 @@ def main() -> int:
         help="Absolute tolerance for numeric CSV columns (default: 1e-10)",
     )
     parser.add_argument("--project-root", type=Path, default=Path.cwd())
+    parser.add_argument("--current", type=Path, default=Path("outputs/tables"))
     args = parser.parse_args()
 
     root = args.project_root.resolve()
-    current_dir = root / "outputs" / "tables"
+    current_dir = root / args.current
     reference_dir = root / args.reference
     failures = 0
     for name in TABLES:

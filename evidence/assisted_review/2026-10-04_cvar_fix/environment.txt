@@ -1,0 +1,7 @@
+Assisted Linux review, 4 October 2026
+Python 3.12.14
+NumPy 2.3.5
+pandas 2.2.3
+SciPy 1.17.0
+Matplotlib 3.10.8
+PyYAML 6.0.3

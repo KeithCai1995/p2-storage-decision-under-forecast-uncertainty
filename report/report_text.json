@@ -1,0 +1,98 @@
+{
+  "paragraphs": {
+    "9": "At Tarim Oilfield I saw forecast curves, actual photovoltaic output and storage monitoring screens. I did not design the storage schedule, but the work made one point clear: a charging action now changes the energy available later. This experience is only the motivation for the project. No field data are used. I therefore focus on errors near an SOC or power boundary. The same price error can be harmless when the battery has room, but costly when it changes a charge or discharge decision.",
+    "11": "The project starts with a linear battery model rather than a detailed ageing or bidding model. Every SOC equation and constraint can therefore be inspected. The final SOC is forced to equal the initial SOC. Without this rule, the optimiser can empty the battery at the last hour and make the day look better by borrowing value from tomorrow.",
+    "12": "The comparison uses the same battery and scoring rules for raw, static and adaptive forecast inputs. This keeps the decision layer fixed. It is then easier to see whether a change in the forecast distribution changes the schedule, rather than mixing that effect with a different optimiser.",
+    "15": "The battery can charge or discharge at up to 1 MW and can store 2 MWh. SOC increases by the energy that survives charging losses and falls by the energy needed for discharge. Both efficiencies are 0.94. SOC must stay between zero and 2 MWh. It starts and ends at 1 MWh. A 2 EUR/MWh throughput cost makes unnecessary cycling less attractive.",
+    "17": "Profit is revenue from discharge minus the cost of charging and throughput. The risk-neutral version uses average scenario profit. The risk-aware version also penalises the worst 10% of scenario losses through CVaR. The base weight is 0.55. The model uses the standard Rockafellar-Uryasev linear form and is solved with SciPy/HiGHS.",
+    "20": "Every solve records power, SOC, terminal and simultaneous-throughput diagnostics. Across all seven strategies and 83 days, the model reports zero constraint violations and zero simultaneous charge-discharge. An independent unit test recomputes each SOC transition from the recorded starting SOC, charge, discharge and efficiencies, and checks terminal-SOC restoration.",
+    "22": "The optimisation pieces are established. The project uses the CVaR formulation of Rockafellar and Uryasev (2000). Donti et al. (2017) and Elmachtoub and Grigas (2022) show why prediction error and decision loss can disagree. Kim et al. (2021) and Toubeau et al. (2021) study storage under uncertain market outcomes. More recent work links conformal uncertainty to optimisation or storage arbitrage (Yeh et al., 2025; Alghumayjan et al., 2025). This is a small, auditable implementation of that connection, not a new bidding method.",
+    "23": "Portfolio contribution  The portfolio links Project 1 forecasts to battery schedules, followed by checks of profit, regret, tail loss and feasibility. The code is deliberately small enough to inspect, modify and explain.",
+    "25": "Project 1 gives seven marginal price quantiles for every hour. Interpolation turns them into sixty possible 24-hour paths. The scenario generator uses a Gaussian factor shared by all hours, with a common-factor loading of 0.65. Under this construction, distinct latent hours have pairwise Pearson correlation 0.4225, corresponding to a Gaussian-copula Spearman correlation of about 0.41 before clipping and quantile interpolation. This is an exchangeable toy dependence assumption, not a neighbouring-hour correlation or a lag-specific time-series model. For static and adaptive cases, each hour is rescaled around the median so that the q10-q90 spread matches the calibrated interval. This practical bridge does not establish that complete 24-hour paths are jointly calibrated.",
+    "43": "Static calibration protects the lower tail but can suppress profitable actions. Adaptive calibration responds to recent score behaviour and produces a different schedule with a better observed profit-tail-risk balance. Coverage alone is therefore not a decision metric.",
+    "52": "Higher efficiency consistently improves value; added capacity helps most when efficiency is high. This is diagnostic, not an investment valuation, because capex and replacement costs are excluded.",
+    "55": "The biggest limit is the data: prices and forecasts are simulated. The second is the scenario model. Calibrating each hour does not guarantee that an entire 24-hour path is realistic. The third is the battery model. It assumes price-taking, perfect execution and no intraday update. It also leaves out network limits, imbalance settlement and detailed degradation. Finally, CVaR is estimated from only 60 scenarios. Different seeds, correlations or markets may change the ranking.",
+    "59": "The 83-day block was held out from Project 1 model fitting and conformal calibration, but Project 1 also used it for a post-hoc gamma sensitivity diagnostic; it is therefore not an untouched test period.",
+    "61": "My next step would be to repeat the study on publication-time-safe market data and more than one seed. I would then improve the 24-hour scenario model and add intraday recourse and market-specific settlement. The main doctoral question stays the same: when does better uncertainty information lead to a better constrained decision, especially near SOC boundaries?",
+    "63": "Rockafellar, R. T. and Uryasev, S. (2000). Optimization of Conditional Value-at-Risk. Journal of Risk, 2(3), 21-41. https://www.risk.net/journal-risk/2161159/optimization-conditional-value-risk",
+    "64": "Romano, Y., Patterson, E. and Candes, E. (2019). Conformalized Quantile Regression. NeurIPS 32. https://proceedings.neurips.cc/paper/2019/hash/5103c3584b063c431bd1268e9b5e76fb-Abstract.html",
+    "65": "Gibbs, I. and Candes, E. (2021). Adaptive Conformal Inference Under Distribution Shift. NeurIPS 34. https://proceedings.neurips.cc/paper/2021/hash/0d441de75945e5acbc865406fc9a2559-Abstract.html",
+    "66": "Donti, P. L., Amos, B. and Kolter, J. Z. (2017). Task-based End-to-end Model Learning in Stochastic Optimization. NeurIPS 30. https://proceedings.neurips.cc/paper/2017/hash/3fc2c60b5782f641f76bcefc39fb2392-Abstract.html",
+    "67": "Elmachtoub, A. N. and Grigas, P. (2022). Smart Predict, then Optimize. Management Science, 68(1), 9-26. https://doi.org/10.1287/mnsc.2020.3922",
+    "68": "Kim, H. J., Sioshansi, R. and Conejo, A. J. (2021). Benefits of stochastic optimization for scheduling energy storage in wholesale electricity markets. Journal of Modern Power Systems and Clean Energy, 9(1), 181-189. https://doi.org/10.35833/MPCE.2019.000238",
+    "69": "Toubeau, J.-F., Bottieau, J., De Greve, Z., Vallee, F. and Bruninx, K. (2021). Data-Driven Scheduling of Energy Storage in Day-Ahead Energy and Reserve Markets With Probabilistic Guarantees on Real-Time Delivery. IEEE Transactions on Power Systems, 36(4), 2815-2828. https://ieeexplore.ieee.org/document/9305967",
+    "70": "Yeh, C., Christianson, N., Wu, A., Wierman, A. and Yue, Y. (2025). End-to-End Conformal Calibration for Optimization Under Uncertainty. Transactions on Machine Learning Research. https://openreview.net/forum?id=yM8qkT0f9H",
+    "71": "Alghumayjan, S., Yi, M. and Xu, B. (2025). Conformal uncertainty quantification of electricity price predictions for risk-averse storage arbitrage. IEEE Power & Energy Society General Meeting. https://doi.org/10.1109/PESGM52009.2025.11225098",
+    "72": "SciPy developers. Linear programming with HiGHS. https://docs.scipy.org/doc/scipy/reference/optimize.linprog-highs.html",
+    "73": "Elexon. Insights Solution API documentation. https://bmrs.elexon.co.uk/api-documentation"
+  },
+  "assumptions": [
+    [
+      "Assumption",
+      "Reason",
+      "Consequence"
+    ],
+    [
+      "Price taker",
+      "Keeps the first portfolio auditable",
+      "No market-impact or bid-acceptance model"
+    ],
+    [
+      "Single energy market",
+      "24-hour scheduling horizon",
+      "No intraday or balancing recourse"
+    ],
+    [
+      "Hourly perfect execution",
+      "Separates forecast value from controls",
+      "No deviation settlement or outage"
+    ],
+    [
+      "Linear throughput cost",
+      "Transparent degradation proxy",
+      "No cycle-depth or ageing state"
+    ]
+  ],
+  "strategies": [
+    [
+      "Strategy",
+      "Forecast information",
+      "Objective"
+    ],
+    [
+      "Seasonal naive",
+      "Previous-day price",
+      "Risk neutral"
+    ],
+    [
+      "Median risk neutral",
+      "q50",
+      "Risk neutral"
+    ],
+    [
+      "Raw CVaR",
+      "Raw quantile paths",
+      "Mean-CVaR"
+    ],
+    [
+      "Static CVaR",
+      "Static-CQR-scaled paths",
+      "Mean-CVaR"
+    ],
+    [
+      "Adaptive risk neutral",
+      "Adaptive-scaled paths",
+      "Risk neutral"
+    ],
+    [
+      "Adaptive CVaR",
+      "Adaptive-scaled paths",
+      "Mean-CVaR"
+    ],
+    [
+      "Oracle",
+      "Realised prices",
+      "Risk neutral upper bound"
+    ]
+  ]
+}

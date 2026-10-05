@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from math import fsum
 
 import numpy as np
 import pandas as pd
@@ -178,10 +179,24 @@ def realised_profit(actual_prices: np.ndarray, schedule: pd.DataFrame, throughpu
 
 
 def empirical_cvar_loss(profits: np.ndarray, alpha: float = 0.90) -> float:
-    losses = -np.asarray(profits, dtype=float)
-    threshold = np.quantile(losses, alpha)
-    tail = losses[losses >= threshold]
-    return float(np.mean(tail))
+    """Average exactly the worst ``1 - alpha`` probability mass.
+
+    Equal-weight samples use a fractional boundary observation when required.
+    This is empirical Rockafellar-Uryasev CVaR, including discrete ties.
+    """
+    profits = np.asarray(profits, dtype=float)
+    if profits.ndim != 1 or profits.size == 0 or not np.all(np.isfinite(profits)):
+        raise ValueError("profits must be a non-empty finite one-dimensional array")
+    if not np.isfinite(alpha) or not 0.0 <= alpha < 1.0:
+        raise ValueError("alpha must be finite and in [0, 1)")
+    ordered = np.sort(-profits)[::-1]
+    mass = (1.0 - alpha) * ordered.size
+    whole = int(np.floor(mass))
+    fraction = mass - whole
+    terms = [float(value) for value in ordered[:whole]]
+    if fraction > 0.0:
+        terms.append(fraction * float(ordered[whole]))
+    return fsum(terms) / mass
 
 
 def constraint_diagnostics(schedule: pd.DataFrame, battery: BatteryConfig, tolerance: float = 1e-7) -> dict[str, float]:

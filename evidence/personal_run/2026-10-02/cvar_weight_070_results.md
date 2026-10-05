@@ -55,3 +55,22 @@ The aggregate strategy metrics for the supplied 0.55 and 0.85 runs matched their
 ## Limitations
 
 This is a sensitivity comparison using one simulated dataset, one seed and a small number of parameter settings. It is not a real-market backtest and does not establish that any weight will perform similarly on real electricity-market data.
+
+## Follow-up diagnostic, 4 October 2026
+
+The statement above that the cause of the daily CVaR differences had not been
+established describes the 2 October analysis. A later assisted Python 3.12.14
+rerun reproduced the 0.70 aggregate metrics within numerical precision. Two
+daily `in_sample_cvar_loss_eur` rows differed from this Windows/Python 3.13.15
+run (maximum absolute difference 0.447155). Losses nearly tied at the empirical
+90% quantile threshold make the code's `>=` tail selection sensitive to tiny
+floating-point differences. The difference cannot be attributed to Python
+version alone. Details are in `reproduction_summary.md` in this directory.
+
+## Follow-up numerical correction on 4 October 2026
+
+The earlier numbers and failed comparisons above are preserved as historical
+evidence. Version 1.0.1 uses fixed-probability-mass empirical CVaR and regenerated
+risk outputs in an assisted Linux/Python 3.12.14 review. Current snapshots are
+under `experiments/`; logs are under `evidence/assisted_review/2026-10-04_cvar_fix/`.
+These assisted reruns were not personally performed by the applicant.

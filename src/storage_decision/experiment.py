@@ -12,6 +12,7 @@ import pandas as pd
 import scipy
 import yaml
 
+from . import __version__
 from .battery import (
     BatteryConfig,
     constraint_diagnostics,
@@ -58,10 +59,11 @@ def _save(fig: plt.Figure, path: Path) -> None:
     plt.close(fig)
 
 
-def run(config_path: str | Path, root: str | Path) -> dict:
-    root = Path(root)
+def run(config_path: str | Path, root: str | Path, output_root: str | Path | None = None) -> dict:
+    root = Path(root).resolve()
+    output = Path(output_root).resolve() if output_root is not None else root / "outputs"
     config = yaml.safe_load(Path(config_path).read_text(encoding="utf-8"))
-    for folder in [root / "outputs" / "figures", root / "outputs" / "tables"]:
+    for folder in [output / "figures", output / "tables"]:
         folder.mkdir(parents=True, exist_ok=True)
     _configure_plotting()
 
@@ -133,26 +135,28 @@ def run(config_path: str | Path, root: str | Path) -> dict:
                 representative_schedules[strategy] = schedule
 
     daily = pd.DataFrame(daily_rows)
-    daily.to_csv(root / "outputs" / "tables" / "daily_results.csv", index=False)
+    daily.to_csv(output / "tables" / "daily_results.csv", index=False)
     summary = _strategy_summary(daily, cvar_alpha)
-    summary.to_csv(root / "outputs" / "tables" / "strategy_metrics.csv", index=False)
+    summary.to_csv(output / "tables" / "strategy_metrics.csv", index=False)
 
     representative = pd.concat(representative_schedules.values(), ignore_index=True)
-    representative.to_csv(root / "outputs" / "tables" / "representative_schedule.csv", index=False)
+    representative.to_csv(output / "tables" / "representative_schedule.csv", index=False)
     frontier = _risk_frontier(forecasts, battery, config)
-    frontier.to_csv(root / "outputs" / "tables" / "risk_frontier.csv", index=False)
+    frontier.to_csv(output / "tables" / "risk_frontier.csv", index=False)
     sensitivity = _battery_sensitivity(forecasts, config)
-    sensitivity.to_csv(root / "outputs" / "tables" / "battery_sensitivity.csv", index=False)
+    sensitivity.to_csv(output / "tables" / "battery_sensitivity.csv", index=False)
 
-    _plot_schedule(representative_schedules, root / "outputs" / "figures" / "figure_1_representative_schedule.png")
-    _plot_cumulative_profit(daily, root / "outputs" / "figures" / "figure_2_cumulative_profit.png")
-    _plot_profit_distribution(daily, root / "outputs" / "figures" / "figure_3_profit_distribution.png")
-    _plot_regret(summary, root / "outputs" / "figures" / "figure_4_decision_regret.png")
-    _plot_frontier(frontier, root / "outputs" / "figures" / "figure_5_risk_frontier.png")
-    _plot_sensitivity(sensitivity, root / "outputs" / "figures" / "figure_6_battery_sensitivity.png")
+    _plot_schedule(representative_schedules, output / "figures" / "figure_1_representative_schedule.png")
+    _plot_cumulative_profit(daily, output / "figures" / "figure_2_cumulative_profit.png")
+    _plot_profit_distribution(daily, output / "figures" / "figure_3_profit_distribution.png")
+    _plot_regret(summary, output / "figures" / "figure_4_decision_regret.png")
+    _plot_frontier(frontier, output / "figures" / "figure_5_risk_frontier.png")
+    _plot_sensitivity(sensitivity, output / "figures" / "figure_6_battery_sensitivity.png")
 
     manifest = {
         "project": "P2_forecast_to_storage",
+        "package_version": __version__,
+        "cvar_estimator": "empirical_fixed_probability_mass_v1",
         "data_status": "simulated_benchmark_not_field_data",
         "claim_boundary": "Research-training portfolio; not realised market revenue or a trading system.",
         "seed": seed,
@@ -165,8 +169,8 @@ def run(config_path: str | Path, root: str | Path) -> dict:
         "software": {"python": platform.python_version(), "numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__},
         "config": config,
     }
-    (root / "outputs" / "run_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    return {"summary": summary, "frontier": frontier, "sensitivity": sensitivity, "manifest": manifest}
+    (output / "run_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return {"summary": summary, "frontier": frontier, "sensitivity": sensitivity, "manifest": manifest, "output_root": str(output)}
 
 
 def _strategy_summary(daily: pd.DataFrame, cvar_alpha: float) -> pd.DataFrame:

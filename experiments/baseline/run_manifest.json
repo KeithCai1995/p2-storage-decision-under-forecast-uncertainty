@@ -1,5 +1,7 @@
 {
   "project": "P2_forecast_to_storage",
+  "package_version": "1.0.1",
+  "cvar_estimator": "empirical_fixed_probability_mass_v1",
   "data_status": "simulated_benchmark_not_field_data",
   "claim_boundary": "Research-training portfolio; not realised market revenue or a trading system.",
   "seed": 20260817,
