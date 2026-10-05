@@ -37,8 +37,7 @@ pairs had identical schedules, expected profits and LP objective values.
 Historical non-CVaR table values agree within 1e-10. Logs and audit code are
 under `evidence/assisted_review/2026-10-04_cvar_fix/`.
 
-Corrected Windows results and the configured six-job GitHub Actions matrix have
-not yet been run in this assisted review. Bitwise-identical plots on every
+At the assisted review on 4 October 2026, local Windows verification and remote CI had not yet been completed. Their subsequent results are recorded below. Bitwise-identical plots on every
 platform are not claimed.
 
 ## Historical records
@@ -71,4 +70,18 @@ The applicant executed these checks locally using the assisted code correction. 
 
 These checks establish numerical agreement for the three configurations within the stated tolerance. They do not claim byte-identical files across platforms. All financial results remain simulated benchmark results.
 
-GitHub Actions verification remains pending until the pushed revision is checked.
+GitHub Actions verification passed for commit c6155e7; all six matrix jobs succeeded.
+
+## GitHub Actions verification
+
+- Status checked: 5 October 2026.
+- Verified commit: c6155e7.
+- Workflow: P2 numerical reproducibility.
+- Run: https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/37309344738
+- Result: 6/6 matrix jobs passed.
+- Platforms: Ubuntu and Windows.
+- Python versions: 3.11, 3.12 and 3.13 on each platform.
+- Workflow checks: dependency consistency, unit tests and release-table verification for CVaR weights 0.55, 0.70 and 0.85.
+- Release-table absolute numeric tolerance: 1e-10.
+
+This verification applies to commit c6155e7 and the corrected references. It establishes numerical agreement within the stated tolerance, not byte-identical files across platforms. All financial results remain simulated benchmark results.

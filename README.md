@@ -39,7 +39,7 @@ without overwriting the saved baseline. It compares nine CSV tables using an
 absolute numeric tolerance of 1e-10 and exact text matching. All 11 unit tests
 and nine comparisons passed in the recorded assisted environment. The supplied
 GitHub Actions matrix checks Linux and Windows with Python 3.11-3.13 after push;
-those remote jobs have not yet been executed for this revision.
+all six remote jobs passed for commit c6155e7.
 
 For a separate experiment and comparison:
 
@@ -141,4 +141,18 @@ The applicant executed these checks locally using the assisted code correction. 
 
 These checks establish numerical agreement for the three configurations within the stated tolerance. They do not claim byte-identical files across platforms. All financial results remain simulated benchmark results.
 
-GitHub Actions verification remains pending until the pushed revision is checked.
+GitHub Actions verification passed for commit c6155e7; all six matrix jobs succeeded.
+
+## GitHub Actions verification
+
+- Status checked: 5 October 2026.
+- Verified commit: c6155e7.
+- Workflow: P2 numerical reproducibility.
+- Run: https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/37309344738
+- Result: 6/6 matrix jobs passed.
+- Platforms: Ubuntu and Windows.
+- Python versions: 3.11, 3.12 and 3.13 on each platform.
+- Workflow checks: dependency consistency, unit tests and release-table verification for CVaR weights 0.55, 0.70 and 0.85.
+- Release-table absolute numeric tolerance: 1e-10.
+
+This verification applies to commit c6155e7 and the corrected references. It establishes numerical agreement within the stated tolerance, not byte-identical files across platforms. All financial results remain simulated benchmark results.
