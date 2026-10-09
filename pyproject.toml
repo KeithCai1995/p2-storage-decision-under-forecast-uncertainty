@@ -1,6 +1,6 @@
 [project]
 name = "forecast-to-storage-decision"
-version = "1.0.1"
+version = "1.0.2"
 description = "Risk-aware battery scheduling driven by calibrated probabilistic forecasts"
 requires-python = ">=3.11"
 dependencies = [

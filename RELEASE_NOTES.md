@@ -1,4 +1,25 @@
-# P2 v1.0.1 release notes - 4 October 2026
+# P2 v1.0.2 documentation revision - 9 October 2026
+
+Based on uploaded v1.0.1 archive at commit
+`1ed70de61059a35fe9ded074b34a7ee8ad75aefc`.
+
+- Explain scenario scale bounds [0.35, 4.0] and capped hourly rows.
+- Describe the objective as risk-averse in the report title.
+- Include historical Windows and CI checks with their original commit scope.
+- Improve Figure 5 label placement using the same saved table.
+- Synchronise PDF, report builder and package metadata at 1.0.2.
+
+Numerical source, tests, data, configurations and existing snapshots are unchanged.
+The fresh 9 October review passed 11 tests, 15 table comparisons and 18 figure
+pixel comparisons. See `evidence/technical_review/2026-10-09_documentation/`.
+
+Status: locally prepared candidate. Check new CI after pushing before publishing
+an unused v1.0.2 tag. Preserve historical tags and records.
+For current steps use `UPDATE_V102_ZH.md`.
+
+---
+
+# Historical v1.0.1 release notes - 4 October 2026
 
 This revision replaces a quantile-threshold tail mean with fixed-probability-mass
 empirical CVaR, including fractional boundary observations and ties. It adds

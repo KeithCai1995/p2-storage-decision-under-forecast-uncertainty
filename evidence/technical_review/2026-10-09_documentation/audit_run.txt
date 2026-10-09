@@ -1,0 +1,66 @@
+test_cvar_schedule_is_feasible (test_battery.TestBatteryOptimisation.test_cvar_schedule_is_feasible) ... ok
+test_reported_cvar_matches_the_solved_objective (test_battery.TestBatteryOptimisation.test_reported_cvar_matches_the_solved_objective) ... ok
+test_schedule_is_feasible_and_terminal_soc_is_restored (test_battery.TestBatteryOptimisation.test_schedule_is_feasible_and_terminal_soc_is_restored) ... ok
+test_fractional_boundary_mass (test_cvar.TestEmpiricalCVaR.test_fractional_boundary_mass) ... ok
+test_integer_tail_mass (test_cvar.TestEmpiricalCVaR.test_integer_tail_mass) ... ok
+test_less_than_one_observation_in_tail (test_cvar.TestEmpiricalCVaR.test_less_than_one_observation_in_tail) ... ok
+test_matches_independent_rockafellar_uryasev_lp (test_cvar.TestEmpiricalCVaR.test_matches_independent_rockafellar_uryasev_lp) ... ok
+test_near_tie_perturbation_is_continuous (test_cvar.TestEmpiricalCVaR.test_near_tie_perturbation_is_continuous) ... ok
+test_rejects_invalid_inputs (test_cvar.TestEmpiricalCVaR.test_rejects_invalid_inputs) ... ok
+test_ties_do_not_expand_the_tail (test_cvar.TestEmpiricalCVaR.test_ties_do_not_expand_the_tail) ... ok
+test_zero_alpha_and_constant_or_negative_losses (test_cvar.TestEmpiricalCVaR.test_zero_alpha_and_constant_or_negative_losses) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.021s
+
+OK
+
+RUN baseline
+PASS baseline strategy_metrics.csv 0.0
+PASS baseline daily_results.csv 0.0
+PASS baseline risk_frontier.csv 0.0
+PASS baseline battery_sensitivity.csv 0.0
+PASS baseline representative_schedule.csv 0.0
+RUN cvar_weight_070
+PASS cvar_weight_070 strategy_metrics.csv 0.0
+PASS cvar_weight_070 daily_results.csv 0.0
+PASS cvar_weight_070 risk_frontier.csv 0.0
+PASS cvar_weight_070 battery_sensitivity.csv 0.0
+PASS cvar_weight_070 representative_schedule.csv 0.0
+RUN cvar_weight_085
+PASS cvar_weight_085 strategy_metrics.csv 0.0
+PASS cvar_weight_085 daily_results.csv 0.0
+PASS cvar_weight_085 risk_frontier.csv 0.0
+PASS cvar_weight_085 battery_sensitivity.csv 0.0
+PASS cvar_weight_085 representative_schedule.csv 0.0
+{
+  "tests_exit": 0,
+  "release_table_passes": 9,
+  "all_table_passes": 15,
+  "figure_pixel_matches": 18,
+  "pdf_rows_matched": 10,
+  "pdf_figure_matches": 6,
+  "feasibility": {
+    "solves": 3744,
+    "max_soc_transition_residual": 4.440892098500626e-16,
+    "max_terminal_residual": 0.0,
+    "max_initial_residual": 0.0,
+    "max_bound_violation": 0.0,
+    "max_soc_link_residual": 0.0
+  },
+  "scale_clipping": {
+    "static": {
+      "upper_clipped_rows": 4,
+      "lower_clipped_rows": 0,
+      "max_ratio": 4.224085470396906,
+      "max_width_shortfall": 1.1040936237601926
+    },
+    "adaptive": {
+      "upper_clipped_rows": 7,
+      "lower_clipped_rows": 0,
+      "max_ratio": 5.182120837685708,
+      "max_width_shortfall": 5.966346196223277
+    }
+  },
+  "unchanged_source": true
+}

@@ -1,0 +1,22 @@
+{
+  "reconstructed_utc": "2026-10-09T15:11:38.900700+00:00",
+  "version": "1.0.2",
+  "numerical_files_and_original_snapshots_byte_preserved": true,
+  "pdf_pages": 8,
+  "pdf_numeric_cells_match": 40,
+  "pdf_images_match_sources": [
+    "figure_1_representative_schedule.png",
+    "figure_2_cumulative_profit.png",
+    "figure_3_profit_distribution.png",
+    "figure_4_decision_regret.png",
+    "figure_5_report.png",
+    "figure_6_battery_sensitivity.png"
+  ],
+  "fresh_base_audit": {
+    "unit_tests": 11,
+    "tables": 15,
+    "figure_pixel_matches": 18
+  },
+  "new_ci": "not_run_here",
+  "reason": "Rebuilt the documentation package after its temporary download became unavailable."
+}

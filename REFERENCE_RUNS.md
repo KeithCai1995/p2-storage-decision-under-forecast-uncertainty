@@ -1,6 +1,22 @@
 # Reference runs and provenance
 
-## Current v1.0.1 outputs
+## Documentation revision v1.0.2
+
+On 9 October 2026, the report title, scale-clipping explanation and verification
+chronology were revised. Numerical code, tests, data, configurations and snapshots
+are unchanged. Version 1.0.1 in reference manifests records their generation history.
+
+The fresh review used Linux/Python 3.12.14 and the locked versions: 11 tests passed,
+all 15 CSV tables matched with maximum absolute difference 0, and all 18 figures
+matched RGB pixels. Forty original PDF main/sensitivity numeric cells matched
+after rounding to two decimals. All 3,744 LP solutions were independently checked.
+These are technical review checks, not new personal runs by the applicant.
+See `evidence/technical_review/2026-10-09_documentation/`.
+
+Historical Windows and CI results below retain their actual dates and commit scope.
+Check a new CI run after pushing v1.0.2.
+
+## Retained v1.0.1 numerical outputs
 
 The empirical CVaR reporting correction and recovery verification were performed
 in an assisted Linux/Python 3.12.14 environment on 4 October 2026. NumPy 2.3.5,

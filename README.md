@@ -9,6 +9,21 @@ day-ahead battery scheduling model. It tests whether calibrated uncertainty chan
 decisions, realised profit, regret and tail risk - not only whether it improves a forecast
 score.
 
+## v1.0.2 documentation revision - 9 October 2026
+
+The report is [P2_Mini_Paper_Haorui_Cai.pdf](report/P2_Mini_Paper_Haorui_Cai.pdf).
+This revision clarifies the existing scenario scale clipping, uses "risk-averse"
+for the CVaR-penalised objective and updates the report's verification chronology.
+The numerical implementation, configurations, data, tests and snapshots remain
+unchanged from v1.0.1. Reference manifests retain their original version 1.0.1.
+Figure 5 is redrawn from the same saved table to improve label placement.
+
+The fresh Linux/Python 3.12.14 review on 9 October passed 11 tests, all 15 table
+comparisons and all 18 figure pixel comparisons across the three weights.
+See `evidence/technical_review/2026-10-09_documentation/`.
+Historical six-job CI verification applies to commit `c6155e7`.
+Check the new commit's workflow after push. Use `UPDATE_V102_ZH.md` for this update.
+
 ## What the project demonstrates
 
 - an auditable linear battery model with SOC, power, efficiency and terminal constraints;
@@ -28,7 +43,7 @@ python -m unittest discover -s tests -v
 python scripts/verify_release.py
 ```
 
-The minimum Python version for the locked packages is 3.11. This v1.0.1 revision
+The minimum Python version for the locked packages is 3.11. The numerical correction introduced in v1.0.1
 was verified in an assisted Linux/Python 3.12.14 environment with NumPy 2.3.5,
 pandas 2.2.3, SciPy 1.17.0, Matplotlib 3.10.8 and PyYAML 6.0.3. The applicant's
 earlier personal reproduction used Windows/Python 3.13.15; its records remain
@@ -108,6 +123,12 @@ This is an exchangeable toy dependence assumption, not a neighbouring-hour
 correlation parameter or a lag-specific time-series model. The marginal hourly
 quantiles do not establish joint calibration of complete 24-hour price paths.
 
+Static and adaptive quantile curves use
+`scale = clip(calibrated_width / max(q90 - q10, 1e-6), 0.35, 4.0)` about the
+median. Exact width matching requires inactive width flooring and scale clipping.
+The upper cap affects four static and seven adaptive rows out of 1,992; none
+reaches the lower cap. Finite scenario samples need not match quantile widths exactly.
+
 ## Reproducibility notes
 
 The two supplied configurations, the applicant's 0.70 sensitivity configuration,
@@ -123,7 +144,7 @@ The supplied PDF reads numbers from current CSVs and embeds the regenerated
 baseline figures. To rebuild it, install `requirements-report.txt` and run
 `python scripts/build_report.py`; review the resulting PDF before distributing it.
 PDFs and PNGs are marked binary in `.gitattributes` to preserve their bytes.
-For local update and release steps see `UPDATE_GUIDE_ZH.md`.
+For the current update and release steps see `UPDATE_V102_ZH.md`.
 
 ## Applicant's local Windows verification
 

@@ -1,0 +1,622 @@
+{
+  "started_utc": "2026-10-09T08:00:16.693272+00:00",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8",
+    "PyYAML": "6.0.3"
+  },
+  "unit_test_exit": 0,
+  "tables": [
+    {
+      "case": "baseline",
+      "table": "strategy_metrics.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "baseline",
+      "table": "daily_results.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "baseline",
+      "table": "risk_frontier.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "baseline",
+      "table": "battery_sensitivity.csv",
+      "release_check": false,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "baseline",
+      "table": "representative_schedule.csv",
+      "release_check": false,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_070",
+      "table": "strategy_metrics.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_070",
+      "table": "daily_results.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_070",
+      "table": "risk_frontier.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_070",
+      "table": "battery_sensitivity.csv",
+      "release_check": false,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_070",
+      "table": "representative_schedule.csv",
+      "release_check": false,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_085",
+      "table": "strategy_metrics.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_085",
+      "table": "daily_results.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_085",
+      "table": "risk_frontier.csv",
+      "release_check": true,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_085",
+      "table": "battery_sensitivity.csv",
+      "release_check": false,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "case": "cvar_weight_085",
+      "table": "representative_schedule.csv",
+      "release_check": false,
+      "pass": true,
+      "max_absolute_difference": 0.0
+    }
+  ],
+  "figures": [
+    {
+      "case": "baseline",
+      "figure": "figure_1_representative_schedule.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "baseline",
+      "figure": "figure_2_cumulative_profit.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "baseline",
+      "figure": "figure_3_profit_distribution.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "baseline",
+      "figure": "figure_4_decision_regret.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "baseline",
+      "figure": "figure_5_risk_frontier.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "baseline",
+      "figure": "figure_6_battery_sensitivity.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_070",
+      "figure": "figure_1_representative_schedule.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_070",
+      "figure": "figure_2_cumulative_profit.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_070",
+      "figure": "figure_3_profit_distribution.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_070",
+      "figure": "figure_4_decision_regret.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_070",
+      "figure": "figure_5_risk_frontier.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_070",
+      "figure": "figure_6_battery_sensitivity.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_085",
+      "figure": "figure_1_representative_schedule.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_085",
+      "figure": "figure_2_cumulative_profit.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_085",
+      "figure": "figure_3_profit_distribution.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_085",
+      "figure": "figure_4_decision_regret.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_085",
+      "figure": "figure_5_risk_frontier.png",
+      "pixels_equal": true
+    },
+    {
+      "case": "cvar_weight_085",
+      "figure": "figure_6_battery_sensitivity.png",
+      "pixels_equal": true
+    }
+  ],
+  "feasibility": {
+    "solves": 3744,
+    "max_soc_transition_residual": 4.440892098500626e-16,
+    "max_terminal_residual": 0.0,
+    "max_initial_residual": 0.0,
+    "max_bound_violation": 0.0,
+    "max_soc_link_residual": 0.0
+  },
+  "metrics": {
+    "baseline": [
+      {
+        "strategy": "seasonal_naive",
+        "n_days": 83,
+        "total_profit_eur": -2347.2151580317573,
+        "mean_daily_profit_eur": -28.2797006991778,
+        "fifth_percentile_profit_eur": -80.72689937724552,
+        "empirical_cvar_loss_eur": 82.636178136869,
+        "mean_regret_eur": 84.92527586479481,
+        "median_regret_eur": 77.27902875850344,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 8.93929990891588,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "median_risk_neutral",
+        "n_days": 83,
+        "total_profit_eur": 692.2150748446015,
+        "mean_daily_profit_eur": 8.339940660778332,
+        "fifth_percentile_profit_eur": -18.32612689133592,
+        "empirical_cvar_loss_eur": 23.13840984643077,
+        "mean_regret_eur": 48.30563450483868,
+        "median_regret_eur": 44.58787645914758,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 5.234808840068286,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "raw_cvar",
+        "n_days": 83,
+        "total_profit_eur": 807.9856667070432,
+        "mean_daily_profit_eur": 9.734767068759556,
+        "fifth_percentile_profit_eur": -19.79258795570165,
+        "empirical_cvar_loss_eur": 21.90121749375348,
+        "mean_regret_eur": 46.91080809685746,
+        "median_regret_eur": 43.18707951698224,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 4.489953106565519,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "static_cvar",
+        "n_days": 83,
+        "total_profit_eur": 680.2560213864347,
+        "mean_daily_profit_eur": 8.195855679354635,
+        "fifth_percentile_profit_eur": -17.17173811132279,
+        "empirical_cvar_loss_eur": 20.42112389091647,
+        "mean_regret_eur": 48.44971948626238,
+        "median_regret_eur": 42.650463419312274,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.9034444710565706,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "adaptive_risk_neutral",
+        "n_days": 83,
+        "total_profit_eur": 762.1706749787293,
+        "mean_daily_profit_eur": 9.182779216611197,
+        "fifth_percentile_profit_eur": -19.23047078478804,
+        "empirical_cvar_loss_eur": 23.181486117044997,
+        "mean_regret_eur": 47.462795949005816,
+        "median_regret_eur": 43.82705452804114,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 5.050637311764032,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "adaptive_cvar",
+        "n_days": 83,
+        "total_profit_eur": 818.26913719608,
+        "mean_daily_profit_eur": 9.85866430356723,
+        "fifth_percentile_profit_eur": -15.23790617577811,
+        "empirical_cvar_loss_eur": 16.226393072184305,
+        "mean_regret_eur": 46.78691086204978,
+        "median_regret_eur": 42.97879041389512,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 4.203651242870047,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "oracle",
+        "n_days": 83,
+        "total_profit_eur": 4701.582738746212,
+        "mean_daily_profit_eur": 56.64557516561702,
+        "fifth_percentile_profit_eur": 26.24030809923413,
+        "empirical_cvar_loss_eur": -24.67731433677556,
+        "mean_regret_eur": 0.0,
+        "median_regret_eur": 0.0,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 9.01191241307466,
+        "mean_simultaneous_throughput_mwh": 0.0
+      }
+    ],
+    "cvar_weight_070": [
+      {
+        "strategy": "seasonal_naive",
+        "n_days": 83,
+        "total_profit_eur": -2347.2151580317573,
+        "mean_daily_profit_eur": -28.2797006991778,
+        "fifth_percentile_profit_eur": -80.72689937724552,
+        "empirical_cvar_loss_eur": 82.636178136869,
+        "mean_regret_eur": 84.92527586479481,
+        "median_regret_eur": 77.27902875850344,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 8.93929990891588,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "median_risk_neutral",
+        "n_days": 83,
+        "total_profit_eur": 692.2150748446015,
+        "mean_daily_profit_eur": 8.339940660778332,
+        "fifth_percentile_profit_eur": -18.32612689133592,
+        "empirical_cvar_loss_eur": 23.13840984643077,
+        "mean_regret_eur": 48.30563450483868,
+        "median_regret_eur": 44.58787645914758,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 5.234808840068286,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "raw_cvar",
+        "n_days": 83,
+        "total_profit_eur": 813.5622293161873,
+        "mean_daily_profit_eur": 9.801954570074546,
+        "fifth_percentile_profit_eur": -19.35587295130637,
+        "empirical_cvar_loss_eur": 21.40740667470764,
+        "mean_regret_eur": 46.84362059554246,
+        "median_regret_eur": 43.13058690828788,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 4.422010405818994,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "static_cvar",
+        "n_days": 83,
+        "total_profit_eur": 682.4660081429389,
+        "mean_daily_profit_eur": 8.222482025818541,
+        "fifth_percentile_profit_eur": -16.875628376356094,
+        "empirical_cvar_loss_eur": 19.324199382323197,
+        "mean_regret_eur": 48.42309313979847,
+        "median_regret_eur": 44.35841921751363,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.709531354898473,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "adaptive_risk_neutral",
+        "n_days": 83,
+        "total_profit_eur": 762.1706749787293,
+        "mean_daily_profit_eur": 9.182779216611197,
+        "fifth_percentile_profit_eur": -19.23047078478804,
+        "empirical_cvar_loss_eur": 23.181486117044997,
+        "mean_regret_eur": 47.462795949005816,
+        "median_regret_eur": 43.82705452804114,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 5.050637311764032,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "adaptive_cvar",
+        "n_days": 83,
+        "total_profit_eur": 811.3460428318009,
+        "mean_daily_profit_eur": 9.775253528093987,
+        "fifth_percentile_profit_eur": -14.874311349167904,
+        "empirical_cvar_loss_eur": 15.0297717825976,
+        "mean_regret_eur": 46.87032163752303,
+        "median_regret_eur": 43.31694231860591,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.996052184011349,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "oracle",
+        "n_days": 83,
+        "total_profit_eur": 4701.582738746212,
+        "mean_daily_profit_eur": 56.64557516561702,
+        "fifth_percentile_profit_eur": 26.24030809923413,
+        "empirical_cvar_loss_eur": -24.67731433677556,
+        "mean_regret_eur": 0.0,
+        "median_regret_eur": 0.0,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 9.01191241307466,
+        "mean_simultaneous_throughput_mwh": 0.0
+      }
+    ],
+    "cvar_weight_085": [
+      {
+        "strategy": "seasonal_naive",
+        "n_days": 83,
+        "total_profit_eur": -2347.2151580317573,
+        "mean_daily_profit_eur": -28.2797006991778,
+        "fifth_percentile_profit_eur": -80.72689937724552,
+        "empirical_cvar_loss_eur": 82.636178136869,
+        "mean_regret_eur": 84.92527586479481,
+        "median_regret_eur": 77.27902875850344,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 8.93929990891588,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "median_risk_neutral",
+        "n_days": 83,
+        "total_profit_eur": 692.2150748446015,
+        "mean_daily_profit_eur": 8.339940660778332,
+        "fifth_percentile_profit_eur": -18.32612689133592,
+        "empirical_cvar_loss_eur": 23.13840984643077,
+        "mean_regret_eur": 48.30563450483868,
+        "median_regret_eur": 44.58787645914758,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 5.234808840068286,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "raw_cvar",
+        "n_days": 83,
+        "total_profit_eur": 791.4589587697142,
+        "mean_daily_profit_eur": 9.535650105659206,
+        "fifth_percentile_profit_eur": -19.35587295130637,
+        "empirical_cvar_loss_eur": 21.906948056268032,
+        "mean_regret_eur": 47.10992505995782,
+        "median_regret_eur": 41.30536530947991,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 4.361372393145625,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "static_cvar",
+        "n_days": 83,
+        "total_profit_eur": 682.3145425187528,
+        "mean_daily_profit_eur": 8.220657138780155,
+        "fifth_percentile_profit_eur": -15.27487634984095,
+        "empirical_cvar_loss_eur": 17.470361908091594,
+        "mean_regret_eur": 48.424918026836856,
+        "median_regret_eur": 45.102283436261686,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.536102989671428,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "adaptive_risk_neutral",
+        "n_days": 83,
+        "total_profit_eur": 762.1706749787293,
+        "mean_daily_profit_eur": 9.182779216611197,
+        "fifth_percentile_profit_eur": -19.23047078478804,
+        "empirical_cvar_loss_eur": 23.181486117044997,
+        "mean_regret_eur": 47.462795949005816,
+        "median_regret_eur": 43.82705452804114,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 5.050637311764032,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "adaptive_cvar",
+        "n_days": 83,
+        "total_profit_eur": 829.4182748561913,
+        "mean_daily_profit_eur": 9.992991263327603,
+        "fifth_percentile_profit_eur": -11.092559540829264,
+        "empirical_cvar_loss_eur": 12.585520725422734,
+        "mean_regret_eur": 46.65258390228941,
+        "median_regret_eur": 41.17761181746083,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 3.832791815819212,
+        "mean_simultaneous_throughput_mwh": 0.0
+      },
+      {
+        "strategy": "oracle",
+        "n_days": 83,
+        "total_profit_eur": 4701.582738746212,
+        "mean_daily_profit_eur": 56.64557516561702,
+        "fifth_percentile_profit_eur": 26.24030809923413,
+        "empirical_cvar_loss_eur": -24.67731433677556,
+        "mean_regret_eur": 0.0,
+        "median_regret_eur": 0.0,
+        "constraint_violation_rate": 0.0,
+        "mean_throughput_mwh": 9.01191241307466,
+        "mean_simultaneous_throughput_mwh": 0.0
+      }
+    ]
+  },
+  "scenario_scale_clipping": {
+    "static": {
+      "upper_clipped_rows": 4,
+      "lower_clipped_rows": 0,
+      "max_ratio": 4.224085470396906,
+      "max_width_shortfall": 1.1040936237601926
+    },
+    "adaptive": {
+      "upper_clipped_rows": 7,
+      "lower_clipped_rows": 0,
+      "max_ratio": 5.182120837685708,
+      "max_width_shortfall": 5.966346196223277
+    }
+  },
+  "pdf_table_rows": [
+    {
+      "table": "main_results",
+      "row": "seasonal_naive",
+      "matched": true,
+      "expected": "Seasonal naive -28.28 -80.73 82.64 84.93",
+      "numeric_cells": 4
+    },
+    {
+      "table": "main_results",
+      "row": "median_risk_neutral",
+      "matched": true,
+      "expected": "Median risk neutral 8.34 -18.33 23.14 48.31",
+      "numeric_cells": 4
+    },
+    {
+      "table": "main_results",
+      "row": "raw_cvar",
+      "matched": true,
+      "expected": "Raw CVaR 9.73 -19.79 21.90 46.91",
+      "numeric_cells": 4
+    },
+    {
+      "table": "main_results",
+      "row": "static_cvar",
+      "matched": true,
+      "expected": "Static CVaR 8.20 -17.17 20.42 48.45",
+      "numeric_cells": 4
+    },
+    {
+      "table": "main_results",
+      "row": "adaptive_risk_neutral",
+      "matched": true,
+      "expected": "Adaptive risk neutral 9.18 -19.23 23.18 47.46",
+      "numeric_cells": 4
+    },
+    {
+      "table": "main_results",
+      "row": "adaptive_cvar",
+      "matched": true,
+      "expected": "Adaptive CVaR 9.86 -15.24 16.23 46.79",
+      "numeric_cells": 4
+    },
+    {
+      "table": "main_results",
+      "row": "oracle",
+      "matched": true,
+      "expected": "Oracle 56.65 26.24 -24.68 0.00",
+      "numeric_cells": 4
+    },
+    {
+      "table": "weight_sensitivity",
+      "row": "0.55",
+      "matched": true,
+      "expected": "0.55 9.86 -15.24 16.23 4.20",
+      "numeric_cells": 4
+    },
+    {
+      "table": "weight_sensitivity",
+      "row": "0.7",
+      "matched": true,
+      "expected": "0.70 9.78 -14.87 15.03 4.00",
+      "numeric_cells": 4
+    },
+    {
+      "table": "weight_sensitivity",
+      "row": "0.85",
+      "matched": true,
+      "expected": "0.85 9.99 -11.09 12.59 3.83",
+      "numeric_cells": 4
+    }
+  ],
+  "pdf_images": [
+    {
+      "page": 3,
+      "xref": 5,
+      "matched_regenerated_figure": "figure_1_representative_schedule.png"
+    },
+    {
+      "page": 4,
+      "xref": 8,
+      "matched_regenerated_figure": "figure_2_cumulative_profit.png"
+    },
+    {
+      "page": 5,
+      "xref": 11,
+      "matched_regenerated_figure": "figure_3_profit_distribution.png"
+    },
+    {
+      "page": 5,
+      "xref": 13,
+      "matched_regenerated_figure": "figure_4_decision_regret.png"
+    },
+    {
+      "page": 6,
+      "xref": 16,
+      "matched_regenerated_figure": "figure_5_risk_frontier.png"
+    },
+    {
+      "page": 7,
+      "xref": 19,
+      "matched_regenerated_figure": "figure_6_battery_sensitivity.png"
+    }
+  ],
+  "input_pdf_matches_archive": true,
+  "unchanged_source_files": true,
+  "finished_utc": "2026-10-09T08:00:33.818473+00:00"
+}
