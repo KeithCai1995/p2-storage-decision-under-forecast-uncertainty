@@ -177,3 +177,10 @@ GitHub Actions verification passed for commit c6155e7; all six matrix jobs succe
 - Release-table absolute numeric tolerance: 1e-10.
 
 This verification applies to commit c6155e7 and the corrected references. It establishes numerical agreement within the stated tolerance, not byte-identical files across platforms. All financial results remain simulated benchmark results.
+
+## v1.0.2 verification index
+
+- [Applicant local Windows verification](evidence/personal_run/v102_check_20261009_175606/verification_summary.md)
+- [GitHub Actions verification for commit 6a7e1c7](evidence/ci/v102_6a7e1c7/verification_summary.md)
+
+Earlier verification notes describe their dated revisions. The release page links verification for the final tagged revision.
