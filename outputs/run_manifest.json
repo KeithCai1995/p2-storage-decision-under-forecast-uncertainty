@@ -1,12 +1,27 @@
 {
   "project": "P2_forecast_to_storage",
-  "package_version": "1.0.1",
+  "package_version": "1.1.0",
   "cvar_estimator": "empirical_fixed_probability_mass_v1",
+  "formulation": "milp_exclusive_charge_discharge_binary_v1",
+  "solver": "scipy.optimize.milp / HiGHS; mip_rel_gap=1e-9",
+  "scenario_sampling": "common_random_numbers_v1: seed + 17 * day_index; identical uniforms across modes and frontier",
+  "scenario_interpretation": "Heuristic quantile interpolation with capped interval-width rescaling; no calibrated joint-distribution claim",
+  "source_infinite_interval_width_rows": {
+    "static": 0,
+    "adaptive": 0
+  },
+  "source_interval_widths_capped_above_4x_rows": {
+    "static": 1,
+    "adaptive": 3
+  },
   "data_status": "simulated_benchmark_not_field_data",
-  "claim_boundary": "Research-training portfolio; not realised market revenue or a trading system.",
+  "claim_boundary": "AI-assisted technical revision of a simulated 24-hour scheduling benchmark; not realised market revenue or operational day-ahead scheduling. Horizon 1 issue_time equals target_time.",
   "seed": 20260817,
-  "source_file": "data/p1_forecasts.csv",
+  "source_file": "data\\p1_forecasts.csv",
   "source_rows": 1992,
+  "source_sha256": "6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b",
+  "implementation_path": "C:\\Users\\40610\\Documents\\Codex\\2026-10-12\\tools-numpy-pandas-scipy-highs-scikit\\work\\revision_20261018\\p2\\src\\storage_decision\\experiment.py",
+  "horizon1_issue_equals_target_rows": 83,
   "test_days": 83,
   "battery": {
     "energy_capacity_mwh": 2.0,
@@ -23,7 +38,7 @@
   },
   "scenario_count": 60,
   "software": {
-    "python": "3.12.14",
+    "python": "3.13.15",
     "numpy": "2.3.5",
     "pandas": "2.2.3",
     "scipy": "1.17.0"

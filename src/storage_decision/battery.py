@@ -5,7 +5,8 @@ from math import fsum
 
 import numpy as np
 import pandas as pd
-from scipy.optimize import linprog
+from scipy.optimize import Bounds, LinearConstraint, linprog, milp
+from scipy.sparse import csc_matrix
 
 
 @dataclass(frozen=True)
@@ -23,12 +24,20 @@ class BatteryConfig:
         return self.energy_capacity_mwh * self.initial_soc_fraction
 
     def validate(self) -> None:
+        numeric = [self.energy_capacity_mwh, self.power_capacity_mw, self.charge_efficiency,
+                   self.discharge_efficiency, self.initial_soc_fraction, self.throughput_cost_eur_per_mwh]
+        if not np.all(np.isfinite(numeric)):
+            raise ValueError("Battery parameters must be finite")
         if self.energy_capacity_mwh <= 0 or self.power_capacity_mw <= 0:
             raise ValueError("Battery energy and power capacities must be positive")
         if not (0 < self.charge_efficiency <= 1 and 0 < self.discharge_efficiency <= 1):
             raise ValueError("Efficiencies must be in (0, 1]")
         if not (0 <= self.initial_soc_fraction <= 1):
             raise ValueError("Initial SOC fraction must be in [0, 1]")
+        if self.throughput_cost_eur_per_mwh < 0:
+            raise ValueError("Throughput cost must be non-negative")
+        if not isinstance(self.terminal_soc_equal_initial, bool):
+            raise ValueError("terminal_soc_equal_initial must be boolean")
 
 
 @dataclass
@@ -38,6 +47,7 @@ class OptimisationResult:
     scenario_cvar_loss: float
     objective_value: float
     solver_message: str
+    formulation: str
 
 
 def optimise_schedule(
@@ -45,24 +55,31 @@ def optimise_schedule(
     battery: BatteryConfig,
     cvar_alpha: float = 0.90,
     cvar_weight: float = 0.0,
+    formulation: str = "milp",
 ) -> OptimisationResult:
-    """Solve a price-taking day-ahead schedule as a linear programme.
+    """Solve a simulated hourly schedule with exclusive charge/discharge modes.
 
     Decisions are common across all price scenarios. CVaR is applied to scenario loss
-    using the Rockafellar-Uryasev auxiliary-variable representation.
+    using the Rockafellar-Uryasev auxiliary-variable representation. The default
+    MILP enforces charge <= P*mode and discharge <= P*(1-mode), with a binary
+    mode per hour. ``lp_relaxation`` explicitly disables those constraints for
+    comparison with the historical formulation; it is not a physical schedule.
     """
 
     battery.validate()
     scenarios = np.asarray(price_scenarios, dtype=float)
     if scenarios.ndim == 1:
         scenarios = scenarios[None, :]
-    if scenarios.ndim != 2 or scenarios.shape[1] < 1:
+    if scenarios.ndim != 2 or 0 in scenarios.shape or not np.all(np.isfinite(scenarios)):
         raise ValueError("price_scenarios must have shape (n_scenarios, horizon)")
-    if not (0 < cvar_alpha < 1) or cvar_weight < 0:
+    if not np.isfinite(cvar_alpha) or not np.isfinite(cvar_weight) or not (0 < cvar_alpha < 1) or cvar_weight < 0:
         raise ValueError("Invalid CVaR parameters")
+    if formulation not in {"milp", "lp_relaxation"}:
+        raise ValueError("formulation must be milp or lp_relaxation")
 
     n_scenarios, horizon = scenarios.shape
-    n_base = 2 * horizon + (horizon + 1)
+    mode_start = 3 * horizon + 1
+    n_base = mode_start + (horizon if formulation == "milp" else 0)
     use_cvar = cvar_weight > 0
     zeta_idx = n_base if use_cvar else None
     u_start = n_base + 1 if use_cvar else None
@@ -102,6 +119,18 @@ def optimise_schedule(
 
     inequalities = []
     inequality_rhs = []
+    if formulation == "milp":
+        for hour in range(horizon):
+            charge_mode = np.zeros(n_vars)
+            charge_mode[hour] = 1.0
+            charge_mode[mode_start + hour] = -battery.power_capacity_mw
+            inequalities.append(charge_mode)
+            inequality_rhs.append(0.0)
+            discharge_mode = np.zeros(n_vars)
+            discharge_mode[horizon + hour] = 1.0
+            discharge_mode[mode_start + hour] = battery.power_capacity_mw
+            inequalities.append(discharge_mode)
+            inequality_rhs.append(battery.power_capacity_mw)
     if use_cvar:
         for scenario_index, prices in enumerate(scenarios):
             row = np.zeros(n_vars)
@@ -116,19 +145,32 @@ def optimise_schedule(
     bounds.extend([(0.0, battery.power_capacity_mw)] * horizon)
     bounds.extend([(0.0, battery.power_capacity_mw)] * horizon)
     bounds.extend([(0.0, battery.energy_capacity_mwh)] * (horizon + 1))
+    if formulation == "milp":
+        bounds.extend([(0.0, 1.0)] * horizon)
     if use_cvar:
         bounds.append((None, None))
         bounds.extend([(0.0, None)] * n_scenarios)
 
-    result = linprog(
-        objective,
-        A_ub=np.asarray(inequalities) if inequalities else None,
-        b_ub=np.asarray(inequality_rhs) if inequalities else None,
-        A_eq=np.asarray(equalities),
-        b_eq=np.asarray(equality_rhs),
-        bounds=bounds,
-        method="highs",
-    )
+    if formulation == "milp":
+        lower = [(-np.inf if lo is None else lo) for lo, _ in bounds]
+        upper = [(np.inf if hi is None else hi) for _, hi in bounds]
+        integrality = np.zeros(n_vars, dtype=int)
+        integrality[mode_start:mode_start + horizon] = 1
+        result = milp(
+            objective, integrality=integrality, bounds=Bounds(lower, upper),
+            constraints=[
+                LinearConstraint(csc_matrix(np.asarray(equalities)), equality_rhs, equality_rhs),
+                LinearConstraint(csc_matrix(np.asarray(inequalities)), -np.inf, inequality_rhs),
+            ], options={"mip_rel_gap": 1e-9},
+        )
+    else:
+        result = linprog(
+            objective,
+            A_ub=np.asarray(inequalities) if inequalities else None,
+            b_ub=np.asarray(inequality_rhs) if inequalities else None,
+            A_eq=np.asarray(equalities), b_eq=np.asarray(equality_rhs),
+            bounds=bounds, method="highs",
+        )
     if not result.success:
         raise RuntimeError(f"Battery optimisation failed: {result.message}")
 
@@ -152,6 +194,7 @@ def optimise_schedule(
         scenario_cvar_loss=empirical_cvar_loss(scenario_profit, cvar_alpha),
         objective_value=float(result.fun),
         solver_message=result.message,
+        formulation=formulation,
     )
 
 
@@ -162,8 +205,14 @@ def profit_by_scenario(
     throughput_cost: float,
 ) -> np.ndarray:
     scenarios = np.atleast_2d(np.asarray(price_scenarios, dtype=float))
-    net_export = np.asarray(discharge) - np.asarray(charge)
-    degradation = throughput_cost * np.sum(np.asarray(charge) + np.asarray(discharge))
+    charge = np.asarray(charge, dtype=float)
+    discharge = np.asarray(discharge, dtype=float)
+    if scenarios.ndim != 2 or 0 in scenarios.shape or charge.shape != (scenarios.shape[1],) or discharge.shape != charge.shape:
+        raise ValueError("Prices and power arrays must have matching non-empty horizons")
+    if not all(np.all(np.isfinite(values)) for values in [scenarios, charge, discharge]) or not np.isfinite(throughput_cost) or throughput_cost < 0:
+        raise ValueError("Profit inputs must be finite and throughput cost non-negative")
+    net_export = discharge - charge
+    degradation = throughput_cost * np.sum(charge + discharge)
     return scenarios @ net_export - degradation
 
 
@@ -200,18 +249,36 @@ def empirical_cvar_loss(profits: np.ndarray, alpha: float = 0.90) -> float:
 
 
 def constraint_diagnostics(schedule: pd.DataFrame, battery: BatteryConfig, tolerance: float = 1e-7) -> dict[str, float]:
-    soc = np.r_[schedule["soc_start_mwh"].iloc[0], schedule["soc_end_mwh"].to_numpy()]
-    violations = (
-        np.sum(schedule["charge_mw"].to_numpy() > battery.power_capacity_mw + tolerance)
-        + np.sum(schedule["discharge_mw"].to_numpy() > battery.power_capacity_mw + tolerance)
-        + np.sum(soc < -tolerance)
-        + np.sum(soc > battery.energy_capacity_mwh + tolerance)
-    )
+    battery.validate()
+    if len(schedule) == 0 or not np.isfinite(tolerance) or tolerance <= 0:
+        raise ValueError("A non-empty schedule and positive finite tolerance are required")
+    values = schedule[["charge_mw", "discharge_mw", "soc_start_mwh", "soc_end_mwh"]].to_numpy(dtype=float)
+    if not np.all(np.isfinite(values)):
+        raise ValueError("Schedule values must be finite")
+    charge, discharge, start, end = values.T
+    soc = np.r_[start, end]
+    transition_error = end - start - battery.charge_efficiency * charge + discharge / battery.discharge_efficiency
+    continuity_error = start[1:] - end[:-1]
+    terminal_error = abs(end[-1] - battery.initial_soc_mwh)
+    counts = {
+        "nonnegative_violations": np.sum(charge < -tolerance) + np.sum(discharge < -tolerance),
+        "power_bound_violations": np.sum(charge > battery.power_capacity_mw + tolerance) + np.sum(discharge > battery.power_capacity_mw + tolerance),
+        "soc_bound_violations": np.sum(soc < -tolerance) + np.sum(soc > battery.energy_capacity_mwh + tolerance),
+        "soc_transition_violations": np.sum(np.abs(transition_error) > tolerance),
+        "soc_continuity_violations": np.sum(np.abs(continuity_error) > tolerance),
+        "initial_soc_violations": int(abs(start[0] - battery.initial_soc_mwh) > tolerance),
+        "terminal_soc_violations": int(battery.terminal_soc_equal_initial and terminal_error > tolerance),
+        "exclusivity_violations": np.sum((charge > tolerance) & (discharge > tolerance)),
+    }
     return {
-        "constraint_violations": float(violations),
-        "simultaneous_throughput_mwh": float(np.minimum(schedule["charge_mw"], schedule["discharge_mw"]).sum()),
+        "constraint_violations": float(sum(counts.values())),
+        **{name: float(value) for name, value in counts.items()},
+        "max_soc_transition_error_mwh": float(np.max(np.abs(transition_error))),
+        "max_soc_continuity_error_mwh": float(np.max(np.abs(continuity_error), initial=0.0)),
+        "initial_soc_error_mwh": float(abs(start[0] - battery.initial_soc_mwh)),
+        "simultaneous_throughput_mwh": float(np.minimum(charge, discharge).sum()),
         "total_throughput_mwh": float((schedule["charge_mw"] + schedule["discharge_mw"]).sum()),
         "minimum_soc_mwh": float(soc.min()),
         "maximum_soc_mwh": float(soc.max()),
-        "terminal_soc_error_mwh": float(abs(soc[-1] - battery.initial_soc_mwh)),
+        "terminal_soc_error_mwh": float(terminal_error),
     }

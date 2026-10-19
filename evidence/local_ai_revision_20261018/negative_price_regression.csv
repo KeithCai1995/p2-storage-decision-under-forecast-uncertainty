@@ -1,0 +1,3 @@
+formulation,hour,charge_mw,discharge_mw,soc_start_mwh,soc_end_mwh,profit_eur,constraint_violations,nonnegative_violations,power_bound_violations,soc_bound_violations,soc_transition_violations,soc_continuity_violations,initial_soc_violations,terminal_soc_violations,exclusivity_violations,max_soc_transition_error_mwh,max_soc_continuity_error_mwh,initial_soc_error_mwh,simultaneous_throughput_mwh,total_throughput_mwh,minimum_soc_mwh,maximum_soc_mwh,terminal_soc_error_mwh
+lp_relaxation,1.0,1.0,0.8835999999999999,1.0,1.0,7.872800000000006,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.8835999999999999,1.8836,1.0,1.0,0.0
+milp,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0

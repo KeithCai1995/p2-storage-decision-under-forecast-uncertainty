@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import platform
 from pathlib import Path
 
@@ -20,7 +21,7 @@ from .battery import (
     optimise_schedule,
     realised_profit,
 )
-from .scenarios import generate_price_scenarios
+from .scenarios import QUANTILE_COLUMNS, generate_price_scenarios, generate_uniforms
 
 
 COLORS = {
@@ -35,7 +36,48 @@ COLORS = {
 
 
 def _battery_from_config(values: dict) -> BatteryConfig:
-    return BatteryConfig(**values)
+    battery = BatteryConfig(**values)
+    battery.validate()
+    return battery
+
+
+def validate_inputs(forecasts: pd.DataFrame, config: dict) -> None:
+    """Reject invalid numeric inputs before constructing a solver problem."""
+    _battery_from_config(config["battery"])
+    for field in ["seed"]:
+        value = config[field]
+        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+            raise ValueError(f"{field} must be a non-negative integer")
+    count = config["scenarios"]["n_scenarios"]
+    generate_uniforms(count, 24, config["scenarios"]["common_factor_loading"], config["seed"])
+    risk = config["risk"]
+    alpha, weight = risk["cvar_alpha"], risk["cvar_weight"]
+    if not np.all(np.isfinite([alpha, weight])) or not 0 < alpha < 1 or weight < 0:
+        raise ValueError("Risk parameters must be finite, 0 < alpha < 1 and weight >= 0")
+    weights = np.asarray(config["evaluation"]["frontier_weights"], dtype=float)
+    if weights.ndim != 1 or not len(weights) or not np.all(np.isfinite(weights)) or np.any(weights < 0):
+        raise ValueError("Frontier weights must be a non-empty finite non-negative vector")
+    sensitivity_days = config["evaluation"]["sensitivity_days"]
+    if isinstance(sensitivity_days, bool) or not isinstance(sensitivity_days, int) or sensitivity_days < 1:
+        raise ValueError("sensitivity_days must be a positive integer")
+    if forecasts.empty:
+        raise ValueError("Forecast table must not be empty")
+    numeric = ["issue_day", "horizon", "price_eur_mwh", "seasonal_naive", *QUANTILE_COLUMNS]
+    if not np.all(np.isfinite(forecasts[numeric].to_numpy(dtype=float))):
+        raise ValueError("Prices, quantiles, day and horizon identifiers must be finite")
+    if forecasts[["issue_time", "target_time"]].isna().any().any():
+        raise ValueError("Forecast timestamps must be valid")
+    if forecasts.duplicated(["issue_day", "horizon"]).any():
+        raise ValueError("Duplicate day/horizon forecast rows")
+    for _, day in forecasts.groupby("issue_day"):
+        if not np.array_equal(np.sort(day["horizon"].to_numpy()), np.arange(1, 25)):
+            raise ValueError("Every scheduling block must contain horizons 1 through 24 exactly once")
+        for mode in ["raw", "static", "adaptive"]:
+            generate_price_scenarios(day.sort_values("horizon"), mode, 1, 0.0, 0)
+
+
+def scenario_seed(seed: int, day_index: int) -> int:
+    return seed + day_index * 17
 
 
 def _configure_plotting() -> None:
@@ -59,10 +101,15 @@ def _save(fig: plt.Figure, path: Path) -> None:
     plt.close(fig)
 
 
-def run(config_path: str | Path, root: str | Path, output_root: str | Path | None = None) -> dict:
+def run(config_path: str | Path, root: str | Path, output_root: str | Path | None = None,
+        seed_override: int | None = None, source_override: str | Path | None = None) -> dict:
     root = Path(root).resolve()
     output = Path(output_root).resolve() if output_root is not None else root / "outputs"
     config = yaml.safe_load(Path(config_path).read_text(encoding="utf-8"))
+    if seed_override is not None:
+        config["seed"] = seed_override
+    if source_override is not None:
+        config["data"]["p1_forecasts"] = str(source_override)
     for folder in [output / "figures", output / "tables"]:
         folder.mkdir(parents=True, exist_ok=True)
     _configure_plotting()
@@ -70,6 +117,7 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
     source = root / config["data"]["p1_forecasts"]
     forecasts = pd.read_csv(source, parse_dates=["issue_time", "target_time"])
     forecasts = forecasts.sort_values(["issue_day", "horizon"]).reset_index(drop=True)
+    validate_inputs(forecasts, config)
     battery = _battery_from_config(config["battery"])
     n_scenarios = int(config["scenarios"]["n_scenarios"])
     common_factor_loading = float(config["scenarios"]["common_factor_loading"])
@@ -87,6 +135,7 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
         "oracle",
     ]
     daily_rows = []
+    all_schedules = []
     representative_schedules: dict[str, pd.DataFrame] = {}
     representative_day = int(
         forecasts.groupby("issue_day")["price_eur_mwh"].agg(lambda x: x.max() - x.min()).idxmax()
@@ -95,10 +144,10 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
     for day_index, (issue_day, day) in enumerate(forecasts.groupby("issue_day", sort=True)):
         day = day.sort_values("horizon").reset_index(drop=True)
         actual = day["price_eur_mwh"].to_numpy()
-        scenario_sets = {
-            mode: generate_price_scenarios(day, mode, n_scenarios, common_factor_loading, seed + day_index * 17 + offset)
-            for offset, mode in enumerate(["raw", "static", "adaptive"], start=1)
-        }
+        day_seed = scenario_seed(seed, day_index)
+        uniforms = generate_uniforms(n_scenarios, 24, common_factor_loading, day_seed)
+        scenario_sets = {mode: generate_price_scenarios(day, mode, n_scenarios, common_factor_loading, day_seed, uniforms)
+                         for mode in ["raw", "static", "adaptive"]}
         schedule_results = {
             "seasonal_naive": optimise_schedule(day["seasonal_naive"].to_numpy(), battery),
             "median_risk_neutral": optimise_schedule(day["q50"].to_numpy(), battery),
@@ -113,6 +162,12 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
             result = schedule_results[strategy]
             profit = realised_profit(actual, result.schedule, battery.throughput_cost_eur_per_mwh)
             diagnostics = constraint_diagnostics(result.schedule, battery)
+            if diagnostics["constraint_violations"]:
+                raise RuntimeError(f"Infeasible schedule for day {issue_day}, strategy {strategy}: {diagnostics}")
+            saved_schedule = result.schedule.copy()
+            saved_schedule["issue_day"] = int(issue_day)
+            saved_schedule["strategy"] = strategy
+            all_schedules.append(saved_schedule)
             daily_rows.append(
                 {
                     "issue_day": int(issue_day),
@@ -135,6 +190,7 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
                 representative_schedules[strategy] = schedule
 
     daily = pd.DataFrame(daily_rows)
+    pd.concat(all_schedules, ignore_index=True).to_csv(output / "tables" / "all_schedules.csv", index=False)
     daily.to_csv(output / "tables" / "daily_results.csv", index=False)
     summary = _strategy_summary(daily, cvar_alpha)
     summary.to_csv(output / "tables" / "strategy_metrics.csv", index=False)
@@ -157,11 +213,20 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
         "project": "P2_forecast_to_storage",
         "package_version": __version__,
         "cvar_estimator": "empirical_fixed_probability_mass_v1",
+        "formulation": "milp_exclusive_charge_discharge_binary_v1",
+        "solver": "scipy.optimize.milp / HiGHS; mip_rel_gap=1e-9",
+        "scenario_sampling": "common_random_numbers_v1: seed + 17 * day_index; identical uniforms across modes and frontier",
+        "scenario_interpretation": "Heuristic quantile interpolation with capped interval-width rescaling; no calibrated joint-distribution claim",
+        "source_infinite_interval_width_rows": {mode: int(np.isinf(forecasts[f"{mode}_upper"] - forecasts[f"{mode}_lower"]).sum()) for mode in ["static", "adaptive"]},
+        "source_interval_widths_capped_above_4x_rows": {mode: int(((forecasts[f"{mode}_upper"] - forecasts[f"{mode}_lower"]) / np.maximum(forecasts["q90"] - forecasts["q10"], 1e-6) > 4).sum()) for mode in ["static", "adaptive"]},
         "data_status": "simulated_benchmark_not_field_data",
-        "claim_boundary": "Research-training portfolio; not realised market revenue or a trading system.",
+        "claim_boundary": "AI-assisted technical revision of a simulated 24-hour scheduling benchmark; not realised market revenue or operational day-ahead scheduling. Horizon 1 issue_time equals target_time.",
         "seed": seed,
         "source_file": str(source.relative_to(root)),
         "source_rows": int(len(forecasts)),
+        "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+        "implementation_path": str(Path(__file__).resolve()),
+        "horizon1_issue_equals_target_rows": int(((forecasts["horizon"] == 1) & (forecasts["issue_time"] == forecasts["target_time"])).sum()),
         "test_days": int(forecasts["issue_day"].nunique()),
         "battery": config["battery"],
         "risk": config["risk"],
@@ -200,15 +265,17 @@ def _risk_frontier(forecasts: pd.DataFrame, battery: BatteryConfig, config: dict
     n_scenarios = int(config["scenarios"]["n_scenarios"])
     common_factor_loading = float(config["scenarios"]["common_factor_loading"])
     alpha = float(config["risk"]["cvar_alpha"])
-    seed = int(config["seed"]) + 5000
+    seed = int(config["seed"])
     rows = []
     grouped = list(forecasts.groupby("issue_day", sort=True))
     for weight in weights:
         profits = []
         for day_index, (_, day) in enumerate(grouped):
             day = day.sort_values("horizon").reset_index(drop=True)
-            scenarios = generate_price_scenarios(day, "adaptive", n_scenarios, common_factor_loading, seed + day_index)
+            scenarios = generate_price_scenarios(day, "adaptive", n_scenarios, common_factor_loading, scenario_seed(seed, day_index))
             result = optimise_schedule(scenarios, battery, alpha, weight)
+            if constraint_diagnostics(result.schedule, battery)["constraint_violations"]:
+                raise RuntimeError("Infeasible risk-frontier schedule")
             profits.append(realised_profit(day["price_eur_mwh"].to_numpy(), result.schedule, battery.throughput_cost_eur_per_mwh))
         profits_array = np.asarray(profits)
         rows.append(
@@ -239,6 +306,8 @@ def _battery_sensitivity(forecasts: pd.DataFrame, config: dict) -> pd.DataFrame:
             for _, day in days:
                 day = day.sort_values("horizon")
                 result = optimise_schedule(day["q50"].to_numpy(), battery)
+                if constraint_diagnostics(result.schedule, battery)["constraint_violations"]:
+                    raise RuntimeError("Infeasible battery-sensitivity schedule")
                 profits.append(realised_profit(day["price_eur_mwh"].to_numpy(), result.schedule, battery.throughput_cost_eur_per_mwh))
             rows.append(
                 {
@@ -261,7 +330,7 @@ def _plot_schedule(schedules: dict[str, pd.DataFrame], path: Path) -> None:
     ax2.bar(hours - 0.18, chosen["charge_mw"], width=0.36, color=COLORS["blue"], label="Charge")
     ax2.bar(hours + 0.18, chosen["discharge_mw"], width=0.36, color=COLORS["teal"], label="Discharge")
     ax2.plot(hours, chosen["soc_end_mwh"], color=COLORS["red"], marker="o", ms=3, label="End SOC")
-    ax2.set(xlabel="Hour ahead", ylabel="MW / MWh")
+    ax2.set(xlabel="Scheduling period (horizon 1 starts at issue time)", ylabel="MW / MWh")
     ax2.legend(ncol=3)
     _save(fig, path)
 
@@ -302,8 +371,10 @@ def _plot_regret(summary: pd.DataFrame, path: Path) -> None:
 def _plot_frontier(frontier: pd.DataFrame, path: Path) -> None:
     fig, ax = plt.subplots(figsize=(5.8, 4.2))
     scatter = ax.scatter(frontier["empirical_cvar_loss_eur"], frontier["mean_daily_profit_eur"], c=frontier["cvar_weight"], cmap="viridis", s=85)
+    largest_loss = frontier["empirical_cvar_loss_eur"].max()
     for _, row in frontier.iterrows():
-        ax.annotate(f"w={row['cvar_weight']:.2f}", (row["empirical_cvar_loss_eur"], row["mean_daily_profit_eur"]), xytext=(4, 4), textcoords="offset points", fontsize=8)
+        at_right = row["empirical_cvar_loss_eur"] == largest_loss
+        ax.annotate(f"w={row['cvar_weight']:.2f}", (row["empirical_cvar_loss_eur"], row["mean_daily_profit_eur"]), xytext=(-5 if at_right else 4, 4), textcoords="offset points", ha="right" if at_right else "left", fontsize=8)
     ax.set(title="Empirical profit-risk frontier", xlabel="Empirical CVaR of loss (EUR)", ylabel="Mean daily profit (EUR)")
     fig.colorbar(scatter, ax=ax, label="CVaR weight")
     _save(fig, path)

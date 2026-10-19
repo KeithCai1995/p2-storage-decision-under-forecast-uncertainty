@@ -1,0 +1,19 @@
+PASS corrected_v110/baseline/strategy_metrics.csv: max absolute difference = 0
+PASS corrected_v110/baseline/daily_results.csv: max absolute difference = 0
+PASS corrected_v110/baseline/risk_frontier.csv: max absolute difference = 0
+PASS corrected_v110/baseline/representative_schedule.csv: max absolute difference = 0
+PASS corrected_v110/baseline/battery_sensitivity.csv: max absolute difference = 0
+PASS corrected_v110/baseline/all_schedules.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_070/strategy_metrics.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_070/daily_results.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_070/risk_frontier.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_070/representative_schedule.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_070/battery_sensitivity.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_070/all_schedules.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_085/strategy_metrics.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_085/daily_results.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_085/risk_frontier.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_085/representative_schedule.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_085/battery_sensitivity.csv: max absolute difference = 0
+PASS corrected_v110/cvar_weight_085/all_schedules.csv: max absolute difference = 0
+18/18 corrected release table comparisons passed; 3486 saved/rerun schedules fully checked. Historical CI is not evidence for this local revision.

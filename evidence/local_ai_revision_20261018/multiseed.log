@@ -1,0 +1,32 @@
+Completed weight 0.55, scenario seed 20260817, 83 days, 60 scenarios
+Completed weight 0.55, scenario seed 20260818, 83 days, 60 scenarios
+Completed weight 0.55, scenario seed 20260819, 83 days, 60 scenarios
+Completed weight 0.70, scenario seed 20260817, 83 days, 60 scenarios
+Completed weight 0.70, scenario seed 20260818, 83 days, 60 scenarios
+Completed weight 0.70, scenario seed 20260819, 83 days, 60 scenarios
+Completed weight 0.85, scenario seed 20260817, 83 days, 60 scenarios
+Completed weight 0.85, scenario seed 20260818, 83 days, 60 scenarios
+Completed weight 0.85, scenario seed 20260819, 83 days, 60 scenarios
+                                   n_seeds  mean_profit_mean  mean_profit_min  mean_profit_max  cvar_loss_mean  cvar_loss_min  cvar_loss_max  maximum_constraint_violation_rate
+cvar_weight strategy                                                                                                                                                           
+0.55        seasonal_naive               3        -28.279701       -28.279701       -28.279701       82.636178      82.636178      82.636178                                0.0
+            median_risk_neutral          3          8.691456         8.691456         8.691456       24.002282      24.002282      24.002282                                0.0
+            raw_cvar                     3          9.106373         7.789523         9.824954       23.242586      20.671937      26.899053                                0.0
+            static_cvar                  3          8.252571         7.406014         9.039093       19.807081      17.614514      23.344778                                0.0
+            adaptive_risk_neutral        3          8.137990         7.628159         8.963759       27.072218      22.821014      31.008814                                0.0
+            adaptive_cvar                3          8.475468         7.484395         9.599133       19.594964      17.698600      23.182751                                0.0
+            oracle                       3         56.645575        56.645575        56.645575      -24.677314     -24.677314     -24.677314                                0.0
+0.70        seasonal_naive               3        -28.279701       -28.279701       -28.279701       82.636178      82.636178      82.636178                                0.0
+            median_risk_neutral          3          8.691456         8.691456         8.691456       24.002282      24.002282      24.002282                                0.0
+            raw_cvar                     3          9.095152         7.917174         9.740240       22.427828      20.116700      24.922417                                0.0
+            static_cvar                  3          8.358875         7.500849         9.382272       17.703547      15.298143      19.446153                                0.0
+            adaptive_risk_neutral        3          8.137990         7.628159         8.963759       27.072218      22.821014      31.008814                                0.0
+            adaptive_cvar                3          8.556264         7.940396         9.554746       18.533924      16.485096      21.168128                                0.0
+            oracle                       3         56.645575        56.645575        56.645575      -24.677314     -24.677314     -24.677314                                0.0
+0.85        seasonal_naive               3        -28.279701       -28.279701       -28.279701       82.636178      82.636178      82.636178                                0.0
+            median_risk_neutral          3          8.691456         8.691456         8.691456       24.002282      24.002282      24.002282                                0.0
+            raw_cvar                     3          9.133204         7.984480         9.907240       21.569399      19.671756      23.194265                                0.0
+            static_cvar                  3          8.547580         7.769286         9.235356       16.128265      13.872317      17.650798                                0.0
+            adaptive_risk_neutral        3          8.137990         7.628159         8.963759       27.072218      22.821014      31.008814                                0.0
+            adaptive_cvar                3          8.612698         8.010983         9.421662       17.635672      15.681889      20.602085                                0.0
+            oracle                       3         56.645575        56.645575        56.645575      -24.677314     -24.677314     -24.677314                                0.0

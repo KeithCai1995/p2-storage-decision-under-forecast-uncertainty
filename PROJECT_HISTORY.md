@@ -1,15 +1,24 @@
 # Project history
 
-This working repository was created from the supplied P2 portfolio package on 2026-10-01.
-The imported source code, report and reference output snapshots existed before this local repository. They are not evidence of my original development history.
-Commits from this date onward record when files entered this working repository;
-they do not, by themselves, establish who authored every analysis or ran every
-experiment. My personal runs and assisted reviews are identified separately in
-`evidence/personal_run/2026-10-02` and `REFERENCE_RUNS.md`. I will describe AI or
-other external assistance according to each application's rules.
+The supplied v1.0.2 material and earlier evidence predate this revision. The
+original history is preserved at
+[historical_v102/PROJECT_HISTORY.md](historical_v102/PROJECT_HISTORY.md).
 
-## Assisted numerical correction on 4 October 2026
+## Version timeline
 
-Version 1.0.1 corrects empirical CVaR reporting, adds tests and regenerates
-outputs and the PDF. This is assisted verification, not new personal execution
-history. The applicant's original records are retained separately.
+- **v1.0.2:** earlier outputs, input and documentation remain under
+  `historical_v102/`; original reproduction and CI records remain under
+  `evidence/` with their original dates.
+- **18 October 2026:** v1.1.0 introduces exclusive battery operation, corrected
+  P1 inputs, paired scenarios and expanded verification.
+- **19 October 2026:** a personal rerun completed 20 tests, the default baseline,
+  and 18/18 release-table comparisons with zero differences. The verifier
+  checked 3,486 saved/rerun schedules. Local logs remain outside this repository
+  under `Personal_Logs/20261019_080009/`. This does not record a new remote CI run
+  or fresh personal execution of the full sensitivity grid.
+
+## Sources
+
+Initial code and reference analyses were supplied. The v1.1.0 corrections and
+reference-run preparation used AI assistance. Method sources are credited in
+[RELATED_WORK.md](RELATED_WORK.md); execution details remain in the dated records.
