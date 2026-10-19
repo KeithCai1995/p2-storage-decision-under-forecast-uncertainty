@@ -10,8 +10,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the P2 storage decision experiment")
     parser.add_argument("--config", default=str(ROOT / "configs/base.yaml"))
     parser.add_argument("--output-root", type=Path)
+    parser.add_argument("--seed", type=int)
+    parser.add_argument("--source-forecasts", type=Path)
     args = parser.parse_args()
-    result = run(args.config, ROOT, args.output_root)
+    result = run(args.config, ROOT, args.output_root, args.seed, args.source_forecasts)
     print(result["summary"].to_string(index=False))
     print(f"\nArtifacts written under: {Path(result['output_root']).name}")
 

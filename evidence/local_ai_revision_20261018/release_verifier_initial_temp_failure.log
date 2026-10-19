@@ -1,0 +1,64 @@
+Traceback (most recent call last):
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] ϵͳ�Ҳ���ָ����·����: 'C:\\Users\\40610\\AppData\\Local\\Packages\\sandbox.{1964d884-08be-4da6-903b-7d81408e5fcd}\\AC\\Temp\\p2_v110_release_check__9hqwg5r\\baseline\\figures'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 54, in main
+    run(ROOT / "configs" / config, ROOT, destination)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\src\storage_decision\experiment.py", line 111, in run
+    folder.mkdir(parents=True, exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 726, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\40610\\AppData\\Local\\Packages\\sandbox.{1964d884-08be-4da6-903b-7d81408e5fcd}\\AC\\Temp\\p2_v110_release_check__9hqwg5r\\baseline'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\40610\\AppData\\Local\\Packages\\sandbox.{1964d884-08be-4da6-903b-7d81408e5fcd}\\AC\\Temp\\p2_v110_release_check__9hqwg5r'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 65, in <module>
+    if __name__ == "__main__": raise SystemExit(main())
+                                                ~~~~^^
+  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 49, in main
+    with TemporaryDirectory(prefix="p2_v110_release_check_") as temporary:
+         ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 952, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 908, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 283, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 272, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\40610\\AppData\\Local\\Packages\\sandbox.{1964d884-08be-4da6-903b-7d81408e5fcd}\\AC\\Temp\\p2_v110_release_check__9hqwg5r'

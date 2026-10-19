@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 
-TABLES = ("strategy_metrics.csv", "daily_results.csv", "risk_frontier.csv")
+TABLES = ("strategy_metrics.csv", "daily_results.csv", "risk_frontier.csv", "representative_schedule.csv", "battery_sensitivity.csv", "all_schedules.csv")
 
 
 def compare_table(current_path: Path, reference_path: Path, tolerance: float) -> tuple[bool, float]:

@@ -1,0 +1,25 @@
+test_cvar_schedule_is_feasible (test_battery.TestBatteryOptimisation.test_cvar_schedule_is_feasible) ... ok
+test_full_diagnostics_detect_transition_continuity_and_negative_power (test_battery.TestBatteryOptimisation.test_full_diagnostics_detect_transition_continuity_and_negative_power) ... ok
+test_negative_price_regression_exposes_old_lp_cycle (test_battery.TestBatteryOptimisation.test_negative_price_regression_exposes_old_lp_cycle) ... ok
+test_rejects_nonfinite_and_empty_solver_inputs (test_battery.TestBatteryOptimisation.test_rejects_nonfinite_and_empty_solver_inputs) ... ok
+test_reported_cvar_matches_the_solved_objective (test_battery.TestBatteryOptimisation.test_reported_cvar_matches_the_solved_objective) ... ok
+test_schedule_is_feasible_and_terminal_soc_is_restored (test_battery.TestBatteryOptimisation.test_schedule_is_feasible_and_terminal_soc_is_restored) ... ok
+test_fractional_boundary_mass (test_cvar.TestEmpiricalCVaR.test_fractional_boundary_mass) ... ok
+test_integer_tail_mass (test_cvar.TestEmpiricalCVaR.test_integer_tail_mass) ... ok
+test_less_than_one_observation_in_tail (test_cvar.TestEmpiricalCVaR.test_less_than_one_observation_in_tail) ... ok
+test_matches_independent_rockafellar_uryasev_lp (test_cvar.TestEmpiricalCVaR.test_matches_independent_rockafellar_uryasev_lp) ... ok
+test_near_tie_perturbation_is_continuous (test_cvar.TestEmpiricalCVaR.test_near_tie_perturbation_is_continuous) ... ok
+test_rejects_invalid_inputs (test_cvar.TestEmpiricalCVaR.test_rejects_invalid_inputs) ... ok
+test_ties_do_not_expand_the_tail (test_cvar.TestEmpiricalCVaR.test_ties_do_not_expand_the_tail) ... ok
+test_zero_alpha_and_constant_or_negative_losses (test_cvar.TestEmpiricalCVaR.test_zero_alpha_and_constant_or_negative_losses) ... ok
+test_rejects_invalid_config_values (test_inputs.TestInputValidation.test_rejects_invalid_config_values) ... ok
+test_rejects_invalid_forecast_rows (test_inputs.TestInputValidation.test_rejects_invalid_forecast_rows) ... ok
+test_valid_corrected_input (test_inputs.TestInputValidation.test_valid_corrected_input) ... ok
+test_common_uniforms_preserve_underlying_ranks_across_modes (test_scenarios.TestScenarioSampling.test_common_uniforms_preserve_underlying_ranks_across_modes) ... ok
+test_infinite_source_interval_is_explicitly_capped_and_scenarios_finite (test_scenarios.TestScenarioSampling.test_infinite_source_interval_is_explicitly_capped_and_scenarios_finite) ... ok
+test_rejects_invalid_sampling_and_forecast_inputs (test_scenarios.TestScenarioSampling.test_rejects_invalid_sampling_and_forecast_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.122s
+
+OK

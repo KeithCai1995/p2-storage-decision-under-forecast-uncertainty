@@ -1,3 +1,6 @@
-# Preserve report and plot bytes across Git line-ending conversions.
+# Preserve exact source and artifact bytes used by reproducibility hashes.
+* -text
+
+# Reports and plots are binary, not text diffs or merge candidates.
 *.pdf binary
 *.png binary
