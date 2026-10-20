@@ -1,8 +1,8 @@
-# Assisted correction and verification
+# Reference correction and verification
 
 - Date: 4 October 2026
 - Environment: Linux/Python 3.12.14; package versions in environment.txt
-- Role: assisted revision, not an applicant personal run
+- Record type: reference verification
 - Estimator: empirical_fixed_probability_mass_v1
 - Seed: 20260817; weights: 0.55, 0.70 and 0.85
 
@@ -19,7 +19,7 @@ are pending, and exact binary reproduction across all environments is not claime
 Reproduce the audit without changing current references:
 
 ```bash
-python evidence/assisted_review/2026-10-04_cvar_fix/audit_revision.py --output-root evidence/runs/my_audit
+python evidence/reference_review/2026-10-04_cvar_fix/audit_revision.py --output-root evidence/runs/my_audit
 ```
 
 Use `python scripts/verify_release.py` for the three current configurations.

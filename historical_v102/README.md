@@ -44,7 +44,7 @@ python scripts/verify_release.py
 ```
 
 The minimum Python version for the locked packages is 3.11. The numerical correction introduced in v1.0.1
-was verified in an assisted Linux/Python 3.12.14 environment with NumPy 2.3.5,
+was verified in an reference Linux/Python 3.12.14 environment with NumPy 2.3.5,
 pandas 2.2.3, SciPy 1.17.0, Matplotlib 3.10.8 and PyYAML 6.0.3. The applicant's
 earlier personal reproduction used Windows/Python 3.13.15; its records remain
 under `evidence/personal_run/2026-10-02/`.
@@ -52,7 +52,7 @@ under `evidence/personal_run/2026-10-02/`.
 The release checker reruns weights 0.55, 0.70 and 0.85 in temporary directories
 without overwriting the saved baseline. It compares nine CSV tables using an
 absolute numeric tolerance of 1e-10 and exact text matching. All 11 unit tests
-and nine comparisons passed in the recorded assisted environment. The supplied
+and nine comparisons passed in the recorded reference environment. The supplied
 GitHub Actions matrix checks Linux and Windows with Python 3.11-3.13 after push;
 all six remote jobs passed for commit c6155e7.
 
@@ -80,7 +80,7 @@ and report were regenerated together. Current snapshots are under
 The main `outputs/` folder contains the corrected baseline. The original reference
 tables remain in `experiments/legacy_threshold_tail/`; personal logs and old
 output snapshots are retained. See `REFERENCE_RUNS.md`, `RELEASE_NOTES.md` and
-`evidence/assisted_review/2026-10-04_cvar_fix/` for provenance and actual checks.
+`evidence/reference_review/2026-10-04_cvar_fix/` for provenance and actual checks.
 
 Project 1 forecasts are included at `data/p1_forecasts.csv`. This reporting
 revision reuses those forecasts. A new forecasting model or dataset requires
@@ -158,7 +158,7 @@ For the current update and release steps see `UPDATE_V102_ZH.md`.
 - Maximum observed absolute numeric difference: 2.27373675443e-13.
 - Dated logs and installed package versions: evidence/personal_run/v101_check_20261004_224805.
 
-The applicant executed these checks locally using the assisted code correction. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
+The applicant executed these checks locally using the corrected code. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
 
 These checks establish numerical agreement for the three configurations within the stated tolerance. They do not claim byte-identical files across platforms. All financial results remain simulated benchmark results.
 

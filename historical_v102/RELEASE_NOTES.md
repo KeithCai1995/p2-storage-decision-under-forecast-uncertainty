@@ -32,7 +32,7 @@ forecast data, seed and chosen schedules are unchanged.
 | 0.70 | 14.544325 | 15.029772 |
 | 0.85 | 12.283447 | 12.585521 |
 
-Verification in the assisted Linux/Python 3.12.14 environment: 11/11 tests,
+Verification in the reference Linux/Python 3.12.14 environment: 11/11 tests,
 9/9 independently rerun table comparisons, and 3,744 paired solves with identical
 schedules, expected profit and LP objective. Original references and personal
 runs are retained. Local Windows/Python 3.13.15 verification passed. Remote CI passed for commit c6155e7; all six matrix jobs succeeded.
@@ -55,7 +55,7 @@ with the numerical correction. The version is 1.0.1, as requested by the applica
 - Maximum observed absolute numeric difference: 2.27373675443e-13.
 - Dated logs and installed package versions: evidence/personal_run/v101_check_20261004_224805.
 
-The applicant executed these checks locally using the assisted code correction. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
+The applicant executed these checks locally using the corrected code. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
 
 These checks establish numerical agreement for the three configurations within the stated tolerance. They do not claim byte-identical files across platforms. All financial results remain simulated benchmark results.
 

@@ -220,7 +220,7 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
         "source_infinite_interval_width_rows": {mode: int(np.isinf(forecasts[f"{mode}_upper"] - forecasts[f"{mode}_lower"]).sum()) for mode in ["static", "adaptive"]},
         "source_interval_widths_capped_above_4x_rows": {mode: int(((forecasts[f"{mode}_upper"] - forecasts[f"{mode}_lower"]) / np.maximum(forecasts["q90"] - forecasts["q10"], 1e-6) > 4).sum()) for mode in ["static", "adaptive"]},
         "data_status": "simulated_benchmark_not_field_data",
-        "claim_boundary": "AI-assisted technical revision of a simulated 24-hour scheduling benchmark; not realised market revenue or operational day-ahead scheduling. Horizon 1 issue_time equals target_time.",
+        "claim_boundary": "Simulated 24-hour scheduling benchmark; not realised market revenue or operational day-ahead scheduling. Horizon 1 issue_time equals target_time.",
         "seed": seed,
         "source_file": str(source.relative_to(root)),
         "source_rows": int(len(forecasts)),

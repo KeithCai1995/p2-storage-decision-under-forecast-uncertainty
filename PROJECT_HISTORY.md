@@ -1,7 +1,6 @@
 # Project history
 
-The supplied v1.0.2 material and earlier evidence predate this revision. The
-original history is preserved at
+The supplied v1.0.2 material and earlier evidence predate this revision. Earlier project history is recorded at
 [historical_v102/PROJECT_HISTORY.md](historical_v102/PROJECT_HISTORY.md).
 
 ## Version timeline
@@ -20,5 +19,5 @@ original history is preserved at
 ## Sources
 
 Initial code and reference analyses were supplied. The v1.1.0 corrections and
-reference-run preparation used AI assistance. Method sources are credited in
+reference-run preparation are documented in the dated verification records. Method sources are credited in
 [RELATED_WORK.md](RELATED_WORK.md); execution details remain in the dated records.

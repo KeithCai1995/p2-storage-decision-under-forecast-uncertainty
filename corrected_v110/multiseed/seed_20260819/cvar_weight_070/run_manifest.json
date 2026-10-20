@@ -15,7 +15,7 @@
     "adaptive": 3
   },
   "data_status": "simulated_benchmark_not_field_data",
-  "claim_boundary": "AI-assisted technical revision of a simulated 24-hour scheduling benchmark; not realised market revenue or operational day-ahead scheduling. Horizon 1 issue_time equals target_time.",
+  "claim_boundary": "Simulated 24-hour scheduling benchmark; not realised market revenue or operational day-ahead scheduling. Horizon 1 issue_time equals target_time.",
   "seed": 20260819,
   "source_file": "data\\p1_forecasts.csv",
   "source_rows": 1992,

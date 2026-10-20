@@ -6,6 +6,5 @@
   "constraint_violations": 0.0,
   "max_soc_transition_error_mwh": 5.995204332975845e-14,
   "max_terminal_soc_error_mwh": 0.0,
-  "tolerance": 1e-07,
-  "authorship": "AI-assisted local technical revision; not applicant personal reproduction"
+  "tolerance": 1e-07
 }

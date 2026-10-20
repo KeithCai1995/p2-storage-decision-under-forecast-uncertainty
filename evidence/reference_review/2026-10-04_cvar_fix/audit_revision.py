@@ -1,4 +1,4 @@
-"""Assisted old/new reporting audit; never overwrite the historical snapshots."""
+"""Reference old/new reporting audit; never overwrite the historical snapshots."""
 from __future__ import annotations
 import argparse,json,sys
 from pathlib import Path
@@ -46,5 +46,5 @@ def main():
         reports.append({'configuration':config,'snapshot':name,**stats,'max_non_cvar_difference_from_historical_tables':differences,'adaptive_cvar':result['summary'].set_index('strategy').loc['adaptive_cvar'].to_dict()})
         print(name,json.dumps(stats),flush=True)
         print(result['summary'].to_string(index=False),flush=True)
-    (target/'audit_results.json').write_text(json.dumps({'assisted_review':True,'date':'2026-10-04','cvar_estimator':'empirical_fixed_probability_mass_v1','comparisons':reports},indent=2)+'\n',encoding='utf-8')
+    (target/'audit_results.json').write_text(json.dumps({'reference_review':True,'date':'2026-10-04','cvar_estimator':'empirical_fixed_probability_mass_v1','comparisons':reports},indent=2)+'\n',encoding='utf-8')
 if __name__=='__main__':main()

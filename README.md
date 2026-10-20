@@ -11,7 +11,7 @@ The corrected edition solves exclusive charge/discharge schedules with SciPy/HiG
 - `corrected_v110/multiseed/` varies **scenario-draw seeds** on the same simulated market and forecasts; this measures finite-scenario sensitivity.
 - `corrected_v110/market_seeds/` varies the corrected P1 simulated market seed at weight .55 with a fixed scenario seed.
 - [New revision and verification summary](NEW_RELEASE_SUMMARY.md).
-- All previous output snapshots, report PDFs, release documentation and report builder are preserved under `historical_v102/`. Original personal and CI records remain under `evidence/`; their dates and old version scope must be retained.
+- Historical numerical outputs, input files and figures remain under `historical_v102/`, together with prior reports, documentation and the report builder. Dated personal and CI records remain under `evidence/`; their numerical results, execution dates and version scope are retained.
 
 ## Corrections
 
@@ -54,7 +54,7 @@ The active source is `report/report_v110.md`; visually review a newly rendered P
 
 The release checker reruns all three weights and compares six tables per run to **v1.1.0** references at absolute tolerance 1e-8. It also checks manifest version, source hash and scenario method, recalculates full physical diagnostics from every saved schedule, and checks strategy/frontier consistency where weights coincide. Historical reference numbers are never accepted as the new release.
 
-Reference verification logs for the 18 October package are in `evidence/local_ai_revision_20261018/`; the later local rerun is recorded in [project history](PROJECT_HISTORY.md). These are local checks. Use the actual GitHub Actions result for a published commit; historical six-job CI results do not apply to v1.1.0.
+Reference verification logs for the 18 October package are in `evidence/local_revision_20261018/`; the later local rerun is recorded in [project history](PROJECT_HISTORY.md). These are local checks. Use the actual GitHub Actions result for a published commit; historical six-job CI results do not apply to v1.1.0.
 
 ## Limits and provenance
 

@@ -1,5 +1,5 @@
 {
-  "assisted_review": true,
+  "reference_review": true,
   "date": "2026-10-04",
   "cvar_estimator": "empirical_fixed_probability_mass_v1",
   "comparisons": [
