@@ -153,7 +153,9 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
             "median_risk_neutral": optimise_schedule(day["q50"].to_numpy(), battery),
             "raw_cvar": optimise_schedule(scenario_sets["raw"], battery, cvar_alpha, cvar_weight),
             "static_cvar": optimise_schedule(scenario_sets["static"], battery, cvar_alpha, cvar_weight),
-            "adaptive_risk_neutral": optimise_schedule(scenario_sets["adaptive"], battery),
+            "adaptive_risk_neutral": optimise_schedule(
+                scenario_sets["adaptive"], battery, cvar_alpha=cvar_alpha, cvar_weight=0.0
+            ),
             "adaptive_cvar": optimise_schedule(scenario_sets["adaptive"], battery, cvar_alpha, cvar_weight),
             "oracle": optimise_schedule(actual, battery),
         }

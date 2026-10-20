@@ -15,6 +15,14 @@ The supplied v1.0.2 material and earlier evidence predate this revision. Earlier
   checked 3,486 saved/rerun schedules. Local logs remain outside this repository
   under `Personal_Logs/20261019_080009/`. This does not record a new remote CI run
   or fresh personal execution of the full sensitivity grid.
+- **20 October 2026 (local fix, not yet published):** the adaptive risk-neutral
+  strategy now reports in-sample CVaR using the configured `risk.cvar_alpha`,
+  while retaining a zero risk penalty. Two end-to-end regression tests cover
+  alpha values .80, .90, .95 and .99 across two scheduling days. All 22 tests
+  passed; all 18 default-release table comparisons had zero numerical
+  difference, and 3,486 saved/rerun schedules were checked. The original dated
+  reference tables and earlier test records are unchanged. These results are
+  local verification of this fix, not a new GitHub Actions result.
 
 ## Sources
 
