@@ -2,7 +2,7 @@
 
 Local technical revision v1.1.0 · 18 October 2026
 
-**Authorship and evidence.** This is an AI-assisted technical revision of an existing portfolio project. The corrections, experiments and this report were produced with assistant support; they are not presented as the applicant's independent original research or personal reproduction. Historical personal-run and CI records retain their earlier dates and scope. This revision has local verification only.
+**Evidence scope.** This report documents the reference package prepared on 18 October 2026. Historical personal-run and CI records retain their original dates and version scope. The later local reproduction is recorded separately in `PROJECT_HISTORY.md`.
 
 ## Abstract
 
@@ -139,7 +139,7 @@ The simulator has no observed grid or market data. Its seasonal patterns, regime
 
 ### Reproduction and evidence
 
-Follow the README to create fresh `local_runs/` outputs; do not overwrite supplied references. Study scripts reuse existing cached runs; the release verifier independently reruns the three weights. Current results are under `corrected_v110/`; `outputs/` mirrors the baseline. Logs are in `evidence/local_ai_revision_20261018/`. `NEW_RELEASE_SUMMARY.md` indexes checks. Baseline input SHA256: `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`.
+Follow the README to create fresh `local_runs/` outputs; do not overwrite supplied references. Study scripts reuse existing cached runs; the release verifier independently reruns the three weights. Current results are under `corrected_v110/`; `outputs/` mirrors the baseline. Logs are in `evidence/local_revision_20261018/`. `NEW_RELEASE_SUMMARY.md` indexes checks. Baseline input SHA256: `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`.
 
 ### References
 

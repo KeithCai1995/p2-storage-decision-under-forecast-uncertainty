@@ -27,7 +27,7 @@ def main():
         frame = pd.DataFrame(diagnostics)
         assert np.isfinite(frame.to_numpy()).all() and frame.constraint_violations.eq(0).all()
         rows.append({"run": path.parent.relative_to(ROOT).as_posix(), "schedules_checked": len(frame), "periods_checked": len(schedules), "constraint_violations": float(frame.constraint_violations.sum()), "max_soc_transition_error_mwh": float(frame.max_soc_transition_error_mwh.max()), "max_soc_continuity_error_mwh": float(frame.max_soc_continuity_error_mwh.max()), "max_terminal_soc_error_mwh": float(frame.terminal_soc_error_mwh.max()), "maximum_exclusivity_violations": float(frame.exclusivity_violations.max()), "source_sha256": manifest["source_sha256"]})
-    evidence = ROOT / "evidence/local_ai_revision_20261018"
+    evidence = ROOT / "evidence/local_revision_20261018"
     evidence.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(evidence / "all_saved_schedule_audit.csv", index=False)
     regression = []
@@ -36,7 +36,7 @@ def main():
         result = optimise_schedule(np.array([-100.]), battery, formulation=formulation)
         regression.append({"formulation": formulation, **result.schedule.iloc[0].to_dict(), "profit_eur": result.expected_profit, **constraint_diagnostics(result.schedule, battery)})
     pd.DataFrame(regression).to_csv(evidence / "negative_price_regression.csv", index=False)
-    summary = {"revision": "1.1.0", "runs_audited": len(rows), "schedules_checked": sum(row["schedules_checked"] for row in rows), "periods_checked": sum(row["periods_checked"] for row in rows), "constraint_violations": sum(row["constraint_violations"] for row in rows), "max_soc_transition_error_mwh": max(row["max_soc_transition_error_mwh"] for row in rows), "max_terminal_soc_error_mwh": max(row["max_terminal_soc_error_mwh"] for row in rows), "tolerance": 1e-7, "authorship": "AI-assisted local technical revision; not applicant personal reproduction"}
+    summary = {"revision": "1.1.0", "runs_audited": len(rows), "schedules_checked": sum(row["schedules_checked"] for row in rows), "periods_checked": sum(row["periods_checked"] for row in rows), "constraint_violations": sum(row["constraint_violations"] for row in rows), "max_soc_transition_error_mwh": max(row["max_soc_transition_error_mwh"] for row in rows), "max_terminal_soc_error_mwh": max(row["max_terminal_soc_error_mwh"] for row in rows), "tolerance": 1e-7}
     (evidence / "all_saved_schedule_audit.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))
 

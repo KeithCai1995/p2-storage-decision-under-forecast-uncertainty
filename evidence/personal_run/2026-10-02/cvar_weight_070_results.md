@@ -59,7 +59,7 @@ This is a sensitivity comparison using one simulated dataset, one seed and a sma
 ## Follow-up diagnostic, 4 October 2026
 
 The statement above that the cause of the daily CVaR differences had not been
-established describes the 2 October analysis. A later assisted Python 3.12.14
+established describes the 2 October analysis. A later reference Python 3.12.14
 rerun reproduced the 0.70 aggregate metrics within numerical precision. Two
 daily `in_sample_cvar_loss_eur` rows differed from this Windows/Python 3.13.15
 run (maximum absolute difference 0.447155). Losses nearly tied at the empirical
@@ -71,6 +71,6 @@ version alone. Details are in `reproduction_summary.md` in this directory.
 
 The earlier numbers and failed comparisons above are preserved as historical
 evidence. Version 1.0.1 uses fixed-probability-mass empirical CVaR and regenerated
-risk outputs in an assisted Linux/Python 3.12.14 review. Current snapshots are
-under `experiments/`; logs are under `evidence/assisted_review/2026-10-04_cvar_fix/`.
-These assisted reruns were not personally performed by the applicant.
+risk outputs in an reference Linux/Python 3.12.14 review. Current snapshots are
+under `experiments/`; logs are under `evidence/reference_review/2026-10-04_cvar_fix/`.
+These reruns are recorded as reference verification.

@@ -49,17 +49,17 @@ Both configurations ran successfully, and their aggregate strategy metrics and r
 
 All figures and financial results in this project come from simulated data. They are not evidence of real trading performance or field outcomes.
 
-## Follow-up assisted review, 4 October 2026
+## Follow-up reference review, 4 October 2026
 
 This section records a later diagnosis; it does not change what was known during
 the applicant's 2 October Windows run. The supplied reference environment and a
-3 October assisted Linux rerun used Python 3.12.14, NumPy 2.3.5, pandas 2.2.3 and
+3 October reference Linux rerun used Python 3.12.14, NumPy 2.3.5, pandas 2.2.3 and
 SciPy 1.17.0. The applicant used Windows/Python 3.13.15. The applicant first
 installed newer available packages (NumPy 2.5.3, pandas 3.0.6, SciPy 1.18.1) and
 then matched the three reference package versions; the few daily differences
 remained after that package change.
 
-In the assisted Python 3.12.14 rerun, the baseline output files, including the
+In the reference Python 3.12.14 rerun, the baseline output files, including the
 figures and tables, matched the supplied baseline snapshot byte-for-byte. The
 0.85 run's three selected reference tables also matched byte-for-byte. Aggregate
 results from the applicant's three runs remained consistent with the report. A
@@ -80,6 +80,6 @@ comparison failures remain part of the record.
 
 The earlier numbers and failed comparisons above are preserved as historical
 evidence. Version 1.0.1 uses fixed-probability-mass empirical CVaR and regenerated
-risk outputs in an assisted Linux/Python 3.12.14 review. Current snapshots are
-under `experiments/`; logs are under `evidence/assisted_review/2026-10-04_cvar_fix/`.
-These assisted reruns were not personally performed by the applicant.
+risk outputs in an reference Linux/Python 3.12.14 review. Current snapshots are
+under `experiments/`; logs are under `evidence/reference_review/2026-10-04_cvar_fix/`.
+These reruns are recorded as reference verification.

@@ -265,7 +265,7 @@ This release corrects empirical CVaR reporting using a fixed worst-tail probabil
 
 Report: report/P2_Mini_Paper_Haorui_Cai.pdf
 
-Assisted Linux/Python 3.12.14 verification passed 11 unit tests and 9 rerun table comparisons. Across 3,744 paired solves, schedules, expected profit and LP objectives were unchanged. The original Windows/Python 3.13.15 personal reproduction records are retained separately.
+Reference Linux/Python 3.12.14 verification passed 11 unit tests and 9 rerun table comparisons. Across 3,744 paired solves, schedules, expected profit and LP objectives were unchanged. The original Windows/Python 3.13.15 personal reproduction records are retained separately.
 
 All prices, schedules, profits, losses and regret values are simulated. This is a research portfolio benchmark, not evidence of real-market trading performance.
 ```

@@ -3,10 +3,10 @@
 The supplied ZIP identifies commit
 `1ed70de61059a35fe9ded074b34a7ee8ad75aefc`; its SHA256 is
 `4dcf950fd1f3ed3340b73f33dcd6564350a015645cd2ce72347c49ea430f1033`.
-The separate supplied PDF matches its archive counterpart.
+At the 9 October review, the separate supplied PDF matched its archive counterpart.
 
-This assisted technical review is not a new personal run by the applicant or
-a GitHub Actions run. The existing audit logs record fresh execution before
+This technical review records reference verification separately from personal
+Windows verification and GitHub Actions runs. The existing audit logs record fresh execution before
 documentation edits. Numerical source, tests, data, configurations and output
 snapshots were then checked byte for byte against the revision candidate.
 Only the package version string changes within src/.

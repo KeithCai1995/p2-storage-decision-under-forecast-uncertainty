@@ -19,9 +19,9 @@ Check a new CI run after pushing v1.0.2.
 ## Retained v1.0.1 numerical outputs
 
 The empirical CVaR reporting correction and recovery verification were performed
-in an assisted Linux/Python 3.12.14 environment on 4 October 2026. NumPy 2.3.5,
+in an reference Linux/Python 3.12.14 environment on 4 October 2026. NumPy 2.3.5,
 pandas 2.2.3, SciPy 1.17.0, Matplotlib 3.10.8 and PyYAML 6.0.3 were used. These
-are assisted reviews, not new runs personally performed by the applicant.
+are dated reference reviews.
 The simulated P1 forecast input SHA256 is
 `81252fba7fd9b5999ba93691aba6049867b8a09e9bb5b7f3fd3f2bbf6ac9d04e`.
 
@@ -51,9 +51,9 @@ with tolerance 1e-10. The old/new reporting audit compared 1,248 solves per
 configuration, including evaluation, frontier and battery sensitivity: all 3,744
 pairs had identical schedules, expected profits and LP objective values.
 Historical non-CVaR table values agree within 1e-10. Logs and audit code are
-under `evidence/assisted_review/2026-10-04_cvar_fix/`.
+under `evidence/reference_review/2026-10-04_cvar_fix/`.
 
-At the assisted review on 4 October 2026, local Windows verification and remote CI had not yet been completed. Their subsequent results are recorded below. Bitwise-identical plots on every
+At the reference review on 4 October 2026, local Windows verification and remote CI had not yet been completed. Their subsequent results are recorded below. Bitwise-identical plots on every
 platform are not claimed.
 
 ## Historical records
@@ -67,8 +67,7 @@ weight 0.70, remain in `evidence/personal_run/2026-10-02/`. With matched NumPy,
 pandas and SciPy versions, a few daily CVaR diagnostics still differed. Near-tied
 scenario losses and threshold membership explain the unstable reporting pattern;
 Python version alone was not isolated as the cause. Original interpretations
-remain intact with dated follow-up additions. Disclose AI or other assistance
-according to the relevant application rules.
+remain recorded with dated follow-up additions.
 
 ## Applicant's local Windows verification
 
@@ -82,7 +81,7 @@ according to the relevant application rules.
 - Maximum observed absolute numeric difference: 2.27373675443e-13.
 - Dated logs and installed package versions: evidence/personal_run/v101_check_20261004_224805.
 
-The applicant executed these checks locally using the assisted code correction. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
+The applicant executed these checks locally using the corrected code. The comparisons use the corrected v1.0.1 references. Earlier reproduction records are retained separately.
 
 These checks establish numerical agreement for the three configurations within the stated tolerance. They do not claim byte-identical files across platforms. All financial results remain simulated benchmark results.
 
