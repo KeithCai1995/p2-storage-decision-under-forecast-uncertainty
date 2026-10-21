@@ -20,7 +20,7 @@
   "source_file": "data\\market_seed_20260818_p1_forecasts.csv",
   "source_rows": 1992,
   "source_sha256": "c8c8278d3a237f55c2169bedc3a857f0e3d07e7098b0c233da9f7e5bc3615d50",
-  "implementation_path": "C:\\Users\\40610\\Documents\\Codex\\2026-10-12\\tools-numpy-pandas-scipy-highs-scikit\\work\\revision_20261018\\p2\\src\\storage_decision\\experiment.py",
+  "implementation_path": "<WORKSPACE>\\2026-10-12\\tools-numpy-pandas-scipy-highs-scikit\\work\\revision_20261018\\p2\\src\\storage_decision\\experiment.py",
   "horizon1_issue_equals_target_rows": 83,
   "test_days": 83,
   "battery": {

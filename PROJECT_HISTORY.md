@@ -41,6 +41,12 @@ The supplied v1.0.2 material and earlier evidence predate this revision. Earlier
   21 October update; current local test/release results are indexed separately
   in `NEW_RELEASE_SUMMARY.md`.
 
+- **21 October 2026 - presentation follow-up:** redacted local workspace prefixes
+  using an explicit `<WORKSPACE>` placeholder while retaining original dates,
+  hashes and result values, and updated the README to distinguish merged PR #4
+  from its earlier local verification snapshot. No scheduling implementation or
+  numerical artifacts changed. See `PRESENTATION_UPDATE_20261021.md`.
+
 ## Sources
 
 Initial code and reference analyses were supplied. The v1.1.0 corrections and

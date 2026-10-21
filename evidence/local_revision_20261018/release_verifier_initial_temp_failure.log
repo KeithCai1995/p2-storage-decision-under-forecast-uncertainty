@@ -7,10 +7,10 @@ FileNotFoundError: [WinError 3] ϵͳ�Ҳ���ָ����·����: 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 54, in main
+  File "<WORKSPACE>\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 54, in main
     run(ROOT / "configs" / config, ROOT, destination)
     ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\src\storage_decision\experiment.py", line 111, in run
+  File "<WORKSPACE>\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\src\storage_decision\experiment.py", line 111, in run
     folder.mkdir(parents=True, exist_ok=True)
     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 726, in mkdir
@@ -32,10 +32,10 @@ PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\40610\\AppData
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 65, in <module>
+  File "<WORKSPACE>\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 65, in <module>
     if __name__ == "__main__": raise SystemExit(main())
                                                 ~~~~^^
-  File "C:\Users\40610\Documents\Codex\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 49, in main
+  File "<WORKSPACE>\2026-10-12\tools-numpy-pandas-scipy-highs-scikit\work\revision_20261018\p2\scripts\verify_release.py", line 49, in main
     with TemporaryDirectory(prefix="p2_v110_release_check_") as temporary:
          ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\40610\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 952, in __exit__

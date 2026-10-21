@@ -20,7 +20,7 @@
   "source_file": "data\\p1_forecasts.csv",
   "source_rows": 1992,
   "source_sha256": "6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b",
-  "implementation_path": "C:\\Users\\40610\\Documents\\Codex\\2026-10-12\\tools-numpy-pandas-scipy-highs-scikit\\work\\revision_20261018\\p2\\src\\storage_decision\\experiment.py",
+  "implementation_path": "<WORKSPACE>\\2026-10-12\\tools-numpy-pandas-scipy-highs-scikit\\work\\revision_20261018\\p2\\src\\storage_decision\\experiment.py",
   "horizon1_issue_equals_target_rows": 83,
   "test_days": 83,
   "battery": {
