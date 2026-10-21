@@ -46,7 +46,7 @@ def verify_saved_run(destination: Path) -> int:
 
 def main() -> int:
     failures, comparisons, checked = 0, 0, 0
-    scratch = ROOT / "evidence/local_revision_20261018"
+    scratch = ROOT / "local_runs/release_checks"
     scratch.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(prefix="p2_v110_release_check_", dir=scratch) as temporary:
         for config, snapshot in CASES:

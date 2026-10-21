@@ -14,6 +14,7 @@ import scipy
 import yaml
 
 from . import __version__
+from .artifacts import prepare_output
 from .battery import (
     BatteryConfig,
     constraint_diagnostics,
@@ -102,9 +103,11 @@ def _save(fig: plt.Figure, path: Path) -> None:
 
 
 def run(config_path: str | Path, root: str | Path, output_root: str | Path | None = None,
-        seed_override: int | None = None, source_override: str | Path | None = None) -> dict:
+        seed_override: int | None = None, source_override: str | Path | None = None,
+        overwrite: bool = False) -> dict:
     root = Path(root).resolve()
     output = Path(output_root).resolve() if output_root is not None else root / "outputs"
+    output = prepare_output(output, root, overwrite)
     config = yaml.safe_load(Path(config_path).read_text(encoding="utf-8"))
     if seed_override is not None:
         config["seed"] = seed_override
@@ -209,7 +212,8 @@ def run(config_path: str | Path, root: str | Path, output_root: str | Path | Non
     _plot_profit_distribution(daily, output / "figures" / "figure_3_profit_distribution.png")
     _plot_regret(summary, output / "figures" / "figure_4_decision_regret.png")
     _plot_frontier(frontier, output / "figures" / "figure_5_risk_frontier.png")
-    _plot_sensitivity(sensitivity, output / "figures" / "figure_6_battery_sensitivity.png")
+    _plot_sensitivity(sensitivity, output / "figures" / "figure_6_battery_sensitivity.png",
+                      min(config["evaluation"]["sensitivity_days"], forecasts["issue_day"].nunique()))
 
     manifest = {
         "project": "P2_forecast_to_storage",
@@ -382,7 +386,7 @@ def _plot_frontier(frontier: pd.DataFrame, path: Path) -> None:
     _save(fig, path)
 
 
-def _plot_sensitivity(sensitivity: pd.DataFrame, path: Path) -> None:
+def _plot_sensitivity(sensitivity: pd.DataFrame, path: Path, sensitivity_days: int = 28) -> None:
     pivot = sensitivity.pivot(index="round_trip_efficiency", columns="energy_capacity_mwh", values="mean_daily_profit_eur")
     fig, ax = plt.subplots(figsize=(6.4, 4.0))
     image = ax.imshow(pivot.to_numpy(), cmap="Blues", aspect="auto")
@@ -391,6 +395,7 @@ def _plot_sensitivity(sensitivity: pd.DataFrame, path: Path) -> None:
     for i in range(len(pivot.index)):
         for j in range(len(pivot.columns)):
             ax.text(j, i, f"{pivot.iloc[i, j]:.1f}", ha="center", va="center", color="black", fontsize=8)
-    ax.set(title="Battery sensitivity: mean daily profit", xlabel="Energy capacity (MWh)", ylabel="Round-trip efficiency")
+    ax.set(title=f"Median risk-neutral: first {sensitivity_days} scheduling days",
+           xlabel="Energy capacity (MWh)", ylabel="Round-trip efficiency")
     fig.colorbar(image, ax=ax, label="EUR/day")
     _save(fig, path)

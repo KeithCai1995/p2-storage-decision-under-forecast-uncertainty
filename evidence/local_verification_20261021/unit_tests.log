@@ -1,0 +1,49 @@
+test_cvar_schedule_is_feasible (test_battery.TestBatteryOptimisation.test_cvar_schedule_is_feasible) ... ok
+test_full_diagnostics_detect_transition_continuity_and_negative_power (test_battery.TestBatteryOptimisation.test_full_diagnostics_detect_transition_continuity_and_negative_power) ... ok
+test_negative_price_regression_exposes_old_lp_cycle (test_battery.TestBatteryOptimisation.test_negative_price_regression_exposes_old_lp_cycle) ... ok
+test_rejects_nonfinite_and_empty_solver_inputs (test_battery.TestBatteryOptimisation.test_rejects_nonfinite_and_empty_solver_inputs) ... ok
+test_reported_cvar_matches_the_solved_objective (test_battery.TestBatteryOptimisation.test_reported_cvar_matches_the_solved_objective) ... ok
+test_schedule_is_feasible_and_terminal_soc_is_restored (test_battery.TestBatteryOptimisation.test_schedule_is_feasible_and_terminal_soc_is_restored) ... ok
+test_fractional_boundary_mass (test_cvar.TestEmpiricalCVaR.test_fractional_boundary_mass) ... ok
+test_integer_tail_mass (test_cvar.TestEmpiricalCVaR.test_integer_tail_mass) ... ok
+test_less_than_one_observation_in_tail (test_cvar.TestEmpiricalCVaR.test_less_than_one_observation_in_tail) ... ok
+test_matches_independent_rockafellar_uryasev_lp (test_cvar.TestEmpiricalCVaR.test_matches_independent_rockafellar_uryasev_lp) ... ok
+test_near_tie_perturbation_is_continuous (test_cvar.TestEmpiricalCVaR.test_near_tie_perturbation_is_continuous) ... ok
+test_rejects_invalid_inputs (test_cvar.TestEmpiricalCVaR.test_rejects_invalid_inputs) ... ok
+test_ties_do_not_expand_the_tail (test_cvar.TestEmpiricalCVaR.test_ties_do_not_expand_the_tail) ... ok
+test_zero_alpha_and_constant_or_negative_losses (test_cvar.TestEmpiricalCVaR.test_zero_alpha_and_constant_or_negative_losses) ... ok
+test_alpha_changes_risk_reporting_not_risk_neutral_decisions (test_experiment.TestExperimentRiskReporting.test_alpha_changes_risk_reporting_not_risk_neutral_decisions) ... ok
+test_run_reports_configured_cvar_for_every_strategy (test_experiment.TestExperimentRiskReporting.test_run_reports_configured_cvar_for_every_strategy) ... ok
+test_rejects_invalid_config_values (test_inputs.TestInputValidation.test_rejects_invalid_config_values) ... ok
+test_rejects_invalid_forecast_rows (test_inputs.TestInputValidation.test_rejects_invalid_forecast_rows) ... ok
+test_valid_corrected_input (test_inputs.TestInputValidation.test_valid_corrected_input) ... ok
+test_cli_forwards_only_explicit_overwrite_permission (test_output_safety.TestOutputSafety.test_cli_forwards_only_explicit_overwrite_permission) ... ok
+test_legacy_local_experiment_can_be_explicitly_overwritten (test_output_safety.TestOutputSafety.test_legacy_local_experiment_can_be_explicitly_overwritten) ... ok
+test_new_output_and_explicit_overwrite_preserve_unrelated_files (test_output_safety.TestOutputSafety.test_new_output_and_explicit_overwrite_preserve_unrelated_files) ... ok
+test_plotting_api_minimum_matches_dependency_declarations (test_output_safety.TestOutputSafety.test_plotting_api_minimum_matches_dependency_declarations) ... ok
+test_root_sources_git_and_reference_outputs_are_protected (test_output_safety.TestOutputSafety.test_root_sources_git_and_reference_outputs_are_protected) ... ok
+test_run_refuses_nonempty_before_reading_or_solving (test_output_safety.TestOutputSafety.test_run_refuses_nonempty_before_reading_or_solving) ... ok
+test_unknown_nonempty_output_never_gets_overwrite_permission (test_output_safety.TestOutputSafety.test_unknown_nonempty_output_never_gets_overwrite_permission) ... ok
+test_common_uniforms_preserve_underlying_ranks_across_modes (test_scenarios.TestScenarioSampling.test_common_uniforms_preserve_underlying_ranks_across_modes) ... ok
+test_infinite_source_interval_is_explicitly_capped_and_scenarios_finite (test_scenarios.TestScenarioSampling.test_infinite_source_interval_is_explicitly_capped_and_scenarios_finite) ... ok
+test_rejects_invalid_sampling_and_forecast_inputs (test_scenarios.TestScenarioSampling.test_rejects_invalid_sampling_and_forecast_inputs) ... ok
+test_matching_reference_is_read_with_correct_input_hash (test_study_io.TestStudyReuse.test_matching_reference_is_read_with_correct_input_hash) ... ok
+test_reuse_rejects_other_seed_or_configuration (test_study_io.TestStudyReuse.test_reuse_rejects_other_seed_or_configuration) ... ok
+test_action_difference_uses_both_charge_and_discharge (test_supplementary.TestSupplementaryStudy.test_action_difference_uses_both_charge_and_discharge) ... ok
+test_idle_is_feasible_and_zero_even_at_negative_prices (test_supplementary.TestSupplementaryStudy.test_idle_is_feasible_and_zero_even_at_negative_prices) ... ok
+test_nested_uniforms_are_exact_prefixes_without_changing_legacy_sampler (test_supplementary.TestSupplementaryStudy.test_nested_uniforms_are_exact_prefixes_without_changing_legacy_sampler) ... ok
+Completed supplementary scenario seed 1: 2 days, N=(3, 6)
+Completed supplementary scenario seed 2: 2 days, N=(3, 6)
+Completed supplementary scenario seed 3: 2 days, N=(3, 6)
+ n_scenarios      strategy  n_seeds  mean_profit_mean  mean_profit_min  mean_profit_max  cvar_loss_mean  cvar_loss_min  cvar_loss_max  total_solve_seconds
+           3 adaptive_cvar        3        -15.231408       -38.898417         0.949676       43.320140       9.913318      89.963582             0.031197
+           3   static_cvar        3         -9.925583       -33.137602        10.286388       36.433822       3.504311      78.975984             0.032380
+           6 adaptive_cvar        3         -0.861558        -5.253856         7.358570       24.752745      14.651530      37.913075             0.023875
+           6   static_cvar        3         -4.838981       -17.651891         8.286920       28.695168      18.035076      39.184249             0.038366
+24 strategy schedules and 2 idle schedules checked; wall 0.156s
+test_small_fresh_study_schema_and_metrics (test_supplementary.TestSupplementaryStudy.test_small_fresh_study_schema_and_metrics) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 1.248s
+
+OK

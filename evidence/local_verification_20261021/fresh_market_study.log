@@ -1,0 +1,25 @@
+fresh_run: simulated market seed 20260817; scenario seed 20260817
+fresh_run: simulated market seed 20260818; scenario seed 20260817
+fresh_run: simulated market seed 20260819; scenario seed 20260817
+ market_seed              strategy  mean_daily_profit_eur  empirical_cvar_loss_eur
+    20260817        seasonal_naive             -28.279701                82.636178
+    20260817   median_risk_neutral               8.691456                24.002282
+    20260817              raw_cvar               9.824954                20.671937
+    20260817           static_cvar               8.312606                18.461950
+    20260817 adaptive_risk_neutral               7.628159                27.386826
+    20260817         adaptive_cvar               8.342875                17.903540
+    20260817                oracle              56.645575               -24.677314
+    20260818        seasonal_naive             -24.103342                76.719295
+    20260818   median_risk_neutral              10.481237                25.700679
+    20260818              raw_cvar              10.216645                25.894578
+    20260818           static_cvar               8.707315                19.798796
+    20260818 adaptive_risk_neutral               8.960836                28.925836
+    20260818         adaptive_cvar               8.778388                20.531445
+    20260818                oracle              61.952774               -27.485929
+    20260819        seasonal_naive             -25.736143                93.010218
+    20260819   median_risk_neutral               9.154388                31.233342
+    20260819              raw_cvar              11.572049                21.288503
+    20260819           static_cvar              10.804878                18.235675
+    20260819 adaptive_risk_neutral               9.490264                37.804124
+    20260819         adaptive_cvar              11.035034                17.110700
+    20260819                oracle              62.527587               -26.257417

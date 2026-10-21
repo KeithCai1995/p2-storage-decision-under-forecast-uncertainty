@@ -26,6 +26,25 @@ def generate_uniforms(n_scenarios: int, horizon: int, common_factor_loading: flo
     return np.clip(norm.cdf(latent), 0.001, 0.999)
 
 
+def generate_nested_uniforms(counts: list[int] | tuple[int, ...], horizon: int,
+                             common_factor_loading: float, seed: int) -> dict[int, np.ndarray]:
+    """Use prefixes of one maximum-size draw for a paired scenario-count study.
+
+    This deliberately leaves ``generate_uniforms`` and historical experiments
+    unchanged. A small prefix need not equal a historical standalone small draw:
+    the RNG draws all common factors before its hourly idiosyncratic factors.
+    """
+    if not counts:
+        raise ValueError("At least one scenario count is required")
+    for count in counts:
+        if isinstance(count, bool) or not isinstance(count, (int, np.integer)) or count < 1:
+            raise ValueError("Scenario counts must be positive integers")
+    if len(set(counts)) != len(counts):
+        raise ValueError("Scenario counts must be distinct")
+    draws = generate_uniforms(max(counts), horizon, common_factor_loading, seed)
+    return {count: draws[:count].copy() for count in counts}
+
+
 def generate_price_scenarios(
     day_frame: pd.DataFrame,
     mode: str,
