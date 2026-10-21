@@ -1,0 +1,72 @@
+{
+  "package_version": "1.1.0",
+  "study_date": "2026-10-21",
+  "execution": "fresh_run",
+  "study": "paired_scenario_count_sensitivity",
+  "pilot": false,
+  "scenario_counts": [
+    60,
+    200
+  ],
+  "scenario_seeds": [
+    20260817,
+    20260818,
+    20260819
+  ],
+  "strategies": [
+    "static_cvar",
+    "adaptive_cvar"
+  ],
+  "test_days": 83,
+  "schedules_checked": 1079,
+  "strategy_schedules_checked": 996,
+  "idle_schedules_checked": 83,
+  "periods_checked": 25896,
+  "constraint_violations": 0.0,
+  "scenario_sampling": "For each seed/day, draw max(N) uniforms once; smaller N is its exact prefix. Static/adaptive share identical uniforms.",
+  "sampling_difference_from_reference": "The N=60 prefix of the N=200 draw is not the historical standalone N=60 draw; do not treat their outcomes as identical reruns.",
+  "runtime_definition": "solve_seconds includes optimise_schedule only, not scenario generation, I/O or plotting; wall_seconds covers the main paired loop",
+  "wall_seconds": 17.193969100015238,
+  "source_sha256": "6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b",
+  "source_file": "data\\p1_forecasts.csv",
+  "config": {
+    "seed": 20260817,
+    "data": {
+      "p1_forecasts": "data/p1_forecasts.csv"
+    },
+    "scenarios": {
+      "n_scenarios": 60,
+      "common_factor_loading": 0.65
+    },
+    "battery": {
+      "energy_capacity_mwh": 2.0,
+      "power_capacity_mw": 1.0,
+      "charge_efficiency": 0.94,
+      "discharge_efficiency": 0.94,
+      "initial_soc_fraction": 0.5,
+      "terminal_soc_equal_initial": true,
+      "throughput_cost_eur_per_mwh": 2.0
+    },
+    "risk": {
+      "cvar_alpha": 0.9,
+      "cvar_weight": 0.55
+    },
+    "evaluation": {
+      "sensitivity_days": 28,
+      "frontier_weights": [
+        0.0,
+        0.15,
+        0.35,
+        0.55,
+        0.85
+      ]
+    }
+  },
+  "software": {
+    "python": "3.13.15",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0"
+  },
+  "limits": "One simulated market, weight .55 by default, three paired Monte Carlo seeds; ranges are not confidence intervals or proof of scenario convergence/joint calibration."
+}

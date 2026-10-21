@@ -1,8 +1,8 @@
 # Forecast uncertainty and simulated storage scheduling
 
-Local technical revision v1.1.0 · 18 October 2026
+Reference study: 18 October 2026 · Technical update: 21 October 2026 · v1.1.0
 
-**Evidence scope.** This report documents the reference package prepared on 18 October 2026. Historical personal-run and CI records retain their original dates and version scope. The later local reproduction is recorded separately in `PROJECT_HISTORY.md`.
+**Evidence scope.** Original numerical references were prepared on 18 October 2026. A separate section below reports the fresh 21 October supplementary study. Earlier personal-run and CI records retain their dates and version scope; the published alpha fix and later local work are distinguished in `PROJECT_HISTORY.md`.
 
 ## Abstract
 
@@ -83,17 +83,17 @@ Cells contain mean daily profit / empirical CVaR loss in EUR. Observed out-of-sa
 
 Three scenario-draw seeds (20260817, 20260818, 20260819) use the same corrected baseline P1 forecasts and market outcomes. Each run uses 60 scenarios and 83 full scheduling days. These are Monte Carlo sensitivity checks, not three independent market backtests. Numbers below are averages and ranges over these three seeds; they are not confidence intervals.
 
-| Weight | Strategy | Mean profit avg | Profit min–max | CVaR loss avg | Tail min–max |
-|---|---|---:|---:|---:|---:|
-| .55 | Raw | 9.11 | 7.79–9.82 | 23.24 | 20.67–26.90 |
-| .55 | Static | 8.25 | 7.41–9.04 | 19.81 | 17.61–23.34 |
-| .55 | Adaptive | 8.48 | 7.48–9.60 | 19.59 | 17.70–23.18 |
-| .70 | Raw | 9.10 | 7.92–9.74 | 22.43 | 20.12–24.92 |
-| .70 | Static | 8.36 | 7.50–9.38 | 17.70 | 15.30–19.45 |
-| .70 | Adaptive | 8.56 | 7.94–9.55 | 18.53 | 16.49–21.17 |
-| .85 | Raw | 9.13 | 7.98–9.91 | 21.57 | 19.67–23.19 |
-| .85 | Static | 8.55 | 7.77–9.24 | 16.13 | 13.87–17.65 |
-| .85 | Adaptive | 8.61 | 8.01–9.42 | 17.64 | 15.68–20.60 |
+| Weight | Strategy | Profit avg (min–max) | CVaR avg (min–max) |
+|---|---|---:|---:|
+| .55 | Raw | 9.11 (7.79–9.82) | 23.24 (20.67–26.90) |
+| .55 | Static | 8.25 (7.41–9.04) | 19.81 (17.61–23.34) |
+| .55 | Adaptive | 8.48 (7.48–9.60) | 19.59 (17.70–23.18) |
+| .70 | Raw | 9.10 (7.92–9.74) | 22.43 (20.12–24.92) |
+| .70 | Static | 8.36 (7.50–9.38) | 17.70 (15.30–19.45) |
+| .70 | Adaptive | 8.56 (7.94–9.55) | 18.53 (16.49–21.17) |
+| .85 | Raw | 9.13 (7.98–9.91) | 21.57 (19.67–23.19) |
+| .85 | Static | 8.55 (7.77–9.24) | 16.13 (13.87–17.65) |
+| .85 | Adaptive | 8.61 (8.01–9.42) | 17.64 (15.68–20.60) |
 
 The adaptive strategy has lower average tail loss than raw across these seeds, but static has lower average tail loss than adaptive at weights .70 and .85. Hence the study supports a conditional risk–return tradeoff, not universal adaptive superiority. The spread across just three draws also motivates larger scenario sets or explicit scenario-count convergence checks before stronger conclusions.
 
@@ -125,25 +125,59 @@ The complete historical input, numerical outputs, prior report, notes and report
 
 <!-- PAGE -->
 
+## Supplementary idle and scenario-count evidence — 21 October
+
+This fresh study fixes the corrected baseline simulated market, battery, alpha .90 and weight .55. Only static/adaptive CVaR are compared, for N=60/200, three paired scenario seeds (20260817/18/19) and all 83 days. For each day/seed, one N=200 uniform array is drawn; N=60 takes its exact prefix, and both modes share the same ranks. All 249 prefixes and their hashes are recorded.
+
+The N=60 prefix differs from the historical standalone N=60 RNG layout. These results are therefore a separate scenario-count study, not a claimed repetition or replacement of the old baseline. All 12 individual results and ranges are retained under `corrected_v110/supplementary_20261021/`.
+
+| N | Strategy | Mean profit avg | CVaR loss avg | Solve seconds |
+|---|---|---:|---:|---:|
+| 60 | Static | 8.217827 | 19.697112 | 2.833 |
+| 200 | Static | 9.712681 | 14.668371 | 5.605 |
+| 60 | Adaptive | 8.242171 | 20.727489 | 2.290 |
+| 200 | Adaptive | 9.519176 | 17.841339 | 5.014 |
+
+Profit is simulated EUR/day; CVaR is EUR over daily outcomes. Averages are over three seeds. Timing totals optimization calls for each row across all seeds/days, excludes scenario generation and I/O, and is machine/load dependent. Main-loop wall time was 17.194 seconds.
+
+| Seed | Strategy | Profit change | CVaR change | Action change |
+|---|---|---:|---:|---:|
+| 20260817 | Static | +2.491519 | -9.562180 | 1.834897 |
+| 20260818 | Static | +0.462989 | -0.874846 | 1.674168 |
+| 20260819 | Static | +1.530054 | -4.649199 | 1.793132 |
+| 20260817 | Adaptive | +2.523262 | -4.816999 | 1.530517 |
+| 20260818 | Adaptive | +0.202391 | -2.525817 | 1.391540 |
+| 20260819 | Adaptive | +1.105363 | -1.315634 | 1.624484 |
+
+Changes are N=200 minus N=60. Action change is mean daily L1 charge-plus-discharge change in MWh; 6.361–7.446 hours/day change above 1e-7 MW. All six pairs improve mean profit and CVaR here, but adaptive seed 20260817's fifth-percentile profit worsens from -18.345239 to -20.323186 EUR. Two counts and three seeds do not prove convergence or general superiority.
+
+The zero-transaction alternative holds initial SOC and earns exactly zero profit and CVaR loss on all 83 days. It clarifies that negative-profit trading can underperform feasible inaction, without changing the old seven-strategy outputs. All 996 strategy schedules and 83 idle schedules pass full diagnostics: 1,079 schedules, 25,896 periods, zero violations. This bounded synthetic check provides neither calibrated joint scenarios nor real-market validation.
+
+<!-- PAGE -->
+
 ## Verification, boundaries and reproducibility
 
-The local Windows run used Python 3.13.15, NumPy 2.3.5, pandas 2.2.3 and SciPy 1.17.0 from the existing read-only environment. Imports were explicitly checked to come from this revised repository's `src/storage_decision/`. Bytecode writing was disabled and Matplotlib's cache was redirected inside the local workspace.
+Local Windows checks used the existing read-only Python 3.13.15 environment with NumPy 2.3.5, pandas 2.2.3 and SciPy 1.17.0. Imports came from this checkout's `src/storage_decision/`; bytecode was disabled and plotting cache redirected.
 
-The final unit-test log records 20 passing tests, including the negative-price regression, full constraint diagnostic checks, finite/empty input and configuration validation, common-rank sampling, infinite interval handling and empirical CVaR LP equivalence. The release verifier independently reran weights .55/.70/.85 and passed 18/18 table comparisons at absolute tolerance 1e-8 with maximum numeric difference zero. It recalculated complete diagnostics from 3,486 saved/rerun daily schedules (83,664 scheduling periods). Manifests certify v1.1.0, binary MILP, common random numbers, source hashes and the timing limitation. Historical CI passes do not apply to this revision, and no new remote run is claimed.
+The **18 October reference package** passed 20 tests and 18/18 release comparisons at tolerance 1e-8, with zero numeric difference and 3,486 saved/rerun schedules (83,664 periods) checked. The later alpha fix was merged in PR #3 as main `5095b58`; its six post-merge jobs passed in Actions run `39504949986`. Those records retain their original version scope.
 
-The additional scenario-draw study contains nine complete runs; the separate market-seed study reuses the baseline plus two new runs. Every run includes all daily strategies, full saved schedules, frontier and battery sensitivity. A separate audit reloaded all 11 unique saved runs: 6,391 daily schedules and 153,384 periods, zero violations, maximum SOC-transition residual 5.9952e-14 MWh and zero terminal-SOC error. Floating-point residuals near machine precision are retained without postprocessing.
+The **21 October local update** passes 35 tests, adding output protection, CLI forwarding, cache provenance, nested ranks and a fresh-study regression. Its three-weight verifier again passes 18/18 comparisons with zero difference and 3,486 checked schedules. Logs are in `evidence/local_verification_20261021/`; these local results do not claim new remote CI for this update.
+
+The earlier scenario-draw and market-seed studies contain 11 unique complete runs. Their separate saved-output audit checked 6,391 daily schedules and 153,384 periods: zero violations, maximum SOC-transition residual 5.9952e-14 MWh and zero terminal-SOC error, without postprocessing.
+
+Battery sensitivity uses only median risk-neutral scheduling on the first 28 days, not adaptive CVaR over all 83 days. New plots label this scope; archived figures and numerical references are unchanged.
 
 ### Practical limits
 
-The simulator has no observed grid or market data. Its seasonal patterns, regime changes, price tails and dependence choices may differ materially from a real market. Marginal forecast intervals alone do not establish joint price-path calibration; clipping tails and widths further prevents a conformal coverage interpretation for the generated scenarios. The model assumes a price-taking battery, perfect execution and hourly settlement, with a linear throughput cost. It omits network limits, bid formation, imbalance, reserve products, gate closure and detailed degradation. A deployable extension would first establish publication-time-safe real inputs and validate the entire scenario/decision pipeline on independent periods.
+No observed market or grid data are used. Simulated regimes, tails and dependence may differ from real markets. Marginal intervals do not establish joint path calibration; tail/width clipping also prevents a conformal coverage interpretation for scenarios. The price-taking battery assumes perfect hourly execution and linear throughput cost, omitting network limits, bids, imbalance, reserves, gate closure and detailed degradation. Deployment would require publication-time-safe real inputs and independent-period validation of the whole pipeline.
 
 ### Reproduction and evidence
 
-Follow the README to create fresh `local_runs/` outputs; do not overwrite supplied references. Study scripts reuse existing cached runs; the release verifier independently reruns the three weights. Current results are under `corrected_v110/`; `outputs/` mirrors the baseline. Logs are in `evidence/local_revision_20261018/`. `NEW_RELEASE_SUMMARY.md` indexes checks. Baseline input SHA256: `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`.
+Follow the README for fresh `local_runs/` destinations and explicit same-type overwrite permission. No files are deleted; source and evidence paths are protected. Study scripts default to fresh execution; `--reuse-reference` validates and labels supplied caches. Original logs remain in `evidence/local_revision_20261018/`; current logs are indexed above. The baseline input SHA256 is unchanged and recorded in `data/README.md` and run manifests.
 
 ### References
 
-[1] Rockafellar, R. T. and Uryasev, S. (2000). Optimization of Conditional Value-at-Risk. *Journal of Risk*, 2(3), 21–41. Original author-hosted paper: https://sites.math.washington.edu/~rtr/papers/rtr179-CVaR1.pdf
+[1] Rockafellar, R. T. and Uryasev, S. (2000). Optimization of Conditional Value-at-Risk. Journal of Risk, 2(3), 21–41. Original author-hosted paper: https://sites.math.washington.edu/~rtr/papers/rtr179-CVaR1.pdf
 
 [2] SciPy. `scipy.optimize.milp`: mixed-integer linear programming, integrality/bounds/constraints and HiGHS interface. Official documentation: https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html (consulted 18 October 2026; local experiments used SciPy 1.17.0).
 

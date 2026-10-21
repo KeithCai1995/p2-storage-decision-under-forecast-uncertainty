@@ -1,0 +1,19 @@
+PASS 20260817 strategy_metrics.csv max_difference 0.0
+PASS 20260817 daily_results.csv max_difference 0.0
+PASS 20260817 risk_frontier.csv max_difference 0.0
+PASS 20260817 representative_schedule.csv max_difference 0.0
+PASS 20260817 battery_sensitivity.csv max_difference 0.0
+PASS 20260817 all_schedules.csv max_difference 0.0
+PASS 20260818 strategy_metrics.csv max_difference 0.0
+PASS 20260818 daily_results.csv max_difference 0.0
+PASS 20260818 risk_frontier.csv max_difference 0.0
+PASS 20260818 representative_schedule.csv max_difference 0.0
+PASS 20260818 battery_sensitivity.csv max_difference 0.0
+PASS 20260818 all_schedules.csv max_difference 0.0
+PASS 20260819 strategy_metrics.csv max_difference 0.0
+PASS 20260819 daily_results.csv max_difference 0.0
+PASS 20260819 risk_frontier.csv max_difference 0.0
+PASS 20260819 representative_schedule.csv max_difference 0.0
+PASS 20260819 battery_sensitivity.csv max_difference 0.0
+PASS 20260819 all_schedules.csv max_difference 0.0
+18 fresh market study tables match supplied references

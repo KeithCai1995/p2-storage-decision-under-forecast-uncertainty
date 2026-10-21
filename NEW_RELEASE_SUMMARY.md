@@ -2,6 +2,36 @@
 
 This note describes the reference package prepared on 18 October 2026. See [project history](PROJECT_HISTORY.md) for sources and the separate 19 October local reproduction. The checks below are local results, not a new remote CI result.
 
+## 21 October 2026 — later local technical update
+
+The alpha-reporting fix was already merged in [PR #3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/3), main `5095b58`, with six successful jobs in [Actions run 39504949986](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/39504949986). This later update is locally verified; those remote checks are not presented as CI for the new work.
+
+- Matplotlib minimum is 3.9 to match `boxplot(tick_labels=...)`; the tested 3.10.8 lock remains unchanged.
+- Fresh outputs are ignored by Git and refuse non-empty destinations unless an explicit same-type overwrite is permitted. No files are deleted. Source, Git, evidence, historical and supplied reference folders are protected even with permission; a completed supplementary archive is frozen too.
+- The two seed-study scripts now default to fresh runs under `local_runs/`. Explicit `--reuse-reference` checks configuration/input hashes, records source-manifest/metrics hashes and labels reuse; it never silently calls cached data fresh or rewrites supplied summaries.
+- The battery sensitivity is explicitly median risk-neutral on the first 28 days, not adaptive CVaR across all 83. Only newly generated figures receive the clarified title; archived scientific PNGs remain unchanged.
+
+| New local check | Actual result | Evidence |
+|---|---|---|
+| Unit tests | 35 passed | `evidence/local_verification_20261021/unit_tests.log` |
+| Full three-weight verifier | 18/18 tables; max difference 0; 3,486 schedules | `evidence/local_verification_20261021/release_verifier.log` |
+| Fresh N=60/200 study | 996 strategy-day schedules; all 83 days × 3 seeds × 2 counts × 2 policies | `corrected_v110/supplementary_20261021/` |
+| Fresh no-transaction check | 83 idle schedules; zero profit/CVaR/violations | `idle_daily.csv`, `idle_schedule.csv` in that study |
+| Full supplementary diagnostics | 1,079 schedules; 25,896 periods; zero violations | `study_manifest.json`; full execution log in the new evidence folder |
+
+The study fixes the baseline simulated market and risk weight .55. It draws max(N)=200 uniforms once per day/seed, using exact N=60 prefixes and identical ranks across static/adaptive modes. This differs from the historical standalone N=60 RNG layout; the supplementary N=60 is not advertised as the old baseline rerun. All 249 paired uniform hashes, 12 seed-level metrics and six paired action/metric differences are saved.
+
+| N | Policy | Mean profit, 3-seed avg | CVaR loss, 3-seed avg |
+|---|---|---:|---:|
+| 60 | Static CVaR | 8.217827 | 19.697112 |
+| 200 | Static CVaR | 9.712681 | 14.668371 |
+| 60 | Adaptive CVaR | 8.242171 | 20.727489 |
+| 200 | Adaptive CVaR | 9.519176 | 17.841339 |
+
+All six seed/policy pairs have higher mean profit and lower CVaR at N=200 in this experiment. Improvement magnitudes differ, and the adaptive seed-20260817 fifth percentile worsens; this is not proof of convergence or universal improvement. Mean daily action L1 changes range 1.391540–1.834897 MWh. Main-loop wall time was 17.194 seconds; solve-only timing is saved per day and hardware dependent. See the supplementary README for all six paired differences and timing definitions. Three paired seeds on one simulated market do not establish confidence intervals, joint calibration or real-market robustness.
+
+The sections below retain their **18 October reference-package scope**, including the original 20-test log. They are not rewritten as 21 October execution records.
+
 ## What changed
 
 - Default optimization is a SciPy/HiGHS MILP with one binary operating mode per hour. Charge/discharge exclusivity is enforced by constraints, with no schedule repair. The historical continuous formulation is available explicitly as `lp_relaxation`.
@@ -11,7 +41,7 @@ This note describes the reference package prepared on 18 October 2026. See [proj
 - Full physical diagnostics include power non-negativity/bounds, all SOC bounds, transitions/continuity, initial/terminal SOC and exclusivity. Input validation rejects non-finite prices, quantiles and configuration values. Valid infinite conformal intervals are counted and their heuristic width cap is explicit.
 - Active documentation labels the experiment simulated 24-hour scheduling, preserves the horizon-1 issue/target timing limitation and makes no joint scenario calibration claim.
 
-## Actual completed verification
+## Actual completed verification — 18 October reference package
 
 All checks ran locally using the existing read-only Python environment. Import provenance confirms the revised `src/storage_decision/battery.py`, version 1.1.0. Environment: Windows, Python 3.13.15, NumPy 2.3.5, pandas 2.2.3, SciPy 1.17.0. Bytecode was disabled; Matplotlib cache stayed in this workspace.
 

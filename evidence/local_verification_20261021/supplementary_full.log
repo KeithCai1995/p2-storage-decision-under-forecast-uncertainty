@@ -1,0 +1,9 @@
+Completed supplementary scenario seed 20260817: 83 days, N=(60, 200)
+Completed supplementary scenario seed 20260818: 83 days, N=(60, 200)
+Completed supplementary scenario seed 20260819: 83 days, N=(60, 200)
+ n_scenarios      strategy  n_seeds  mean_profit_mean  mean_profit_min  mean_profit_max  cvar_loss_mean  cvar_loss_min  cvar_loss_max  total_solve_seconds
+          60 adaptive_cvar        3          8.242171         6.470586         9.272919       20.727489      18.099526      24.426689             2.290153
+          60   static_cvar        3          8.217827         7.029041         9.416778       19.697112      15.025872      25.710311             2.833186
+         200 adaptive_cvar        3          9.519176         8.993848        10.088371       17.841339      16.783892      19.609690             5.013775
+         200   static_cvar        3          9.712681         9.520560         9.879767       14.668371      13.705955      16.148132             5.604874
+996 strategy schedules and 83 idle schedules checked; wall 17.194s

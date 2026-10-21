@@ -10,6 +10,7 @@ The corrected edition solves exclusive charge/discharge schedules with SciPy/HiG
 - `corrected_v110/baseline/`, `corrected_v110/cvar_weight_070/`, and `corrected_v110/cvar_weight_085/` contain current complete runs, with tables, figures and manifests. The main `outputs/` is a copy of the corrected baseline.
 - `corrected_v110/multiseed/` varies **scenario-draw seeds** on the same simulated market and forecasts; this measures finite-scenario sensitivity.
 - `corrected_v110/market_seeds/` varies the corrected P1 simulated market seed at weight .55 with a fixed scenario seed.
+- [21 October supplementary study](corrected_v110/supplementary_20261021/README.md) adds a verified zero-transaction alternative and a fresh paired N=60/200 check for static/adaptive CVaR, three seeds and all 83 days. It does not replace the seven-strategy reference tables.
 - [New revision and verification summary](NEW_RELEASE_SUMMARY.md).
 - Historical numerical outputs, input files and figures remain under `historical_v102/`, together with prior reports, documentation and the report builder. Dated personal and CI records remain under `evidence/`; their numerical results, execution dates and version scope are retained.
 
@@ -35,18 +36,19 @@ python scripts/run_experiment.py --config configs/cvar_weight_070.yaml --output-
 python scripts/run_experiment.py --config configs/high_risk_aversion.yaml --output-root local_runs/cvar_weight_085
 python scripts/run_experiment.py --config configs/base.yaml --seed 20260818 --output-root local_runs/scenario_seed_20260818
 python scripts/run_experiment.py --config configs/base.yaml --seed 20260817 --source-forecasts data/market_seed_20260818_p1_forecasts.csv --output-root local_runs/market_seed_20260818
-python scripts/run_multiseed.py
-python scripts/run_market_seed_study.py
+python scripts/run_multiseed.py --reuse-reference --output-root local_runs/reused_scenario_study
+python scripts/run_market_seed_study.py --reuse-reference --output-root local_runs/reused_market_study
+python scripts/run_supplementary.py --output-root local_runs/scenario_count_study
 python scripts/verify_release.py
 python scripts/audit_saved_schedules.py
 ```
 
-Fresh runs write to `local_runs/`, leaving the supplied corrected reference tables intact.
+Fresh runs write to `local_runs/`, leaving the supplied corrected reference tables intact. A non-empty output directory is rejected by default. `--overwrite` permits replacing known artifacts only in a recognized output directory of the same experiment type; unrelated files are retained, never deleted. Source, Git, historical evidence and supplied reference folders remain protected even with this flag. Choose a new folder for an independent rerun.
 The last two experiment commands illustrate scenario-seed and market-seed checks;
 repeat with the documented seeds and weight configs to repeat the full grid.
-The two study scripts aggregate existing supplied runs and compute a run only if
-its manifest is absent. Their cached summaries are not evidence of a fresh personal
-execution. Use the explicit experiment commands and new destinations for that purpose.
+The two study scripts default to fresh execution under `local_runs/scenario_seed_study/` and `local_runs/market_seed_study/`. The explicit `--reuse-reference` commands above only aggregate existing supplied runs after checking their configuration and input hashes; their `study_manifest.json` records `reused_supplied_reference`, not fresh execution. They never silently turn a cache hit into a new-run claim or rewrite supplied summaries. Omit that flag for a fresh full grid, using a new output folder.
+
+The supplementary sampler draws 200 uniforms per day/seed and takes the exact first 60 for N=60. Both modes share those ranks. This N=60 is not the standalone N=60 historical draw, so it is a separate sensitivity study, not a replacement baseline. A two-day timing pilot is available with `--pilot-days 2` and is explicitly marked incomplete.
 
 Optional PDF rendering: install `requirements-report.txt`, then run
 `python scripts/build_report.py --output report/Haorui_Cai_Storage_Report_v110.pdf`.
@@ -56,8 +58,12 @@ The release checker reruns all three weights and compares six tables per run to 
 
 Reference verification logs for the 18 October package are in `evidence/local_revision_20261018/`; the later local rerun is recorded in [project history](PROJECT_HISTORY.md). These are local checks. Use the actual GitHub Actions result for a published commit; historical six-job CI results do not apply to v1.1.0.
 
+The alpha-reporting fix was merged in [PR #3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/3), with six successful checks for merge commit `5095b58`. The 21 October additions are a later local update, not a claim of CI for the new uncommitted work. Their local verification is indexed in `NEW_RELEASE_SUMMARY.md`.
+
 ## Limits and provenance
 
 The battery is price-taking, executes hourly energy schedules perfectly, uses a linear throughput charge and omits network, reserve, bidding/gate-closure, imbalance and detailed degradation models. Oracle schedules use future simulated prices and serve only as an upper-bound diagnostic. Three scenario seeds on one market do not establish robustness across market regimes or assets. An empirically lower tail loss in this finite benchmark is not a guarantee of reduced loss in a new market.
+
+The battery-capacity/efficiency sensitivity is specifically the median risk-neutral policy on the first 28 scheduling days, not the adaptive-CVaR policy on all 83 days. New figures label the configured window explicitly; supplied historical PNGs are not relabelled or regenerated.
 
 The baseline input is `data/p1_forecasts.csv`, SHA256 `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`, containing 1,992 corrected P1 forecasts. See [input contract](data/README.md) and [historical provenance](historical_v102/PROJECT_HISTORY.md).
