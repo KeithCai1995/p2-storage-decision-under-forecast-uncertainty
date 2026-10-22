@@ -58,7 +58,9 @@ The release checker reruns all three weights and compares six tables per run to 
 
 Reference verification logs for the 18 October package are in `evidence/local_revision_20261018/`; the later local rerun is recorded in [project history](PROJECT_HISTORY.md). These are local checks. Use the actual GitHub Actions result for a published commit; historical six-job CI results do not apply to v1.1.0.
 
-The alpha-reporting fix was merged in [PR #3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/3), with six successful checks for merge commit `5095b58`. The 21 October additions are a later local update, not a claim of CI for the new uncommitted work. Their local verification is indexed in `NEW_RELEASE_SUMMARY.md`.
+The 20 October alpha-reporting fix was merged in [PR #3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/3), with six successful checks for merge commit `5095b58`.
+
+The 21 October quality update was subsequently merged in [PR #4](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/4), at main merge commit [3fb9bd3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/commit/3fb9bd32473cf95b0f803d4fd11d673aca4a1d68). Its [post-merge Actions run 39572300880](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/39572300880) passed all six jobs: Ubuntu and Windows, each with Python 3.11, 3.12 and 3.13. Local verification records in `NEW_RELEASE_SUMMARY.md` retain their original dates and scope. These CI results apply to the cited merge commits, not to subsequent documentation edits.
 
 ## Limits and provenance
 
@@ -67,3 +69,14 @@ The battery is price-taking, executes hourly energy schedules perfectly, uses a 
 The battery-capacity/efficiency sensitivity is specifically the median risk-neutral policy on the first 28 scheduling days, not the adaptive-CVaR policy on all 83 days. New figures label the configured window explicitly; supplied historical PNGs are not relabelled or regenerated.
 
 The baseline input is `data/p1_forecasts.csv`, SHA256 `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`, containing 1,992 corrected P1 forecasts. See [input contract](data/README.md) and [historical provenance](historical_v102/PROJECT_HISTORY.md).
+
+## Published local-path redaction
+
+Published metadata and selected logs use the explicit `<WORKSPACE>` placeholder
+for their original machine-specific workspace prefix. This is a display redaction,
+not a real replacement directory or a claim that the experiments ran elsewhere.
+Only path prefixes change; original dates, software versions, hashes, numerical
+results and execution scope remain unchanged. The implementation path in a saved
+manifest is descriptive metadata, not an input used to rerun the experiment.
+Unredacted originals are backed up outside the Git repository. New runs may record
+their actual local paths again. See [the presentation-update record](PRESENTATION_UPDATE_20261021.md).
