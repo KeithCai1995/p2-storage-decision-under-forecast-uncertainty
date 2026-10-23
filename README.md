@@ -1,28 +1,28 @@
-# P2: simulated forecast-to-storage scheduling — local v1.1.0
+# P2: simulated forecast-to-storage scheduling — v1.1.0
 
-Version 1.1.0 updates the simulated storage benchmark. See [project history](PROJECT_HISTORY.md) for the version timeline and source note.
+A research benchmark linking corrected P1 price forecasts to 24-hour battery schedules. SciPy/HiGHS mixed-integer programming enforces exclusive charge/discharge operation. The experiments compare raw, static and adaptive uncertainty modes using common random numbers. Results show empirical risk–return tradeoffs, not a consistently best policy. All prices and profits are simulated.
 
-The corrected edition solves exclusive charge/discharge schedules with SciPy/HiGHS mixed-integer programming, uses the corrected P1 forecast export, and compares uncertainty modes using common random numbers. Prices and all profit figures are simulated. This is a 24-hour scheduling benchmark: horizon 1 has `issue_time == target_time` on all 83 days, so operational day-ahead availability is unverified.
+See [project history](PROJECT_HISTORY.md) for the version timeline and sources.
 
 ## Active artifacts
 
 - [Technical report](report/report_v110.md).
-- `corrected_v110/baseline/`, `corrected_v110/cvar_weight_070/`, and `corrected_v110/cvar_weight_085/` contain current complete runs, with tables, figures and manifests. The main `outputs/` is a copy of the corrected baseline.
-- `corrected_v110/multiseed/` varies **scenario-draw seeds** on the same simulated market and forecasts; this measures finite-scenario sensitivity.
+- `corrected_v110/baseline/`, `corrected_v110/cvar_weight_070/`, and `corrected_v110/cvar_weight_085/` contain the reference tables, figures and manifests. `outputs/` mirrors the baseline.
+- `corrected_v110/multiseed/` varies scenario-draw seeds on the same simulated market and forecasts.
 - `corrected_v110/market_seeds/` varies the corrected P1 simulated market seed at weight .55 with a fixed scenario seed.
-- [21 October supplementary study](corrected_v110/supplementary_20261021/README.md) adds a verified zero-transaction alternative and a fresh paired N=60/200 check for static/adaptive CVaR, three seeds and all 83 days. It does not replace the seven-strategy reference tables.
-- [New revision and verification summary](NEW_RELEASE_SUMMARY.md).
-- Historical numerical outputs, input files and figures remain under `historical_v102/`, together with prior reports, documentation and the report builder. Dated personal and CI records remain under `evidence/`; their numerical results, execution dates and version scope are retained.
+- [21 October supplementary study](corrected_v110/supplementary_20261021/README.md): zero-transaction baseline and paired N=60/200 static/adaptive CVaR runs, three seeds and all 83 days. The original seven-strategy references are unchanged.
+- [Verification guide](VERIFICATION.md) and [revision summary](NEW_RELEASE_SUMMARY.md).
+- `historical_v102/` holds earlier inputs, numerical outputs, figures, reports and the report builder. Dated personal and CI records remain under `evidence/`.
 
-## Corrections
+## Model and sampling
 
-For each period, `charge <= power * mode`, `discharge <= power * (1 - mode)`, and `mode` is binary. SOC transitions, capacity, initial and terminal SOC are enforced in the optimization. No clipping or cancellation of solver schedules is used. `optimise_schedule(..., formulation="lp_relaxation")` retains the historical continuous formulation as an explicit diagnostic comparison; the default is `"milp"`.
+Each period has a binary mode: `charge <= power * mode` and `discharge <= power * (1 - mode)`. The optimizer also enforces SOC transitions, capacity, and initial/terminal SOC. Schedules are not clipped or repaired afterwards. The default formulation is `"milp"`; `optimise_schedule(..., formulation="lp_relaxation")` runs the historical continuous model for comparison.
 
-The one-period regression at price -100 EUR/MWh, charge/discharge efficiency 0.94, initial/terminal SOC 1 MWh and throughput cost 2 EUR/MWh shows the defect: the historical LP charges 1 MW and discharges 0.8836 MW simultaneously, producing 7.8728 EUR. The corrected MILP stays idle and earns zero. Negative prices can invalidate a presumed automatic exclusivity argument.
+The negative-price regression explains why exclusivity matters. At -100 EUR/MWh, efficiencies 0.94, initial/terminal SOC 1 MWh and throughput cost 2 EUR/MWh, the historical LP charges 1 MW and discharges 0.8836 MW simultaneously, earning 7.8728 EUR. The MILP stays idle and earns zero.
 
-Empirical CVaR still averages exactly the worst `1-alpha` probability mass, including a fractional boundary observation. At alpha .90, 60 scenarios imply six observations, whereas 83 evaluation days imply 8.3. Tests compare this estimator to an independent Rockafellar–Uryasev LP, including ties.
+Empirical CVaR averages exactly the worst `1-alpha` probability mass, including a fractional boundary observation. At alpha .90, this is six observations for 60 scenarios and 8.3 for 83 evaluation days. Tests compare the estimator with an independent Rockafellar–Uryasev LP, including tied losses.
 
-Raw, static and adaptive scenario sets use the same latent uniforms for each day, seed and scenario count. Risk-frontier weights also reuse those samples. A Gaussian common-factor loading .65 implies latent cross-hour correlation .4225; it is an exchangeable assumption. Interpolating seven quantiles and rescaling around the median with `clip(width / raw_width, .35, 4)` is a heuristic. It does not establish marginal or joint scenario calibration, preserve interval endpoints, or provide conformal decision guarantees. Legitimate infinite source intervals are capped explicitly; their counts and cap counts appear in every manifest.
+Raw, static and adaptive modes share latent uniforms within each day, seed and scenario count; frontier weights reuse the same draws. The Gaussian common-factor loading .65 gives exchangeable latent cross-hour correlation .4225. Seven quantiles are interpolated and rescaled about the median using `clip(width / raw_width, .35, 4)`. Manifests record capped widths and any infinite source intervals.
 
 ## Reproduce
 
@@ -43,40 +43,38 @@ python scripts/verify_release.py
 python scripts/audit_saved_schedules.py
 ```
 
-Fresh runs write to `local_runs/`, leaving the supplied corrected reference tables intact. A non-empty output directory is rejected by default. `--overwrite` permits replacing known artifacts only in a recognized output directory of the same experiment type; unrelated files are retained, never deleted. Source, Git, historical evidence and supplied reference folders remain protected even with this flag. Choose a new folder for an independent rerun.
-The last two experiment commands illustrate scenario-seed and market-seed checks;
-repeat with the documented seeds and weight configs to repeat the full grid.
-The two study scripts default to fresh execution under `local_runs/scenario_seed_study/` and `local_runs/market_seed_study/`. The explicit `--reuse-reference` commands above only aggregate existing supplied runs after checking their configuration and input hashes; their `study_manifest.json` records `reused_supplied_reference`, not fresh execution. They never silently turn a cache hit into a new-run claim or rewrite supplied summaries. Omit that flag for a fresh full grid, using a new output folder.
+Use a new `local_runs/` destination for each fresh run. Non-empty directories are rejected unless `--overwrite` is given for a recognized output directory of the same experiment type. It replaces known artifacts without deleting unrelated files; source, Git, evidence and supplied references remain protected. The seed examples above can be repeated with the documented seeds and weight configs for the full grid.
 
-The supplementary sampler draws 200 uniforms per day/seed and takes the exact first 60 for N=60. Both modes share those ranks. This N=60 is not the standalone N=60 historical draw, so it is a separate sensitivity study, not a replacement baseline. A two-day timing pilot is available with `--pilot-days 2` and is explicitly marked incomplete.
+The two study scripts default to fresh runs under `local_runs/scenario_seed_study/` and `local_runs/market_seed_study/`. With `--reuse-reference`, they check configuration and input hashes, aggregate supplied runs, and record `reused_supplied_reference` in `study_manifest.json`. Omit the flag to run a fresh grid; supplied summaries are not overwritten.
+
+The supplementary study draws 200 uniforms per day/seed and uses the first 60 for N=60, with shared ranks across both modes. This prefix differs from the historical standalone N=60 draw. A two-day timing pilot is available with `--pilot-days 2`; it is marked incomplete.
 
 Optional PDF rendering: install `requirements-report.txt`, then run
 `python scripts/build_report.py --output report/Haorui_Cai_Storage_Report_v110.pdf`.
 The active source is `report/report_v110.md`; visually review a newly rendered PDF.
 
-The release checker reruns all three weights and compares six tables per run to **v1.1.0** references at absolute tolerance 1e-8. It also checks manifest version, source hash and scenario method, recalculates full physical diagnostics from every saved schedule, and checks strategy/frontier consistency where weights coincide. Historical reference numbers are never accepted as the new release.
+The release checker reruns three weights, compares six tables per run with the v1.1.0 references at absolute tolerance 1e-8, and recalculates schedule diagnostics. See [verification](VERIFICATION.md) for checks and their evidence scope.
 
-Reference verification logs for the 18 October package are in `evidence/local_revision_20261018/`; the later local rerun is recorded in [project history](PROJECT_HISTORY.md). These are local checks. Use the actual GitHub Actions result for a published commit; historical six-job CI results do not apply to v1.1.0.
+The 18 October reference logs are in `evidence/local_revision_20261018/`; later local checks are indexed in `NEW_RELEASE_SUMMARY.md`. Their original dates and version scope are retained.
 
-The 20 October alpha-reporting fix was merged in [PR #3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/3), with six successful checks for merge commit `5095b58`.
+Published updates:
 
-The 21 October quality update was subsequently merged in [PR #4](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/4), at main merge commit [3fb9bd3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/commit/3fb9bd32473cf95b0f803d4fd11d673aca4a1d68). Its [post-merge Actions run 39572300880](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/39572300880) passed all six jobs: Ubuntu and Windows, each with Python 3.11, 3.12 and 3.13. Local verification records in `NEW_RELEASE_SUMMARY.md` retain their original dates and scope. These CI results apply to the cited merge commits, not to subsequent documentation edits.
+- 20 October alpha-reporting fix: [PR #3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/3), merge `5095b58`, six successful checks.
+- 21 October quality update: [PR #4](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/4), merge [3fb9bd3](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/commit/3fb9bd32473cf95b0f803d4fd11d673aca4a1d68), [Actions 39572300880](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/39572300880).
+- Latest presentation update: [PR #5](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/pull/5), main merge [208675b](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/commit/208675b342fc377afdb482d230aa8646863f48e4), [Actions 39737336488](https://github.com/KeithCai1995/p2-storage-decision-under-forecast-uncertainty/actions/runs/39737336488).
 
-## Limits and provenance
+The cited post-merge runs passed all six jobs: Ubuntu and Windows with Python 3.11, 3.12 and 3.13. Each result is tied to its commit; results for other revisions are listed in Actions.
 
-The battery is price-taking, executes hourly energy schedules perfectly, uses a linear throughput charge and omits network, reserve, bidding/gate-closure, imbalance and detailed degradation models. Oracle schedules use future simulated prices and serve only as an upper-bound diagnostic. Three scenario seeds on one market do not establish robustness across market regimes or assets. An empirically lower tail loss in this finite benchmark is not a guarantee of reduced loss in a new market.
+## Scope and input
 
-The battery-capacity/efficiency sensitivity is specifically the median risk-neutral policy on the first 28 scheduling days, not the adaptive-CVaR policy on all 83 days. New figures label the configured window explicitly; supplied historical PNGs are not relabelled or regenerated.
+Horizon 1 has `issue_time == target_time` on all 83 days. There is no separate prior-day publication or gate-closure timestamp, so the experiment does not establish operational day-ahead availability. The battery is price-taking with perfect hourly execution and linear throughput cost; network, reserve, bidding, imbalance and detailed degradation effects are omitted. The oracle uses future prices and is only an upper-bound diagnostic.
+
+Quantile interpolation and clipped width rescaling are scenario heuristics, not calibrated marginal or joint distributions. They need not preserve interval endpoints or conformal coverage, including when an infinite interval is capped. Three scenario seeds, three simulated markets and two scenario counts do not prove convergence, generalization or future risk reduction. N=200 performing better in this study does not make the default N=60 invalid.
+
+Battery capacity/efficiency sensitivity uses median risk-neutral scheduling on the first 28 days, not adaptive CVaR over all 83. New plots label this window; archived PNGs are unchanged.
 
 The baseline input is `data/p1_forecasts.csv`, SHA256 `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`, containing 1,992 corrected P1 forecasts. See [input contract](data/README.md) and [historical provenance](historical_v102/PROJECT_HISTORY.md).
 
 ## Published local-path redaction
 
-Published metadata and selected logs use the explicit `<WORKSPACE>` placeholder
-for their original machine-specific workspace prefix. This is a display redaction,
-not a real replacement directory or a claim that the experiments ran elsewhere.
-Only path prefixes change; original dates, software versions, hashes, numerical
-results and execution scope remain unchanged. The implementation path in a saved
-manifest is descriptive metadata, not an input used to rerun the experiment.
-Unredacted originals are backed up outside the Git repository. New runs may record
-their actual local paths again. See [the presentation-update record](PRESENTATION_UPDATE_20261021.md).
+Published metadata and selected logs replace the original machine-specific path prefix with `<WORKSPACE>`. Saved implementation paths are descriptive metadata, not rerun inputs. This display change leaves dates, software versions, hashes, results and execution scope intact; unredacted originals are backed up outside Git. New runs may record their own local paths. See [the presentation-update record](PRESENTATION_UPDATE_20261021.md).

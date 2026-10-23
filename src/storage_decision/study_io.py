@@ -1,4 +1,4 @@
-"""Validate reused study runs instead of trusting the existence of a cache file."""
+"""Read saved metrics after checking the configuration and input hash."""
 from __future__ import annotations
 import hashlib
 import json

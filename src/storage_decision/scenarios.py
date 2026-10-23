@@ -10,7 +10,7 @@ QUANTILE_LEVELS = np.asarray([0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95])
 
 
 def generate_uniforms(n_scenarios: int, horizon: int, common_factor_loading: float, seed: int) -> np.ndarray:
-    """Generate reproducible latent ranks shared by all compared forecast modes."""
+    """Draw reproducible latent ranks for paired forecast modes."""
     if isinstance(n_scenarios, bool) or not isinstance(n_scenarios, (int, np.integer)) or n_scenarios < 1:
         raise ValueError("n_scenarios must be a positive integer")
     if isinstance(horizon, bool) or not isinstance(horizon, (int, np.integer)) or horizon < 1:
@@ -28,11 +28,10 @@ def generate_uniforms(n_scenarios: int, horizon: int, common_factor_loading: flo
 
 def generate_nested_uniforms(counts: list[int] | tuple[int, ...], horizon: int,
                              common_factor_loading: float, seed: int) -> dict[int, np.ndarray]:
-    """Use prefixes of one maximum-size draw for a paired scenario-count study.
+    """Draw the largest sample once and return a prefix for each count.
 
-    This deliberately leaves ``generate_uniforms`` and historical experiments
-    unchanged. A small prefix need not equal a historical standalone small draw:
-    the RNG draws all common factors before its hourly idiosyncratic factors.
+    A smaller prefix can differ from a standalone draw of that size because
+    the sampler draws all common factors before the hourly factors.
     """
     if not counts:
         raise ValueError("At least one scenario count is required")
@@ -53,12 +52,10 @@ def generate_price_scenarios(
     seed: int,
     uniforms: np.ndarray | None = None,
 ) -> np.ndarray:
-    """Interpolate forecast quantiles using a shared Gaussian common factor.
+    """Interpolate hourly quantiles at Gaussian common-factor ranks.
 
-    ``common_factor_loading`` is the coefficient on one factor shared by all
-    hours. Consequently, for different hours the latent Gaussian Pearson
-    correlation is its square. This is an exchangeable dependence structure,
-    not a lag-specific temporal correlation model.
+    The loading is the coefficient of the shared factor, so latent cross-hour
+    correlation is its square. Dependence is exchangeable, not lag-specific.
     """
 
     if mode not in {"raw", "static", "adaptive"}:
@@ -83,8 +80,8 @@ def generate_price_scenarios(
         calibrated_width = upper - lower
         if np.any(np.isnan(calibrated_width)):
             raise ValueError("Source interval widths cannot be NaN")
-        # +inf is a valid finite-sample conformal interval. The scenario heuristic
-        # deliberately caps its width at 4x; it does not retain that guarantee.
+        # Finite-sample intervals may be infinite; cap their width at 4x.
+        # This gives finite scenarios, not the original coverage guarantee.
         scale = np.clip(calibrated_width / raw_width, 0.35, 4.0)
         quantiles = median[:, None] + (quantiles - median[:, None]) * scale[:, None]
 
