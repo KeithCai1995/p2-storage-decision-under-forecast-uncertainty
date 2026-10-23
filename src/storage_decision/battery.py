@@ -57,13 +57,12 @@ def optimise_schedule(
     cvar_weight: float = 0.0,
     formulation: str = "milp",
 ) -> OptimisationResult:
-    """Solve a simulated hourly schedule with exclusive charge/discharge modes.
+    """Optimize one hourly schedule shared by all price scenarios.
 
-    Decisions are common across all price scenarios. CVaR is applied to scenario loss
-    using the Rockafellar-Uryasev auxiliary-variable representation. The default
-    MILP enforces charge <= P*mode and discharge <= P*(1-mode), with a binary
-    mode per hour. ``lp_relaxation`` explicitly disables those constraints for
-    comparison with the historical formulation; it is not a physical schedule.
+    Binary modes enforce charge <= P*mode and discharge <= P*(1-mode).
+    Scenario losses use the Rockafellar-Uryasev CVaR formulation.
+    ``lp_relaxation`` runs the historical continuous model, which can charge
+    and discharge simultaneously, for comparison.
     """
 
     battery.validate()
@@ -228,10 +227,10 @@ def realised_profit(actual_prices: np.ndarray, schedule: pd.DataFrame, throughpu
 
 
 def empirical_cvar_loss(profits: np.ndarray, alpha: float = 0.90) -> float:
-    """Average exactly the worst ``1 - alpha`` probability mass.
+    """Return loss CVaR over exactly the worst ``1 - alpha`` probability mass.
 
-    Equal-weight samples use a fractional boundary observation when required.
-    This is empirical Rockafellar-Uryasev CVaR, including discrete ties.
+    Loss is negative profit. Equal-weight samples use a fractional boundary
+    observation when needed, including when losses are tied.
     """
     profits = np.asarray(profits, dtype=float)
     if profits.ndim != 1 or profits.size == 0 or not np.all(np.isfinite(profits)):

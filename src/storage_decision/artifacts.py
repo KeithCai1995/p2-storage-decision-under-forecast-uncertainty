@@ -1,4 +1,4 @@
-"""Conservative output handling: never delete a directory or its contents."""
+"""Output-folder checks for experiment runs."""
 from __future__ import annotations
 
 import json
@@ -7,11 +7,10 @@ from pathlib import Path
 
 def prepare_output(output: str | Path, root: str | Path, overwrite: bool = False,
                    kind: str = "experiment") -> Path:
-    """Refuse non-empty destinations unless explicitly permitted.
+    """Prepare a new output folder, or explicitly reuse one of the same type.
 
-    Overwrite permission replaces only files subsequently written by the caller;
-    it does not remove unrelated or stale files. Repository roots, their parents,
-    and Git metadata are never valid destinations, even with permission.
+    Existing unrelated files are kept. Source, reference and evidence paths
+    stay protected even when overwrite is requested.
     """
     root = Path(root).resolve()
     destination = Path(output).resolve()
